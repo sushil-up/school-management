@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.attendance-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.attendance {
+  display: flex;
+}
+.dashboard-icon{
+  font-size: 50px;
+}
