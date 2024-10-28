@@ -3,7 +3,8 @@ export const routesUrl = {
   student:"/student",
   teacher:"/teacher",
   attendence:"/studentattendence",
-  home:"/"
+  home:"/",
+  teacherleave:"/leaverequest"
 };
 
 

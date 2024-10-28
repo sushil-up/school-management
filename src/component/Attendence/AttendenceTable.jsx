@@ -8,12 +8,11 @@ import FormInputSelect from "../shared/form/FormInputSelect";
 const AttendenceTable = ({ studenAtt, open, setOpen }) => {
   const { handleSubmit, control } = useForm();
   const onSubmit = (data) => {
-    console.log("data", data);
     setOpen(false);
   };
   return (
     <>
-      {studenAtt.length !== 0&&open ? (
+      {studenAtt.length !== 0 && open ? (
         <>
           {" "}
           <Container className="attendance-form bg-slate-50 mt-5 border-4 shadow-md rounded-lg border-whit">
@@ -56,7 +55,12 @@ const AttendenceTable = ({ studenAtt, open, setOpen }) => {
                   ))}
                 </TableBody>
               </Table>
-              <Button type="submit" variant="contained" color="primary">
+              <Button
+                type="submit"
+                variant="contained"
+                className="btn mt-4 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600"
+                color="primary"
+              >
                 Upload Attendence
               </Button>
             </form>

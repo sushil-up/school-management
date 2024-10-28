@@ -2,6 +2,7 @@
 
 import Form from "@/component/TeacherForm/Form";
 import TeacherTable from "@/component/TeacherForm/TeacherTable";
+import { Container } from "@mui/joy";
 import { Button } from "@mui/material";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -59,39 +60,45 @@ const Teacher = () => {
   };
   return (
     <>
-      <div className="grid justify-items-end">
+      <Container>
+        <div className="grid justify-items-end">
+          {openForm === true ? (
+            <></>
+          ) : (
+            <>
+              {" "}
+              <Button
+                onClick={handleOpen}
+                className="btn mt-4 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 
+            "
+              >
+                Add Teacher
+              </Button>
+            </>
+          )}{" "}
+        </div>
         {openForm === true ? (
-          <></>
+          <>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <Form
+                control={control}
+                update={update}
+                handleClose={handleClose}
+              />
+            </form>
+          </>
         ) : (
           <>
-            {" "}
-            <Button
-              onClick={handleOpen}
-              className="btn mt-4 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 
-            "
-            >
-              Add Teacher
-            </Button>
+            <TeacherTable
+              teacherData={teacherData}
+              handleDelete={handleDelete}
+              handleEdit={handleEdit}
+            />
           </>
-        )}{" "}
-      </div>
-      {openForm === true ? (
-        <>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Form control={control} update={update} handleClose={handleClose} />
-          </form>
-        </>
-      ) : (
-        <>
-          <TeacherTable
-            teacherData={teacherData}
-            handleDelete={handleDelete}
-            handleEdit={handleEdit}
-          />
-        </>
-      )}
+        )}
 
-      <br />
+        <br />
+      </Container>
     </>
   );
 };

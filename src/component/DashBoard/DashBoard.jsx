@@ -10,13 +10,13 @@ import BadgeIcon from '@mui/icons-material/Badge';
 import StorageIcon from '@mui/icons-material/Storage';
 const DashBoard = () => {
   const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: "#fff",
+    backgroundColor: "#f7f7f7",
     ...theme.typography.body2,
     padding: theme.spacing(1),
     textAlign: "center",
     color: theme.palette.text.secondary,
     ...theme.applyStyles("dark", {
-      backgroundColor: "#1A2027",
+      backgroundColor: "#f7f7f7",
     }),
   }));
   return (
@@ -39,55 +39,54 @@ const DashBoard = () => {
         >
           <Grid item xs={3}>
             <Item>
-              <Typography>0</Typography>
-              <Typography className="text-end">
-                {" "}
-                <LayersIcon />
+            <Typography className="text-center">
+              <LayersIcon  className="rounded-full border-black border-2 layer-icon"/>
               </Typography>
+              <Typography className="rounded-full border-slate-950">12</Typography>
+             
 
               <Typography>Total Classes</Typography>
             </Item>
           </Grid>
           <Grid item xs={3}>
             <Item>
-              <Typography>0</Typography>
-              <Typography className="text-end">
-                {" "}
-                <LayersIcon />
+              <Typography className="text-center">
+                
+                <LayersIcon className="rounded-full border-black border-2 layer-icon"/>
               </Typography>
+              <Typography>36</Typography>
 
               <Typography>Total Section</Typography>
             </Item>
           </Grid>
           <Grid item xs={3}>
             <Item>
-              <Typography>0</Typography>
-              <Typography className="text-end">
+              <Typography className="text-center">
                 {" "}
-                <CalendarMonthIcon />
+                <CalendarMonthIcon className="rounded-full border-black border-2 layer-icon"/>
               </Typography>
+              <Typography>0</Typography>
 
               <Typography>Exams with Published Timetables</Typography>
             </Item>
           </Grid>
           <Grid item xs={3}>
             <Item>
-              <Typography>0</Typography>
-              <Typography className="text-end">
-                {" "}
-                <BadgeIcon />
+              <Typography className="text-center ">
+                <BadgeIcon className="rounded-full border-black border-2 layer-icon"/>
               </Typography>
+              <Typography>0</Typography>
 
               <Typography>Exams with Published Admit Cards</Typography>
             </Item>
           </Grid>
           <Grid item xs={3}>
             <Item>
-              <Typography>0</Typography>
-              <Typography className="text-end">
+              <Typography className="text-center">
                 {" "}
-                <StorageIcon />
+                <StorageIcon className="rounded-full border-black border-2 layer-icon"/>
               </Typography>
+              <Typography>0</Typography>
 
               <Typography>Exams with Published Results</Typography>
             </Item>

@@ -11,6 +11,7 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import dayjs from "dayjs";
+import { Container } from "@mui/joy";
 
 const TeacherTable = ({
   teacherData,
@@ -39,71 +40,73 @@ const TeacherTable = ({
 
   return (
     <>
-      <Table>
-        <TableHead>
-          <TableRow >
-            <TableCell>Name</TableCell>
-            <TableCell>Class Allotted</TableCell>
-            <TableCell>Section</TableCell>
-            <TableCell>Designation</TableCell>
-            <TableCell>Email</TableCell>
-            <TableCell>Phone</TableCell>
-            <TableCell>Joining Date</TableCell>
-            <TableCell>Gender</TableCell>
-            <TableCell>Address</TableCell>
-            <TableCell>Actions</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {tabledata?.length > 0 ? (
-            tabledata
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((item, index) => (
-                <TableRow key={index}>
-                  <TableCell>{item.name}</TableCell>
-                  <TableCell>{item.class}</TableCell>
-                  <TableCell>{item.section}</TableCell>
-                  <TableCell>{item.designation}</TableCell>
-                  <TableCell>{item.email}</TableCell>
-                  <TableCell>{item.phone}</TableCell>
-                  <TableCell>
-                    {dayjs(item.joining).format("YYYY-MM-DD")}
-                  </TableCell>
-                  <TableCell>{item.gender}</TableCell>
-                  <TableCell>{item.address}</TableCell>
-                  <TableCell>
-                    <DeleteIcon
-                      className="text-red-500"
-                      onClick={() => handleDelete(index)}
-                    />
+      <Container>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Name</TableCell>
+              <TableCell>Class Allotted</TableCell>
+              <TableCell>Section</TableCell>
+              <TableCell>Designation</TableCell>
+              <TableCell>Email</TableCell>
+              <TableCell>Phone</TableCell>
+              <TableCell>Joining Date</TableCell>
+              <TableCell>Gender</TableCell>
+              <TableCell>Address</TableCell>
+              <TableCell>Actions</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {tabledata?.length > 0 ? (
+              tabledata
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((item, index) => (
+                  <TableRow key={index}>
+                    <TableCell>{item.name}</TableCell>
+                    <TableCell>{item.class}</TableCell>
+                    <TableCell>{item.section}</TableCell>
+                    <TableCell>{item.designation}</TableCell>
+                    <TableCell>{item.email}</TableCell>
+                    <TableCell>{item.phone}</TableCell>
+                    <TableCell>
+                      {dayjs(item.joining).format("YYYY-MM-DD")}
+                    </TableCell>
+                    <TableCell>{item.gender}</TableCell>
+                    <TableCell>{item.address}</TableCell>
+                    <TableCell>
+                      <DeleteIcon
+                        className="text-red-500"
+                        onClick={() => handleDelete(index)}
+                      />
 
-                    <EditIcon
-                      className="text-green-500"
-                      onClick={() => handleEdit(index)}
-                    />
+                      <EditIcon
+                        className="text-green-500"
+                        onClick={() => handleEdit(index)}
+                      />
+                    </TableCell>
+                  </TableRow>
+                ))
+            ) : (
+              <>
+                <TableRow>
+                  <TableCell colSpan={9}>
+                    <p>No user data is available</p>
                   </TableCell>
                 </TableRow>
-              ))
-          ) : (
-            <>
-              <TableRow>
-                <TableCell colSpan={9}>
-                  <p>No user data is available</p>
-                </TableCell>
-              </TableRow>
-            </>
-          )}
-        </TableBody>
-      </Table>
-      <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
-        component="div"
-        count={tabledata?.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
+              </>
+            )}
+          </TableBody>
+        </Table>
+        <TablePagination
+          rowsPerPageOptions={[10, 25, 100]}
+          component="div"
+          count={tabledata?.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+      </Container>
     </>
   );
 };
