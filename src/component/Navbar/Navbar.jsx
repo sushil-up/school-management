@@ -83,6 +83,11 @@ function ResponsiveAppBar(props) {
                       <Typography>Student Attendance</Typography>
                     </Link>
                   </MenuItem>
+                  <MenuItem onClick={handleCloseStudentMenu}>
+                    <Link href={routesUrl.studentleave}>
+                      <Typography>Student Leave</Typography>
+                    </Link>
+                  </MenuItem>
                 </Menu>
 
                 <IconButton

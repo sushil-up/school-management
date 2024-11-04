@@ -21,12 +21,12 @@ const DashBoard = () => {
   }));
   return (
     <>
-      <Container className="mt-5 text-center text-white  bg-slate-500 rounded-lg border-inherit">
+      <Container className="mt-5 text-center  rounded-lg border-inherit bg-color">
         <div>
           {" "}
           <SchoolIcon className="dashboard-icon" />
         </div>
-        <Typography className="text-white text-3xl">
+        <Typography className=" text-black font-bold text-2xl md:text-2xl">
           School DashBoard{" "}
         </Typography>{" "}
       </Container>

@@ -4,6 +4,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker';
 import { Controller } from "react-hook-form";
 import { TextField } from "@mui/joy";
+import dayjs from "dayjs";
 
 export default function DateRangeSelect({
   name,
@@ -11,7 +12,6 @@ export default function DateRangeSelect({
   label,
   className,
   placeholder,
-  value,
 }) {
   return (
     <FormControl fullWidth>
@@ -19,25 +19,28 @@ export default function DateRangeSelect({
         <Controller
           name={name}
           control={control}
-          defaultValue={new Date()}
+          defaultValue={[dayjs(), dayjs()]}
           render={({ field }) => (
-            <>
-              {" "}
-              <DateRangePicker
-                defaultValue={[dayjs("2022-04-17"), dayjs("2022-04-21")]}
-              />
-              <DateRangePicker
-                {...field}
-                className={className}
-                label={label}
-                value={value}
-                placeholder={placeholder}
-                onChange={(date) => {
-                  field.onChange(date);
-                }}
-                renderInput={(params) => <TextField {...params} />}
-              />
-            </>
+            <DateRangePicker
+              {...field}
+              className={className}
+              label={label}
+              onChange={(date) => {
+                field.onChange(date);
+              }}
+              renderInput={(startProps, endProps) => (
+                <>
+                  <TextField
+                    {...startProps}
+                    placeholder={placeholder || "Start Date"}
+                  />
+                  <TextField
+                    {...endProps}
+                    placeholder={placeholder || "End Date"}
+                  />
+                </>
+              )}
+            />
           )}
         />
       </LocalizationProvider>

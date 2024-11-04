@@ -5,7 +5,8 @@ export const ProtectedRoutes = [
   routesUrl.student,
   routesUrl.teacher,
   routesUrl.attendence,
-  routesUrl.teacherleave
+  routesUrl.teacherleave,
+  routesUrl.studentleave
 ];
 export const UnprotectedRoutes = [routesUrl.signIn];
 
