@@ -19,7 +19,7 @@ const StudentTable = ({ studentData, handleDelete, handleEdit, isLoading }) => {
   const [tabledata, setTableData] = useState();
   useEffect(() => {
     setTableData(studentData);
-  }, []);
+  }, [studentData]);
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };

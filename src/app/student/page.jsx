@@ -44,14 +44,14 @@ const Student = () => {
   const handleDelete = (index) => {
     const updatedData = studentData.filter((_, i) => i !== index);
     setStudentData(updatedData);
-    successMsg("Transaction deleted successfully");
+    successMsg("Student deleted successfully");
   };
   const handleEdit = (index) => {
     setEditIndex(index);
     reset(studentData[index]);
     setOpenForm(true);
     setUpdate(true);
-    successMsg("Transaction edited successfully");
+    successMsg("Student edited successfully");
   };
   const handleOpen = () => {
     setOpenForm(true);

@@ -22,3 +22,7 @@
 .bg-color{
   background-color: #ffd9d9;
 }
+.side-bar{
+  display: flex;
+  align-items: center;
+}

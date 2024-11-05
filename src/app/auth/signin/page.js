@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import InputField from "@/component/shared/form/InputField";
 import { errorMsg, successMsg } from "@/component/Toastmsg/toaster";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Link from "next/link";
 
 const Login = () => {
@@ -15,7 +14,7 @@ const Login = () => {
     control,
     handleSubmit,
     formState:{errors}
-  } = useForm(  );
+  } = useForm();
   const router = useRouter();
 
   const onSubmit = async (data) => {
@@ -30,7 +29,7 @@ const Login = () => {
       if (res.error) {
         return errorMsg("Invalid credentials");
       } else {
-        router.replace("/student");
+        router.replace("/");
         return successMsg("Login Successfully");
       }
     } catch (error) {

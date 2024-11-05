@@ -76,7 +76,7 @@ export default function Form({ control, update, handleClose }) {
             {allStepsCompleted() ? (
               <React.Fragment>
                 <Typography sx={{ mt: 2, mb: 1 }}>
-                  All steps completed - you're finished
+                { ` All steps completed - you're finished`}
                   <Button
                     className=" btn mt-4 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600"
                     type="submit"

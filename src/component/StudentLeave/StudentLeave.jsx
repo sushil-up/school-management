@@ -1,8 +1,7 @@
 "use client";
 import UserContext from "@/context/UserContext";
 import { Box, Button, Container, FormLabel, Grid, Typography } from "@mui/joy";
-import React, { useContext, useState } from "react";
-import { useForm } from "react-hook-form";
+import React, { useContext } from "react";
 import FormInputSelect from "../shared/form/FormInputSelect";
 import {
   FormControl,
@@ -14,25 +13,9 @@ import DateSelect from "../shared/form/DatePicker";
 import DateRangeSelect from "../shared/form/DateRangePicker";
 import FormInput from "../shared/form/TextField";
 import FormSelect from "../shared/form/FormSelect";
-const StudentLeave = () => {
-  const { handleSubmit, control , reset} = useForm();
-  const { studentleave, setStudentLeave, studentData } =
-    useContext(UserContext);
-
-  const [value, setValue] = useState("singleday");
-  const handleChange = (event) => {
-    setValue(event.target.value);
-  };
-  const onSubmit = (data) => {
-    console.log("data", data);
-    const storedData = [...studentleave, data];
-    setStudentLeave(storedData);
-
-    const studenAtt = studentData.filter(
-      (item) => item?.class === data?.class && item.section === data?.section
-    );
-    reset()
-  };
+import RadioButton from "../shared/form/RadioButton";
+const StudentLeave = ({ handleChange, value, control, editIndex }) => {
+  const { studentData } = useContext(UserContext);
   const selectclass = [
     "1",
     "2",
@@ -47,17 +30,23 @@ const StudentLeave = () => {
     "11",
     "12",
   ];
-
   return (
     <>
-      <Container className="bg-slate-50 mt-5 border-4 shadow-md rounded-lg border-white"></Container>
+      <Container className="bg-slate-50 mt-5 border-4 shadow-md rounded-lg border-white">
       <Container className="mt-5 text-center text-black bg-color rounded-lg border-inherit">
-        <Typography className="text-black text-3xl">Student Leave Request</Typography>
+        <Typography className="text-black text-3xl">
+          {editIndex !== null
+            ? "Update   Student Leave Request"
+            : "  Student Leave Request"}
+        </Typography>
       </Container>
       <Box className="mt-5">
         <Grid>
-          <Typography>Add Your Leave Request</Typography>
-
+          <Typography>
+            {editIndex !== null
+              ? "Update Your Leave Request"
+              : "Add Your Leave Request"}
+          </Typography>
           <FormControl>
             <FormLabel id="demo-controlled-radio-buttons-group">
               Number of Days:
@@ -80,73 +69,87 @@ const StudentLeave = () => {
               />
             </RadioGroup>
           </FormControl>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <FormControl>
-              <FormInputSelect
-                control={control}
-                className="mt-4 w-56"
-                name="class"
-                label="Select Class"
-                options={selectclass}
-              />
-            </FormControl>{" "}
-            <FormControl>
-              <FormInputSelect
-                control={control}
-                className="mt-4 w-56"
-                name="section"
-                label="Select Section"
-                options={["A", "B", "C"]}
-              />
-            </FormControl>
-            <FormControl>
-              <FormSelect
-                control={control}
-                className="mt-4 w-56 ml-2"
-                name="rollno"
-                label="Select Rollno"
-                options={studentData}
-              />
-            </FormControl>
-            {value === "singleday" ? (
-              <>
-                {" "}
-                <DateSelect
-                  control={control}
-                  className="mt-4"
-                  name="leavedate"
-                  label="Leave Date"
-                />
-              </>
-            ) : (
-              <>
-                {" "}
-                <DateRangeSelect
-                  control={control}
-                  name="leavedate"
-                  className="mt-4"
-                  label="Leave Date"
-                />
-              </>
-            )}
-            <FormInput
+          <br />
+          <FormControl>
+            <FormInputSelect
               control={control}
-              name="reason"
-              className="mt-4"
-              label="Enter Reason"
-              placeholder="Enter Reason"
-              inputType="text"
-              id="reason"
+              className="mt-4 w-56"
+              name="class"
+              label="Select Class"
+              options={selectclass}
             />
-            <Button
-              className="btn mt-4 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600"
-              type="submit"
-            >
-              Submit Leave Request
-            </Button>
-          </form>
+          </FormControl>{" "}
+          <FormControl>
+            <FormInputSelect
+              control={control}
+              className="mt-4 w-56"
+              name="section"
+              label="Select Section"
+              options={["A", "B", "C"]}
+            />
+          </FormControl>
+          <FormControl>
+            <FormSelect
+              control={control}
+              className="mt-4 w-56 ml-2"
+              name="rollno"
+              label="Select Rollno"
+              options={studentData}
+            />
+          </FormControl>
+          {value === "singleday" ? (
+            <>
+              {" "}
+              <DateSelect
+                control={control}
+                className="mt-4"
+                name="leavedate"
+                label="Leave Date"
+              />
+            </>
+          ) : (
+            <>
+              {" "}
+              <DateRangeSelect
+                control={control}
+                name="leavedate"
+                className="mt-4"
+                label="Leave Date"
+              />
+            </>
+          )}
+          <br />
+          <FormInput
+            control={control}
+            name="reason"
+            className="mt-4"
+            label="Enter Reason"
+            placeholder="Enter Reason"
+            inputType="text"
+          />
+          <FormControl>
+            <RadioButton
+              control={control}
+              label="Status"
+              name="status"
+              options={[
+                { label: "Approved", value: "approved" },
+                { label: "Unapproved", value: "unapproved" },
+              ]}
+            />
+          </FormControl>
+          <br />
+          <Button
+            className="btn mt-4 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600"
+            type="submit"
+          >
+            {editIndex !== null
+              ? " Update Student Leave"
+              : "Add Student Leave"}
+          </Button>
         </Grid>
       </Box>
+      </Container>
     </>
   );
 };

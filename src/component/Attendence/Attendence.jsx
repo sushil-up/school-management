@@ -9,12 +9,14 @@ import DateSelect from "../shared/form/DatePicker";
 import AttendenceTable from "./AttendenceTable";
 
 const Attendence = () => {
-  const { handleSubmit, control } = useForm();
+  const { handleSubmit, control ,reset} = useForm();
   const [data, setData] = useState();
   const [open,setOpen]= useState(false)
   const onSubmit = (data) => {
+
     setData(data);
     setOpen(true)
+    reset()
   };
   const { studentData } = useContext(UserContext);
   const studenAtt = studentData.filter(

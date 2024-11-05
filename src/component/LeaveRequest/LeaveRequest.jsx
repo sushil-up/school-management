@@ -9,27 +9,14 @@ import {
   Typography,
 } from "@mui/joy";
 import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
-import React, { useContext, useState } from "react";
-// import DateSelect from "../shared/form/DatePicker";
-import { useForm } from "react-hook-form";
 import FormInput from "../shared/form/TextField";
 import DateRangeSelect from "../shared/form/DateRangePicker";
 import DateSelect from "../shared/form/DatePicker";
-import UserContext from "@/context/UserContext";
-export const LeaveRequest = () => {
-  const { leaveRequest, setLeaveRequest } = useContext(UserContext);
-  const { control, handleSubmit, reset } = useForm();
-  const [value, setValue] = useState("singleday");
-  const handleChange = (event) => {
-    setValue(event.target.value);
-  };
-  const onSubmit = (data) => {
-    const storedData = [...leaveRequest, data];
-    setLeaveRequest(storedData);
-    reset();
-  };
+export const LeaveRequest = ({handleChange, value,control,editIndex}) => {
+ 
   return (
     <>
+    <Container className="bg-slate-50 mt-5 border-4 shadow-md rounded-lg border-white">
       <Container className="mt-5 text-center text-black bg-color rounded-lg border-inherit">
         <Typography className="text-black text-3xl">Leave Request</Typography>
       </Container>
@@ -58,7 +45,6 @@ export const LeaveRequest = () => {
               />
             </RadioGroup>
           </FormControl>
-          <form onSubmit={handleSubmit(onSubmit)}>
             {value === "singleday" ? (
               <>
                 <DateSelect
@@ -93,9 +79,9 @@ export const LeaveRequest = () => {
             >
               Submit Leave Request
             </Button>
-          </form>
         </Grid>
       </Box>
+      </Container>
     </>
   );
 };

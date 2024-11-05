@@ -6,9 +6,11 @@ import { useForm } from "react-hook-form";
 import FormInputSelect from "../shared/form/FormInputSelect";
 
 const AttendenceTable = ({ studenAtt, open, setOpen }) => {
-  const { handleSubmit, control } = useForm();
+  const { handleSubmit, control,reset } = useForm();
   const onSubmit = (data) => {
+    console.log("attendencetable",data)
     setOpen(false);
+    reset()
   };
   return (
     <>
