@@ -100,7 +100,7 @@ export default function Form({ control, update, handleClose }) {
                   >
                     <Typography variant="h6"> Add New Admin</Typography>
                     <Button
-                      className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+                      className="btn mt-4 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600"
                       onClick={handleClose}
                     >
                       View All

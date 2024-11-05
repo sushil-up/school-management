@@ -1,15 +1,18 @@
 "use client"
 import UserContext from "@/context/UserContext";
-import { Container, Table } from "@mui/joy";
+import { Container, Table, Typography } from "@mui/joy";
 import { TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 import dayjs from "dayjs";
 import React, { useContext } from "react";
 
 const LeaveTable = () => {
-  const { leaveRequest } = useContext(UserContext);
+  const { studentleave } = useContext(UserContext);
   return (
     <>
       <Container>
+      <Container className="mt-5 text-center text-black bg-color rounded-lg border-inherit">
+        <Typography className="text-black text-3xl">Recent Student Leave</Typography>
+      </Container>
         <Table>
           <TableHead>
             <TableRow>
@@ -18,7 +21,7 @@ const LeaveTable = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {leaveRequest?.map((item, index) => (
+            {studentleave?.map((item, index) => (
               <>
                 <TableRow key={index}>
                   <TableCell>{item.reason}</TableCell>

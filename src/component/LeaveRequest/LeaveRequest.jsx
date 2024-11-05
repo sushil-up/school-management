@@ -16,20 +16,17 @@ import FormInput from "../shared/form/TextField";
 import DateRangeSelect from "../shared/form/DateRangePicker";
 import DateSelect from "../shared/form/DatePicker";
 import UserContext from "@/context/UserContext";
-import LeaveTable from "./LeaveTable";
-
-
 export const LeaveRequest = () => {
- const {leaveRequest,setLeaveRequest}=useContext(UserContext)
-  const { control, handleSubmit } = useForm();
+  const { leaveRequest, setLeaveRequest } = useContext(UserContext);
+  const { control, handleSubmit, reset } = useForm();
   const [value, setValue] = useState("singleday");
   const handleChange = (event) => {
     setValue(event.target.value);
   };
   const onSubmit = (data) => {
-    console.log("data", data);
-    const storedData= [...leaveRequest,data]
-    setLeaveRequest(storedData)
+    const storedData = [...leaveRequest, data];
+    setLeaveRequest(storedData);
+    reset();
   };
   return (
     <>
@@ -64,7 +61,6 @@ export const LeaveRequest = () => {
           <form onSubmit={handleSubmit(onSubmit)}>
             {value === "singleday" ? (
               <>
-                {" "}
                 <DateSelect
                   control={control}
                   className="mt-4"
@@ -74,7 +70,6 @@ export const LeaveRequest = () => {
               </>
             ) : (
               <>
-                {" "}
                 <DateRangeSelect
                   control={control}
                   name="leavedate"
@@ -92,11 +87,15 @@ export const LeaveRequest = () => {
               inputType="text"
               id="reason"
             />
-            <Button className="btn mt-4 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600" type="submit">Submit Leave Request</Button>
+            <Button
+              className="btn mt-4 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600"
+              type="submit"
+            >
+              Submit Leave Request
+            </Button>
           </form>
         </Grid>
       </Box>
-      <LeaveTable/>
     </>
   );
 };

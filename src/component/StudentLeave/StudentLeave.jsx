@@ -15,7 +15,7 @@ import DateRangeSelect from "../shared/form/DateRangePicker";
 import FormInput from "../shared/form/TextField";
 import FormSelect from "../shared/form/FormSelect";
 const StudentLeave = () => {
-  const { handleSubmit, control } = useForm();
+  const { handleSubmit, control , reset} = useForm();
   const { studentleave, setStudentLeave, studentData } =
     useContext(UserContext);
 
@@ -31,6 +31,7 @@ const StudentLeave = () => {
     const studenAtt = studentData.filter(
       (item) => item?.class === data?.class && item.section === data?.section
     );
+    reset()
   };
   const selectclass = [
     "1",
@@ -51,7 +52,7 @@ const StudentLeave = () => {
     <>
       <Container className="bg-slate-50 mt-5 border-4 shadow-md rounded-lg border-white"></Container>
       <Container className="mt-5 text-center text-black bg-color rounded-lg border-inherit">
-        <Typography className="text-black text-3xl">Leave Request</Typography>
+        <Typography className="text-black text-3xl">Student Leave Request</Typography>
       </Container>
       <Box className="mt-5">
         <Grid>
