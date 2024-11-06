@@ -2,17 +2,23 @@
 import StudentLeave from "@/component/StudentLeave/StudentLeave";
 import LeaveTable from "@/component/StudentLeave/StudentLeaveTable";
 import { successMsg } from "@/component/Toastmsg/toaster";
+import { StudentLeaveValidation } from "@/component/Validation/StudentLeaveValidation";
 import UserContext from "@/context/UserContext";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Container } from "@mui/joy";
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 
 const Page = () => {
   const [open, setOpen] = useState(false);
-  const { handleSubmit, control , reset} = useForm();
-  const { studentleave, setStudentLeave } =
-    useContext(UserContext);
-    const [editIndex, setEditIndex] = useState(null);
+  const {
+    handleSubmit,
+    control,
+    reset,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(StudentLeaveValidation) });
+  const { studentleave, setStudentLeave } = useContext(UserContext);
+  const [editIndex, setEditIndex] = useState(null);
   const [value, setValue] = useState("singleday");
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -30,7 +36,7 @@ const Page = () => {
       reset();
       setOpen(false);
     } catch (error) {}
-    reset()
+    reset();
   };
   const handleEdit = (index) => {
     setEditIndex(index);
@@ -59,13 +65,19 @@ const Page = () => {
         </div>
         {open ? (
           <>
-         <form onSubmit={handleSubmit(onSubmit)}>
-            <StudentLeave handleChange={handleChange} value={value} control={control} editIndex={editIndex}/>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <StudentLeave
+                handleChange={handleChange}
+                value={value}
+                control={control}
+                editIndex={editIndex}
+                errors={errors}
+              />
             </form>
           </>
         ) : (
           <>
-            <LeaveTable handleDelete={handleDelete } handleEdit={ handleEdit } />
+            <LeaveTable handleDelete={handleDelete} handleEdit={handleEdit} />
           </>
         )}
       </Container>

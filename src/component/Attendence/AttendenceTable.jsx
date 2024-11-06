@@ -1,49 +1,60 @@
-import { Box, Button, Container, Table, Typography } from "@mui/joy";
+import {  Button, Container, Table, Typography } from "@mui/joy";
 import { TableBody, TableCell, TableHead, TableRow } from "@mui/material";
-import React from "react";
-import DateSelect from "../shared/form/DatePicker";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import FormInputSelect from "../shared/form/FormInputSelect";
+import dayjs from "dayjs";
+import UserContext from "@/context/UserContext";
 
-const AttendenceTable = ({ studenAtt, open, setOpen }) => {
-  const { handleSubmit, control,reset } = useForm();
+const AttendenceTable = ({ student, formdata, open, setOpen }) => {
+  const date = dayjs(formdata?.date).format("YYYY-MM-DD");
+  const { studentAttendence, setStudentAttendence } = useContext(UserContext);
+  const { handleSubmit, control, reset } = useForm();
   const onSubmit = (data) => {
-    console.log("attendencetable",data)
+    const attendence = student.map((item) => ({
+      name: item.name,
+      class: item.class,
+      section: item.section,
+      rollno: item.rollno,
+      date: date,
+      attendanceStatus: data[`attendance_status_${item.name}`],
+    }));
+    const storedData = [...studentAttendence, ...attendence];
+    setStudentAttendence(storedData);
     setOpen(false);
-    reset()
+    reset();
   };
   return (
     <>
-      {studenAtt.length !== 0 && open ? (
+      {student?.length !== 0 && open ? (
         <>
           {" "}
-          <Container className="attendance-form bg-slate-50 mt-5 border-4 shadow-md rounded-lg border-whit">
-            <Typography variant="h4" className="mb-4">
-              Take Attendance
-            </Typography>
+          <Container className="attendance-form bg-slate-50 mt-5 border-4 shadow-md rounded-lg border-white">
+            <Typography variant="h4" className="mb-4"></Typography>
             <form onSubmit={handleSubmit(onSubmit)}>
               <Table>
                 <TableHead>
                   <TableRow>
                     <TableCell>Student Name</TableCell>
+                    <TableCell>Class</TableCell>
+                    <TableCell>Roll No</TableCell>
+                    <TableCell>Section</TableCell>
                     <TableCell
                       colSpan="2"
                       style={{ display: "flex", alignItems: "center" }}
                     >
-                      Select Date
-                      <DateSelect
-                        className="mt-2 w-44 ml-2"
-                        control={control}
-                        name="attendance"
-                        label="Select Date"
-                      />
+                      Select Date:
+                      {date}
                     </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {studenAtt.map((item) => (
+                  {student?.map((item) => (
                     <TableRow key={item.id}>
                       <TableCell>{item.name}</TableCell>
+                      <TableCell>{item.class}</TableCell>
+                      <TableCell>{item.rollno}</TableCell>
+                      <TableCell>{item.section}</TableCell>
                       <TableCell>
                         <FormInputSelect
                           control={control}

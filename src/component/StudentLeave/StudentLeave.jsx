@@ -14,22 +14,10 @@ import DateRangeSelect from "../shared/form/DateRangePicker";
 import FormInput from "../shared/form/TextField";
 import FormSelect from "../shared/form/FormSelect";
 import RadioButton from "../shared/form/RadioButton";
-const StudentLeave = ({ handleChange, value, control, editIndex }) => {
+import { selectclass } from "../SelectClass";
+const StudentLeave = ({ handleChange, value, control, editIndex,errors }) => {
   const { studentData } = useContext(UserContext);
-  const selectclass = [
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8",
-    "9",
-    "10",
-    "11",
-    "12",
-  ];
+
   return (
     <>
       <Container className="bg-slate-50 mt-5 border-4 shadow-md rounded-lg border-white">
@@ -86,6 +74,7 @@ const StudentLeave = ({ handleChange, value, control, editIndex }) => {
               name="section"
               label="Select Section"
               options={["A", "B", "C"]}
+              errors={errors}
             />
           </FormControl>
           <FormControl>
@@ -95,26 +84,27 @@ const StudentLeave = ({ handleChange, value, control, editIndex }) => {
               name="rollno"
               label="Select Rollno"
               options={studentData}
+              errors={errors}
             />
           </FormControl>
           {value === "singleday" ? (
             <>
-              {" "}
               <DateSelect
                 control={control}
                 className="mt-4"
                 name="leavedate"
                 label="Leave Date"
+                errors={errors}
               />
             </>
           ) : (
             <>
-              {" "}
               <DateRangeSelect
                 control={control}
                 name="leavedate"
                 className="mt-4"
                 label="Leave Date"
+                errors={errors}
               />
             </>
           )}
@@ -126,6 +116,7 @@ const StudentLeave = ({ handleChange, value, control, editIndex }) => {
             label="Enter Reason"
             placeholder="Enter Reason"
             inputType="text"
+            errors={errors}
           />
           <FormControl>
             <RadioButton
@@ -136,6 +127,7 @@ const StudentLeave = ({ handleChange, value, control, editIndex }) => {
                 { label: "Approved", value: "approved" },
                 { label: "Unapproved", value: "unapproved" },
               ]}
+              errors={errors}
             />
           </FormControl>
           <br />

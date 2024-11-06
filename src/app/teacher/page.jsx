@@ -2,14 +2,15 @@
 
 import Form from "@/component/TeacherForm/Form";
 import TeacherTable from "@/component/TeacherForm/TeacherTable";
+import { TeacherValidation } from "@/component/Validation/TecherValidation";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { Container } from "@mui/joy";
 import { Button } from "@mui/material";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import useLocalStorage from "use-local-storage";
-
 const Teacher = () => {
-  const { control, handleSubmit, reset } = useForm({
+  const { control, handleSubmit, reset,formState:{errors} } = useForm({resolver:yupResolver(TeacherValidation),
     defaultValues: {
       name: "",
       class: "",
@@ -84,6 +85,7 @@ const Teacher = () => {
                 control={control}
                 update={update}
                 handleClose={handleClose}
+                errors={errors}
               />
             </form>
           </>

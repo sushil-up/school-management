@@ -5,16 +5,17 @@ import { useForm } from "react-hook-form";
 import { Button, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
-import InputField from "@/component/shared/form/InputField";
 import { errorMsg, successMsg } from "@/component/Toastmsg/toaster";
 import Link from "next/link";
-
+import FormInput from "@/component/shared/form/TextField";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { SigninValidation } from "@/component/Validation/SigninValidation";
 const Login = () => {
   const {
     control,
     handleSubmit,
     formState:{errors}
-  } = useForm();
+  } = useForm({resolver:yupResolver(SigninValidation)});
   const router = useRouter();
 
   const onSubmit = async (data) => {
@@ -73,13 +74,13 @@ const Login = () => {
                 <br />
                 <div>
                   <FormControl>
-                    <InputField
+                    <FormInput
                       className="w-80 ml-2"
                       label="Username"
                       control={control}
                       errors={errors}
                       name="username"
-                      type="text"
+                      inputType="text"
                       placeholder="example123@gmail.com"
                     />
                   </FormControl>
@@ -87,12 +88,12 @@ const Login = () => {
                 <br />
                 <div>
                   <FormControl>
-                    <InputField
+                    <FormInput
                       className="w-80 ml-2"
                       control={control}
                       errors={errors}
                       name="password"
-                      type="password"
+                      inputType="password"
                       label="Password"
                     />
                   </FormControl>

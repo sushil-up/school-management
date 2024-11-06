@@ -2,14 +2,22 @@
 import Form from "@/component/StudentForm/Form";
 import StudentTable from "@/component/StudentForm/StudentTable";
 import { successMsg } from "@/component/Toastmsg/toaster";
+import { StudentValidation } from "@/component/Validation/StudentValidation";
 import UserContext from "@/context/UserContext";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { Container } from "@mui/joy";
 import { Box, Button } from "@mui/material";
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 
 const Student = () => {
-  const { control, handleSubmit, reset } = useForm({
+  const {
+    control,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(StudentValidation),
     defaultValues: {
       name: "",
       fathername: "",
@@ -96,6 +104,7 @@ const Student = () => {
               <Form
                 control={control}
                 update={update}
+                errors={errors}
                 handleClose={handleClose}
               />
             </form>

@@ -1,9 +1,9 @@
-import NoticeBoard from '@/component/NoticeBoard/NoticeBoard'
+import ViewAttendence from '@/component/Attendence/ViewAttendence'
 import React from 'react'
 
 const Notice = () => {
   return (
-    <NoticeBoard/>
+ <ViewAttendence/>
   )
 }
 

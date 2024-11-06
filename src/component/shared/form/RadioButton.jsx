@@ -29,6 +29,8 @@ const RadioButton = ({
             {...field}
             value={field.value}
             onChange={(e) => field.onChange(e.target.value)}
+            error={!!errors?.[name]}
+            helperText={errors?.[name]?.message}
           >
             {options.map((option) => (
               <FormControlLabel

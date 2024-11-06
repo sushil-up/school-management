@@ -8,6 +8,7 @@ const UserContextProvider = ({ children }) => {
   const [attendence, setAttendence] = useLocalStorage("attendence", []);
   const [leaveRequest, setLeaveRequest] = useLocalStorage("leaverequest", []);
   const [studentleave, setStudentLeave] = useLocalStorage("studentLeave", []);
+  const [studentAttendence, setStudentAttendence] = useLocalStorage("studentAttendence", []);
   const [tehdata, settehdata] = useState();
   useEffect(() => {
     const data = localStorage.getItem("teacher");
@@ -25,6 +26,7 @@ const UserContextProvider = ({ children }) => {
         leaveRequest,
         setLeaveRequest,
         studentleave, setStudentLeave,
+        studentAttendence, setStudentAttendence,
       }}
     >
       {children}

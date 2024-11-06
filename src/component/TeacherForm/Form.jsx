@@ -16,7 +16,7 @@ import DateSelect from "../shared/form/DatePicker";
 
 const steps = ["Personal Details", "Joining Detail", "Class Teacher"];
 
-export default function Form({ control, update, handleClose }) {
+export default function Form({ control, update, handleClose,errors }) {
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: "#fff",
     ...theme.typography.body2,
@@ -74,21 +74,28 @@ export default function Form({ control, update, handleClose }) {
           </Stepper>
           <div>
             {allStepsCompleted() ? (
-              <React.Fragment>
-                <Typography sx={{ mt: 2, mb: 1 }}>
-                { ` All steps completed - you're finished`}
-                  <Button
-                    className=" btn mt-4 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600"
-                    type="submit"
-                  >
-                    {update === false ? <>Add Teacher</> : <>Update Teacher</>}
-                  </Button>
-                </Typography>
-                <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-                  <Box sx={{ flex: "1 1 auto" }} />
-                  <Button onClick={handleReset}>Reset</Button>
-                </Box>
-              </React.Fragment>
+            <React.Fragment>
+            <Typography sx={{ mt: 2, mb: 1 }}>
+              All steps completed
+              <div className="grid justify-items-end ">
+                <Button
+                  type="submit"
+                  className="btn mt-4 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600"
+                >
+                  {update === false ? <>Add Teacher</> : <>Update Teacher</>}
+                </Button>
+              </div>
+            </Typography>
+            <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+              <Box sx={{ flex: "1 1 auto" }} />
+              <Button
+                onClick={handleReset}
+                className="btn mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-red-600"
+              >
+                Reset
+              </Button>
+            </Box>
+          </React.Fragment>
             ) : (
               <React.Fragment>
                 <Typography sx={{ mt: 2, mb: 1, py: 1 }}>
@@ -120,6 +127,7 @@ export default function Form({ control, update, handleClose }) {
                             placeholder="Name"
                             inputType="text"
                             id="name"
+                            errors={errors}
                           />
                           <FormInputSelect
                             control={control}
@@ -127,12 +135,14 @@ export default function Form({ control, update, handleClose }) {
                             className="mt-4"
                             label="Select Gender"
                             options={["Male", "Female", "Other"]}
+                            errors={errors}
                           />
                           <DateSelect
                             control={control}
                             name="dob"
                             className="mt-4"
                             label=" DOB"
+                            errors={errors}
                           />
                           <FormInput
                             control={control}
@@ -144,6 +154,7 @@ export default function Form({ control, update, handleClose }) {
                             id="address"
                             multiline
                             rows={4}
+                            errors={errors}
                           />
                           <FormInput
                             control={control}
@@ -153,6 +164,7 @@ export default function Form({ control, update, handleClose }) {
                             placeholder="Phone No"
                             inputType="tel"
                             id="phone"
+                            errors={errors}
                           />
                           <FormInput
                             control={control}
@@ -162,6 +174,7 @@ export default function Form({ control, update, handleClose }) {
                             placeholder="Enter Email"
                             inputType="email"
                             id="email"
+                            errors={errors}
                           />
                         </Item>
                       </Grid>
@@ -185,6 +198,7 @@ export default function Form({ control, update, handleClose }) {
                                 name="joiningdate"
                                 className="mt-4"
                                 label=" Joining Date"
+                                errors={errors}
                               />
 
                               <FormInput
@@ -193,8 +207,10 @@ export default function Form({ control, update, handleClose }) {
                                 className="mt-4"
                                 label="Salary"
                                 placeholder="Salary"
-                                inputType="text"
+                                inputType="number"
                                 id="salary"
+                                min="10000"
+                                errors={errors}
                               />
                               <FormInput
                                 control={control}
@@ -204,6 +220,7 @@ export default function Form({ control, update, handleClose }) {
                                 placeholder="Designation"
                                 inputType="text"
                                 id="designation"
+                                errors={errors}
                               />
                               <FormInput
                                 control={control}
@@ -213,6 +230,7 @@ export default function Form({ control, update, handleClose }) {
                                 placeholder="Qualification"
                                 inputType="text"
                                 id="qualification"
+                                errors={errors}
                               />
                             </Item>
                           </Grid>
@@ -243,6 +261,7 @@ export default function Form({ control, update, handleClose }) {
                                 id="class"
                                 min="0"
                                 max="12"
+                                errors={errors}
                               />
                               <FormInputSelect
                                 control={control}
@@ -250,6 +269,7 @@ export default function Form({ control, update, handleClose }) {
                                 className="mt-4"
                                 label="Select Section"
                                 options={["A", "B", "C"]}
+                                errors={errors}
                               />
                             </Item>
                           </Grid>

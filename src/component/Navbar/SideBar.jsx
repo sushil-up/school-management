@@ -90,7 +90,7 @@ const Drawer = styled(MuiDrawer, {
 
 const DrawerListItemButton = ({ href, label, open, icon }) => (
   <ListItem disablePadding sx={{ display: "block" }}>
-    <Link href={href} >
+    <Link href={href}>
       <ListItemButton
         sx={{
           minHeight: 48,
@@ -131,7 +131,7 @@ export default function MiniDrawer({ children }) {
   return (
     <>
       {session === null || undefined ? (
-         <>{children}</>
+        <>{children}</>
       ) : (
         <Box sx={{ display: "flex" }}>
           <CssBaseline />
@@ -149,14 +149,15 @@ export default function MiniDrawer({ children }) {
               <Typography variant="h6" noWrap component="div">
                 School Management
               </Typography>
-              <Box sx={{ flexGrow: 1 }} /><Typography className="mr-3">{session?.user?.email}</Typography>
+              <Box sx={{ flexGrow: 1 }} />
+              <Typography className="mr-3">{session?.user?.email}</Typography>
               <Tooltip title={session ? "Sign Out" : "Sign In"}>
                 {signInOrOutButton}
               </Tooltip>
             </Toolbar>
           </AppBar>
           <Drawer variant="permanent" open={open} className="bg-gray-700">
-            <DrawerHeader >
+            <DrawerHeader>
               <IconButton onClick={toggleDrawer}>
                 {theme.direction === "rtl" ? (
                   <ChevronRightIcon />
@@ -177,6 +178,11 @@ export default function MiniDrawer({ children }) {
                 label="Student Attendance"
                 open={open}
               />
+                <DrawerListItemButton
+                  href={routesUrl.viewAttendence}
+                  label="View Attendence"
+                  open={open}
+                />
               <DrawerListItemButton
                 href={routesUrl.studentleave}
                 label="Student Leave"
@@ -198,7 +204,7 @@ export default function MiniDrawer({ children }) {
             </List>
             <Divider />
           </Drawer>
-          <Box component="main" sx={{ flexGrow: 1, p: 3 }} >
+          <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
             <DrawerHeader />
             {children}
           </Box>
