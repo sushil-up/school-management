@@ -10,6 +10,7 @@ const FormInputSelect = ({
   errors,
   defaultValue,
   className,
+  // multiple = false,
 }) => {
   return (
     <>
@@ -22,7 +23,13 @@ const FormInputSelect = ({
           helperText={errors?.[name]?.message}
           defaultValue={defaultValue || ""}
           render={({ field }) => (
-            <Select label={label} id={name} className={className} {...field}>
+            <Select
+              label={label}
+              id={name}
+              className={className}
+              {...field}
+              // multiple={multiple}
+            >
               {options?.map((option, index) => (
                 <MenuItem key={index} value={option} className="capitalize">
                   {option}

@@ -167,6 +167,7 @@ export default function MiniDrawer({ children }) {
               </IconButton>
             </DrawerHeader>
             <Divider />
+            {/* <Typography className="ml-1">Student </Typography> */}
             <List>
               <DrawerListItemButton
                 href={routesUrl.student}
@@ -188,6 +189,7 @@ export default function MiniDrawer({ children }) {
                 label="Student Leave"
                 open={open}
               />
+             
             </List>
             <Divider />
             <List>
@@ -199,6 +201,14 @@ export default function MiniDrawer({ children }) {
               <DrawerListItemButton
                 href={routesUrl.teacherleave}
                 label="Teacher Leave"
+                open={open}
+              />
+            </List>
+            <Divider />
+            <List>
+            <DrawerListItemButton
+                href={routesUrl.timetable}
+                label="Class Timetable"
                 open={open}
               />
             </List>

@@ -8,7 +8,6 @@ import DateSelect from "../shared/form/DatePicker";
 import dayjs from "dayjs";
 import ViewTable from "./ViewTable";
 import { selectclass } from "../SelectClass";
-
 const ViewAttendence = () => {
   const { handleSubmit, control, reset } = useForm({
     defaultValues: {

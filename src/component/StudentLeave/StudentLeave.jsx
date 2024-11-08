@@ -17,7 +17,6 @@ import RadioButton from "../shared/form/RadioButton";
 import { selectclass } from "../SelectClass";
 const StudentLeave = ({ handleChange, value, control, editIndex,errors }) => {
   const { studentData } = useContext(UserContext);
-
   return (
     <>
       <Container className="bg-slate-50 mt-5 border-4 shadow-md rounded-lg border-white">

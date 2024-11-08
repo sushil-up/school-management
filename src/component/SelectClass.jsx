@@ -12,3 +12,12 @@ export const selectclass = [
     "11",
     "12",
   ];
+  export const selectDays=[
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+  ]
