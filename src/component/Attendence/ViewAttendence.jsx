@@ -12,7 +12,7 @@ const ViewAttendence = () => {
   const { handleSubmit, control, reset } = useForm({
     defaultValues: {
       class: "1",
-      section: "a",
+      section: "A",
     },
   });
   const { studentAttendence } = useContext(UserContext);

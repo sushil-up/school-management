@@ -1,12 +1,14 @@
 "use client";
-import { Box, Button, Container, FormControl, Typography } from "@mui/joy";
-import React from "react";
+import { Box, Button, Container, Typography } from "@mui/joy";
+import React, { useContext } from "react";
 import FormInputSelect from "../shared/form/FormInputSelect";
 import { selectclass, selectDays } from "../SelectClass";
 import FormInput from "../shared/form/TextField";
 import FormTimePicker from "../shared/form/TimePicker";
-
+import UserContext from "@/context/UserContext";
+import FormSelect from "../shared/form/FormSelect";
 const TimeTable = ({ control }) => {
+  const { teacherData } = useContext(UserContext);
   return (
     <>
       <Container className="attendance-form bg-slate-50 mt-5 border-4 shadow-md rounded-lg border-white">
@@ -39,23 +41,50 @@ const TimeTable = ({ control }) => {
           <br />
           <Typography>Select Time Range</Typography>
           <div className="attendance">
-            <FormTimePicker control={control} lable="Start Time" name="start-time" />
             <FormTimePicker
               control={control}
-              name="end-time"
-              lable="End Time"
-              className="ml-2"
+              lable="Start Time"
+              name="start_time"
+              className="mt-2"
             />
-              <FormInputSelect
+            <FormTimePicker
               control={control}
-              className="mt-4 "
+              name="end_time"
+              lable="End Time"
+              className="ml-2 mt-2"
+            />
+            <FormInputSelect
+              control={control}
+              className="ml-2 mt-4 w-64"
               name="day"
               label="Select day"
               options={selectDays}
-              // multiple={true}
+              multiple={true}
             />
           </div>
-          <Button type="submit">Submit</Button>
+          <div className="attendance">
+          <FormInput
+              control={control}
+              className="mt-4 "
+              name="classno"
+              label="Room No"
+              placeholder="Enter Room No"
+              inputType="text"
+            />
+            <FormSelect
+              control={control}
+              className="mt-4 w-56 ml-2"
+              name="teacher"
+              label="Select Teacher"
+              options={teacherData}
+            />
+          </div>
+          <Button
+            className="mt-4 ml-2 bg-red-500 hover:bg-red-600"
+            type="submit"
+          >
+            Submit
+          </Button>
         </Box>
       </Container>
     </>

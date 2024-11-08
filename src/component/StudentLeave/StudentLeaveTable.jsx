@@ -1,13 +1,22 @@
 "use client";
 import UserContext from "@/context/UserContext";
 import { Container, Table, Typography } from "@mui/joy";
-import { TableBody, TableCell, TableHead, TableRow } from "@mui/material";
+import { TableBody, TableCell, TableHead, TablePagination, TableRow } from "@mui/material";
 import dayjs from "dayjs";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 const LeaveTable = ({ handleDelete, handleEdit }) => {
   const { studentleave } = useContext(UserContext);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
   return (
     <>
       <Container>
@@ -52,6 +61,15 @@ const LeaveTable = ({ handleDelete, handleEdit }) => {
             ))}
           </TableBody>
         </Table>
+        <TablePagination
+          rowsPerPageOptions={[10, 25, 100]}
+          component="div"
+          count={studentleave?.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
       </Container>
     </>
   );

@@ -3,10 +3,11 @@
 import Form from "@/component/TeacherForm/Form";
 import TeacherTable from "@/component/TeacherForm/TeacherTable";
 import { TeacherValidation } from "@/component/Validation/TecherValidation";
+import UserContext from "@/context/UserContext";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Container } from "@mui/joy";
 import { Button } from "@mui/material";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import useLocalStorage from "use-local-storage";
 const Teacher = () => {
@@ -19,7 +20,8 @@ const Teacher = () => {
       address: "",
     },
   });
-  const [teacherData, setTeacherData] = useLocalStorage("teacher", []);
+
+  const{teacherData, setTeacherData}=useContext(UserContext)
   const [editIndex, setEditIndex] = useState(null);
   const [openForm, setOpenForm] = useState(false);
   const [update, setUpdate] = useState(false);

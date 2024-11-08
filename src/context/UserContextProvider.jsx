@@ -9,16 +9,12 @@ const UserContextProvider = ({ children }) => {
   const [leaveRequest, setLeaveRequest] = useLocalStorage("leaverequest", []);
   const [studentleave, setStudentLeave] = useLocalStorage("studentLeave", []);
   const [studentAttendence, setStudentAttendence] = useLocalStorage("studentAttendence", []);
-  const [tehdata, settehdata] = useState();
-  useEffect(() => {
-    const data = localStorage.getItem("teacher");
-    settehdata(data);
-  }, []);
+  const [teacherData, setTeacherData] = useLocalStorage("teacherData", []);
+  const [timeTable, setTimeTable] = useLocalStorage("timeTable", []);
   return (
     <UserContext.Provider
       value={{
-        tehdata,
-        settehdata,
+        teacherData, setTeacherData,
         studentData,
         setStudentData,
         attendence,
@@ -27,6 +23,7 @@ const UserContextProvider = ({ children }) => {
         setLeaveRequest,
         studentleave, setStudentLeave,
         studentAttendence, setStudentAttendence,
+        timeTable, setTimeTable,
       }}
     >
       {children}

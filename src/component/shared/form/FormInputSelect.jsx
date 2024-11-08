@@ -10,7 +10,7 @@ const FormInputSelect = ({
   errors,
   defaultValue,
   className,
-  // multiple = false,
+  multiple = false,
 }) => {
   return (
     <>
@@ -28,7 +28,8 @@ const FormInputSelect = ({
               id={name}
               className={className}
               {...field}
-              // multiple={multiple}
+              multiple={multiple}
+              value={field.value||(multiple?[]:"")}
             >
               {options?.map((option, index) => (
                 <MenuItem key={index} value={option} className="capitalize">
