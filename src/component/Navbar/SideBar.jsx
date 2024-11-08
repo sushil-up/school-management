@@ -211,6 +211,11 @@ export default function MiniDrawer({ children }) {
                 label="Class Timetable"
                 open={open}
               />
+                <DrawerListItemButton
+                href={routesUrl.viewtimetable}
+                label="View Timetable"
+                open={open}
+              />
             </List>
             <Divider />
           </Drawer>

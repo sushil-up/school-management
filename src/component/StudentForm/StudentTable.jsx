@@ -44,7 +44,7 @@ const StudentTable = ({ studentData, handleDelete, handleEdit, isLoading }) => {
     } else {
       setTableData(studentData);
     }
-  }, [formData]);
+  }, [formData,studentData]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -136,7 +136,7 @@ const StudentTable = ({ studentData, handleDelete, handleEdit, isLoading }) => {
               <>
                 <TableRow>
                   <TableCell colSpan={9} className="text-center" >
-                    <p>No user data is available</p>
+               {`  No user data is available`}
                   </TableCell>
                 </TableRow>
               </>

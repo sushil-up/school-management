@@ -89,8 +89,9 @@ const TeacherTable = ({
             ) : (
               <>
                 <TableRow>
-                  <TableCell colSpan={9}>
-                    <p>No user data is available</p>
+                  <TableCell colSpan={9} className="text-center">
+                  {`  Sorry, teacher data is not available right now. Please check
+                    back or contact support for assistance.`}
                   </TableCell>
                 </TableRow>
               </>

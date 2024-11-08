@@ -16,10 +16,14 @@ const ViewAttendence = () => {
     },
   });
   const { studentAttendence } = useContext(UserContext);
-  const [formdata, setFormdata] = useState();
+  const [formdata, setFormdata] = useState({
+    class: "1",
+    section: "A",
+  });
   const [student, setStudent] = useState();
   const onSubmit = (data) => {
     setFormdata(data);
+    reset();
   };
   useEffect(() => {
     if (formdata) {
@@ -31,7 +35,6 @@ const ViewAttendence = () => {
       );
       setStudent(studenAtt);
     }
-    reset();
   }, [formdata, studentAttendence]);
 
   return (

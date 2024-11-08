@@ -84,16 +84,16 @@ const AttendenceTable = ({ student, formdata, open, setOpen }) => {
           {open ? (
             <>
               <Container className="bg-slate-50 mt-5 border-4 shadow-md rounded-lg border-white text-center">
-                <Typography className="text-2xl">
-                  Student data is not Avaliable
+                <Typography className="text-center" >
+                 {`Sorry, student data is not available right now. Please check back or contact support for assistance.`}
                 </Typography>
               </Container>
             </>
           ) : (
             <>
               <Container className="bg-slate-50 mt-5 border-4 shadow-md rounded-lg border-white text-center">
-                <Typography className="text-2xl">
-                  Select Your Class And Section First
+                <Typography className="text-center">
+                Kindly choose your class and section before proceeding.
                 </Typography>
               </Container>
             </>

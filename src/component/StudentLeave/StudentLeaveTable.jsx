@@ -1,7 +1,13 @@
 "use client";
 import UserContext from "@/context/UserContext";
 import { Container, Table, Typography } from "@mui/joy";
-import { TableBody, TableCell, TableHead, TablePagination, TableRow } from "@mui/material";
+import {
+  TableBody,
+  TableCell,
+  TableHead,
+  TablePagination,
+  TableRow,
+} from "@mui/material";
 import dayjs from "dayjs";
 import React, { useContext, useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -35,30 +41,44 @@ const LeaveTable = ({ handleDelete, handleEdit }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {studentleave?.map((item, index) => (
+            {studentleave.length > 0 ? (
               <>
-                <TableRow key={index}>
-                  <TableCell>{item.reason}</TableCell>
-                  <TableCell>
-                    {Array.isArray(item.leavedate)
-                      ? `${dayjs(item.leavedate[0]).format("YYYY-MM-DD")} to ${dayjs(item.leavedate[1]).format("YYYY-MM-DD")}`
-                      : dayjs(item.leavedate).format("YYYY-MM-DD")}
-                  </TableCell>
+                {" "}
+                {studentleave?.map((item, index) => (
+                  <>
+                    <TableRow key={index}>
+                      <TableCell>{item.reason}</TableCell>
+                      <TableCell>
+                        {Array.isArray(item.leavedate)
+                          ? `${dayjs(item.leavedate[0]).format("YYYY-MM-DD")} to ${dayjs(item.leavedate[1]).format("YYYY-MM-DD")}`
+                          : dayjs(item.leavedate).format("YYYY-MM-DD")}
+                      </TableCell>
                       <TableCell>{item.status}</TableCell>
-                  <TableCell>
-                    <DeleteIcon
-                      className="text-red-500"
-                      onClick={() => handleDelete(index)}
-                    />
+                      <TableCell>
+                        <DeleteIcon
+                          className="text-red-500"
+                          onClick={() => handleDelete(index)}
+                        />
 
-                    <EditIcon
-                      className="text-green-500"
-                      onClick={() => handleEdit(index)}
-                    />
+                        <EditIcon
+                          className="text-green-500"
+                          onClick={() => handleEdit(index)}
+                        />
+                      </TableCell>
+                    </TableRow>
+                  </>
+                ))}
+              </>
+            ) : (
+              <>
+                <TableRow>
+                  <TableCell colSpan={9} className="text-center">
+                    Sorry, student leave information is not available right now.
+                    Please check back or contact support for assistance.
                   </TableCell>
                 </TableRow>
               </>
-            ))}
+            )}
           </TableBody>
         </Table>
         <TablePagination
