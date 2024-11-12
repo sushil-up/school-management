@@ -5,8 +5,9 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { FormControl } from "@mui/joy";
 import { Controller } from "react-hook-form";
+import dayjs from "dayjs";
 
-export default function FormTimePicker({ name,control,lable,className }) {
+export default function FormTimePicker({ name, control, label, className }) {
   return (
     <FormControl fullWidth>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -15,7 +16,12 @@ export default function FormTimePicker({ name,control,lable,className }) {
           control={control}
           render={({ field }) => (
             <DemoContainer components={["TimePicker"]}>
-              <TimePicker {...field}   className={className} name={name}label={lable} 
+              <TimePicker
+                {...field}
+                className={className}
+                label={label}
+                value={field?.value ? dayjs(field?.value) : null}  
+                onChange={(newValue) => field?.onChange(newValue ? newValue?.toDate() : null)}
               />
             </DemoContainer>
           )}

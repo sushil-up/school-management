@@ -3,6 +3,7 @@ import * as React from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
+import SquareIcon from "@mui/icons-material/Square";
 import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
@@ -21,6 +22,7 @@ import LogoutButton from "../shared/form/LogoutButton";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { ListItemIcon } from "@mui/material";
+import { ToastContainer } from "react-toastify";
 
 const drawerWidth = 240;
 
@@ -92,22 +94,50 @@ const DrawerListItemButton = ({ href, label, open, icon }) => (
   <ListItem disablePadding sx={{ display: "block" }}>
     <Link href={href}>
       <ListItemButton
-        sx={{
-          minHeight: 48,
-          px: 2.5,
-          justifyContent: open ? "initial" : "center",
-        }}
+        sx={[
+          {
+            minHeight: 48,
+            px: 2.5,
+          },
+          open
+            ? {
+                justifyContent: "initial",
+              }
+            : {
+                justifyContent: "center",
+              },
+        ]}
       >
         <ListItemIcon
-          sx={{
-            minWidth: 0,
-            justifyContent: "center",
-            marginRight: open ? 3 : "auto",
-          }}
+          sx={[
+            {
+              minWidth: 0,
+              justifyContent: "center",
+            },
+            open
+              ? {
+                  mr: 3,
+                }
+              : {
+                  mr: "auto",
+                },
+          ]}
         >
           {icon}
         </ListItemIcon>
-        <Typography>{label}</Typography>
+        <Typography
+          sx={[
+            open
+              ? {
+                  opacity: 1,
+                }
+              : {
+                  opacity: 0,
+                },
+          ]}
+        >
+          {label}
+        </Typography>
       </ListItemButton>
     </Link>
   </ListItem>
@@ -179,17 +209,17 @@ export default function MiniDrawer({ children }) {
                 label="Student Attendance"
                 open={open}
               />
-                <DrawerListItemButton
-                  href={routesUrl.viewAttendence}
-                  label="View Attendence"
-                  open={open}
-                />
+              <DrawerListItemButton
+                href={routesUrl.viewAttendence}
+                label="View Attendence"
+                open={open}
+                // icon={<SquareIcon />}
+              />
               <DrawerListItemButton
                 href={routesUrl.studentleave}
                 label="Student Leave"
                 open={open}
               />
-             
             </List>
             <Divider />
             <List>
@@ -206,12 +236,12 @@ export default function MiniDrawer({ children }) {
             </List>
             <Divider />
             <List>
-            <DrawerListItemButton
+              <DrawerListItemButton
                 href={routesUrl.timetable}
                 label="Class Timetable"
                 open={open}
               />
-                <DrawerListItemButton
+              <DrawerListItemButton
                 href={routesUrl.viewtimetable}
                 label="View Timetable"
                 open={open}
@@ -221,6 +251,7 @@ export default function MiniDrawer({ children }) {
           </Drawer>
           <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
             <DrawerHeader />
+            <ToastContainer/>
             {children}
           </Box>
         </Box>

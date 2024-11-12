@@ -16,21 +16,26 @@ import { useForm } from "react-hook-form";
 import SearchIcon from "@mui/icons-material/Search";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import TimeTable from "./ClassRoutine";
+import ClassRoutineEdit from "./ClassRoutineEdit";
+import DeleteModal from "../Modal/DeleteModal";
+import { successMsg } from "../Toastmsg/toaster";
 const ClassRoutineTable = () => {
-
   const { timeTable, setTimeTable } = useContext(UserContext);
   const [search, setSearch] = useState();
+  const [deleteOpenModal, setDeleteOpenModal] = useState(false);
+  const [deleteIndex, setDeleteIndex] = useState(null);
   const [formData, setFormdata] = useState({
-    class: "All",
-    section: "All",
+    class: "1",
+    section: "A",
   });
+  const [editindex, setEditIndex] = useState(null);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [open, setOpen] = useState(false);
   const { handleSubmit, control } = useForm({
     defaultValues: {
-      class: "All",
-      section: "All",
+      class: "1",
+      section: "A",
     },
   });
   const onSubmit = (data) => {
@@ -47,11 +52,22 @@ const ClassRoutineTable = () => {
       setSearch(classTime);
     }
   }, [formData, timeTable]);
-  const handleDelete = (index) => {
-    const updatedData = timeTable.filter((_, i) => i !== index);
+  const onDelete = () => {
+    const updatedData = timeTable.filter((_, i) => i !== deleteIndex);
     setTimeTable(updatedData);
+    setDeleteOpenModal(false);
+    successMsg("Class schedule was deleted successfully.")
+  };
+  const handleDelete = (index) => {
+    setDeleteIndex(index);
+    setDeleteOpenModal(true);
+  };
+  const deleteHandleModalClose = () => {
+    setDeleteOpenModal(false);
   };
   const handleEdit = (index) => {
+    setEditIndex(index);
+    setOpen(true);
   };
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -60,7 +76,10 @@ const ClassRoutineTable = () => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-
+  const handleClose = () => {
+    setOpen(false);
+    setEditIndex(null);
+  };
   return (
     <>
       <Container>
@@ -74,14 +93,14 @@ const ClassRoutineTable = () => {
                   className="mt-4 "
                   name="class"
                   label="Select Class"
-                  options={["All", ...selectclass]}
+                  options={[...selectclass]}
                 />
                 <FormInputSelect
                   control={control}
                   className="mt-4 ml-2"
                   name="section"
                   label="Select Section"
-                  options={["All", "A", "B", "C"]}
+                  options={["A", "B", "C"]}
                 />
 
                 <Button
@@ -167,7 +186,18 @@ const ClassRoutineTable = () => {
           />
         </Box>
       </Container>
-
+      <ClassRoutineEdit
+        open={open}
+        handleClose={handleClose}
+        editindex={editindex}
+        setEditIndex={setEditIndex}
+      />
+      <DeleteModal
+        onDelete={onDelete}
+        deleteMessage="Are you certain you want to proceed with this deletion?"
+        deleteOpenModal={deleteOpenModal}
+        deleteHandleModalClose={deleteHandleModalClose}
+      />
     </>
   );
 };

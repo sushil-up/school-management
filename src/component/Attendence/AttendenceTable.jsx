@@ -5,11 +5,15 @@ import { useForm } from "react-hook-form";
 import FormInputSelect from "../shared/form/FormInputSelect";
 import dayjs from "dayjs";
 import UserContext from "@/context/UserContext";
+import { useRouter } from "next/navigation";
+import { routesUrl } from "@/utils/pagesurl";
+import { successMsg } from "../Toastmsg/toaster";
 
 const AttendenceTable = ({ student, formdata, open, setOpen }) => {
   const date = dayjs(formdata?.date).format("YYYY-MM-DD");
   const { studentAttendence, setStudentAttendence } = useContext(UserContext);
   const { handleSubmit, control, reset } = useForm();
+  const router=useRouter()
   const onSubmit = (data) => {
     const attendence = student.map((item) => ({
       name: item.name,
@@ -23,6 +27,8 @@ const AttendenceTable = ({ student, formdata, open, setOpen }) => {
     setStudentAttendence(storedData);
     setOpen(false);
     reset();
+    successMsg("Attendance has been recorded successfully")
+    router.replace(routesUrl.viewAttendence)
   };
   return (
     <>

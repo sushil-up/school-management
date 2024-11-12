@@ -1,4 +1,5 @@
 "use client";
+import DeleteModal from "@/component/Modal/DeleteModal";
 import StudentLeave from "@/component/StudentLeave/StudentLeave";
 import LeaveTable from "@/component/StudentLeave/StudentLeaveTable";
 import { successMsg } from "@/component/Toastmsg/toaster";
@@ -18,6 +19,8 @@ const Page = () => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(StudentLeaveValidation) });
   const { studentleave, setStudentLeave } = useContext(UserContext);
+  const [deleteOpenModal, setDeleteOpenModal] = useState(false);
+  const [deleteIndex, setDeleteIndex] = useState(null);
   const [editIndex, setEditIndex] = useState(null);
   const [value, setValue] = useState("singleday");
   const handleChange = (event) => {
@@ -33,6 +36,9 @@ const Page = () => {
           : [...studentleave, data];
       setEditIndex(null);
       setStudentLeave(storedData);
+      editIndex !== null
+        ? successMsg("Student leave edited successfully")
+        : successMsg("Student leave added successfully");
       reset();
       setOpen(false);
     } catch (error) {}
@@ -42,12 +48,15 @@ const Page = () => {
     setEditIndex(index);
     setOpen(true);
     reset(studentleave[index]);
-    successMsg("Student edited successfully");
   };
   const handleDelete = (index) => {
     const updatedData = studentleave.filter((_, i) => i !== index);
     setStudentLeave(updatedData);
     successMsg("Student deleted successfully");
+    setDeleteOpenModal(true);
+  };
+  const deleteHandleModalClose = () => {
+    setDeleteOpenModal(false);
   };
   const handleToggle = () => {
     setOpen(!open);
@@ -81,6 +90,12 @@ const Page = () => {
           </>
         )}
       </Container>
+      <DeleteModal
+        onDelete={onDelete}
+        deleteMessage="Are you certain you want to proceed with this deletion?"
+        deleteOpenModal={deleteOpenModal}
+        deleteHandleModalClose={deleteHandleModalClose}
+      />
     </>
   );
 };

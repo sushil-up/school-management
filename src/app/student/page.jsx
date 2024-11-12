@@ -44,6 +44,9 @@ const Student = () => {
             )
           : [...studentData, formData];
       setEditIndex(null);
+      editIndex !== null
+        ? successMsg("Student information has been successfully edited.")
+        : successMsg("Student record created successfully.");
       setStudentData(storedData);
       reset();
       setOpenForm(false);
@@ -59,7 +62,6 @@ const Student = () => {
     reset(studentData[index]);
     setOpenForm(true);
     setUpdate(true);
-    successMsg("Student edited successfully");
   };
   const handleOpen = () => {
     setOpenForm(true);

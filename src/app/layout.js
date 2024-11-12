@@ -1,12 +1,12 @@
 // RootLayout.jsx
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 import localFont from "next/font/local";
 import "./globals.css";
 import UserContextProvider from "@/context/UserContextProvider";
 import Provider from "@/component/Provider";
-
-import MiniDrawer from '@/component/Navbar/SideBar';
+import { ToastContainer } from "react-toastify";
+import MiniDrawer from "@/component/Navbar/SideBar";
 
 // Load custom fonts
 const geistSans = localFont({
@@ -30,11 +30,10 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <ToastContainer />
         <UserContextProvider>
           <Provider>
-            <MiniDrawer >
-              {children}
-              </MiniDrawer >
+            <MiniDrawer>{children}</MiniDrawer>
           </Provider>
         </UserContextProvider>
       </body>

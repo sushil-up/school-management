@@ -14,6 +14,7 @@ const Attendence = () => {
   const [student, setStudent] = useState();
   const onSubmit = (data) => {
     setFormdata(data);
+
     setOpen(true);
   };
   const { studentData } = useContext(UserContext);
