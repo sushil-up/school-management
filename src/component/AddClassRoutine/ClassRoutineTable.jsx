@@ -167,7 +167,6 @@ const ClassRoutineTable = () => {
           />
         </Box>
       </Container>
-
     </>
   );
 };
