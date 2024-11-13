@@ -1,5 +1,6 @@
 "use client";
 
+import DeleteModal from "@/component/Modal/DeleteModal";
 import Form from "@/component/TeacherForm/Form";
 import TeacherTable from "@/component/TeacherForm/TeacherTable";
 import { TeacherValidation } from "@/component/Validation/TecherValidation";
@@ -9,9 +10,15 @@ import { Container } from "@mui/joy";
 import { Button } from "@mui/material";
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import useLocalStorage from "use-local-storage";
+import { v4 as uuidv4 } from 'uuid';
 const Teacher = () => {
-  const { control, handleSubmit, reset,formState:{errors} } = useForm({resolver:yupResolver(TeacherValidation),
+  const {
+    control,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(TeacherValidation),
     defaultValues: {
       name: "",
       class: "",
@@ -21,30 +28,43 @@ const Teacher = () => {
     },
   });
 
-  const{teacherData, setTeacherData}=useContext(UserContext)
+  const { teacherData, setTeacherData } = useContext(UserContext);
   const [editIndex, setEditIndex] = useState(null);
   const [openForm, setOpenForm] = useState(false);
+  const [deleteOpenModal,setDeleteOpenModal]=useState(false)
   const [update, setUpdate] = useState(false);
+  const [deleteIndex,setDeleteIndex]=useState()
+  const id = uuidv4()
   const onSubmit = (formData) => {
+    const setId= {...formData,id}
     try {
       const storedData =
         editIndex !== null
-          ? teacherData.map((item, index) =>
-              index === editIndex ? formData : item
+          ? teacherData.map((item) =>
+              item.id === editIndex ? formData : item
             )
-          : [...teacherData, formData];
+          : [...teacherData, setId];
       setTeacherData(storedData);
+      setEditIndex(null)
       reset();
       setOpenForm(false);
     } catch (error) {}
   };
-  const handleDelete = (index) => {
-    const updatedData = teacherData.filter((_, i) => i !== index);
+  const onDelete=()=>{
+    const updatedData = teacherData.filter((item, i) => item.id !== deleteIndex);
     setTeacherData(updatedData);
+    setDeleteOpenModal(false)
+  }
+  const handleDelete = (item) => {
+  setDeleteIndex(item.id)
+    setDeleteOpenModal(true)
   };
-  const handleEdit = (index) => {
-    setEditIndex(index);
-    reset(teacherData[index]);
+  const deleteHandleModalClose=()=>{
+    deleteHandleModalClose(false)
+  }
+  const handleEdit = (item) => {
+    setEditIndex(item.id);
+    reset(item);
     setOpenForm(true);
     setUpdate(true);
   };
@@ -103,6 +123,12 @@ const Teacher = () => {
 
         <br />
       </Container>
+      <DeleteModal
+         onDelete={onDelete}
+         deleteMessage="Are you certain you want to proceed with this deletion?"
+         deleteOpenModal={deleteOpenModal}
+         deleteHandleModalClose={deleteHandleModalClose}
+      />
     </>
   );
 };

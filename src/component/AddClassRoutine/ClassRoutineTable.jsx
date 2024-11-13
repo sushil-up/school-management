@@ -31,6 +31,7 @@ const ClassRoutineTable = () => {
   const [editindex, setEditIndex] = useState(null);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [edit,setEdit]=useState()
   const [open, setOpen] = useState(false);
   const { handleSubmit, control } = useForm({
     defaultValues: {
@@ -44,7 +45,7 @@ const ClassRoutineTable = () => {
   useEffect(() => {
     setSearch(formData);
     if (formData) {
-      const classTime = timeTable.filter(
+      const classTime = timeTable?.filter(
         (item) =>
           (formData?.class === "All" || item?.class === formData?.class) &&
           (formData?.section === "All" || item.section === formData?.section)
@@ -53,20 +54,21 @@ const ClassRoutineTable = () => {
     }
   }, [formData, timeTable]);
   const onDelete = () => {
-    const updatedData = timeTable.filter((_, i) => i !== deleteIndex);
+    const updatedData = timeTable.filter((item, i) => item.id !== deleteIndex);
     setTimeTable(updatedData);
     setDeleteOpenModal(false);
     successMsg("Class schedule was deleted successfully.")
   };
-  const handleDelete = (index) => {
-    setDeleteIndex(index);
+  const handleDelete = (item) => {
+    setDeleteIndex(item.id);
     setDeleteOpenModal(true);
   };
   const deleteHandleModalClose = () => {
     setDeleteOpenModal(false);
   };
-  const handleEdit = (index) => {
-    setEditIndex(index);
+  const handleEdit = (item) => {
+    setEditIndex(item.id);
+    setEdit(item)
     setOpen(true);
   };
   const handleChangePage = (event, newPage) => {
@@ -153,11 +155,11 @@ const ClassRoutineTable = () => {
                         {" "}
                         <DeleteIcon
                           className="text-red-500"
-                          onClick={() => handleDelete(index)}
+                          onClick={() => handleDelete(item)}
                         />
                         <EditIcon
                           className="text-green-500"
-                          onClick={() => handleEdit(index)}
+                          onClick={() => handleEdit(item)}
                         />
                       </TableCell>
                     </TableRow>
@@ -188,6 +190,7 @@ const ClassRoutineTable = () => {
       </Container>
       <ClassRoutineEdit
         open={open}
+        edit={edit}
         handleClose={handleClose}
         editindex={editindex}
         setEditIndex={setEditIndex}

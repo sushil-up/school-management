@@ -6,10 +6,10 @@ import { StudentValidation } from "@/component/Validation/StudentValidation";
 import UserContext from "@/context/UserContext";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Container } from "@mui/joy";
-import { Box, Button } from "@mui/material";
-import React, { useContext, useState } from "react";
+import {  Button } from "@mui/material";
+import React, { useContext,  useState } from "react";
 import { useForm } from "react-hook-form";
-
+import { v4 as uuidv4 } from 'uuid';
 const Student = () => {
   const {
     control,
@@ -35,14 +35,16 @@ const Student = () => {
   const [editIndex, setEditIndex] = useState(null);
   const [openForm, setOpenForm] = useState(false);
   const [update, setUpdate] = useState(false);
+  const id= uuidv4()
   const onSubmit = (formData) => {
+    const setid = {...formData,id}
     try {
       const storedData =
         editIndex !== null
-          ? studentData.map((item, index) =>
-              index === editIndex ? formData : item
+          ? studentData?.map((item, index) =>
+              item.id === editIndex ? formData : item
             )
-          : [...studentData, formData];
+          : [...studentData, setid];
       setEditIndex(null);
       editIndex !== null
         ? successMsg("Student information has been successfully edited.")
@@ -52,14 +54,14 @@ const Student = () => {
       setOpenForm(false);
     } catch (error) {}
   };
-  const handleDelete = (index) => {
-    const updatedData = studentData.filter((_, i) => i !== index);
+  const handleDelete = (item) => {
+    const updatedData = studentData?.filter((del, i) =>del.id !== item.id);
     setStudentData(updatedData);
     successMsg("Student deleted successfully");
   };
-  const handleEdit = (index) => {
-    setEditIndex(index);
-    reset(studentData[index]);
+  const handleEdit = (item) => {
+    setEditIndex(item.id);
+    reset(item);
     setOpenForm(true);
     setUpdate(true);
   };

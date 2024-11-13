@@ -12,7 +12,7 @@ import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
 import FormInput from "../shared/form/TextField";
 import DateRangeSelect from "../shared/form/DateRangePicker";
 import DateSelect from "../shared/form/DatePicker";
-export const LeaveRequest = ({handleChange, value,control,editIndex}) => {
+export const LeaveRequest = ({handleChange, value,control,errors}) => {
  
   return (
     <>
@@ -52,6 +52,7 @@ export const LeaveRequest = ({handleChange, value,control,editIndex}) => {
                   className="mt-4"
                   name="leavedate"
                   label="Leave Date"
+                  errors={errors}
                 />
               </>
             ) : (
@@ -61,6 +62,7 @@ export const LeaveRequest = ({handleChange, value,control,editIndex}) => {
                   name="leavedate"
                   className="mt-4"
                   label="Leave Date"
+                  errors={errors}
                 />
               </>
             )}
@@ -72,6 +74,7 @@ export const LeaveRequest = ({handleChange, value,control,editIndex}) => {
               placeholder="Enter Reason"
               inputType="text"
               id="reason"
+              errors={errors}
             />
             <Button
               className="btn mt-4 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600"

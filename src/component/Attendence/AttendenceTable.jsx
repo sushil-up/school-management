@@ -8,12 +8,13 @@ import UserContext from "@/context/UserContext";
 import { useRouter } from "next/navigation";
 import { routesUrl } from "@/utils/pagesurl";
 import { successMsg } from "../Toastmsg/toaster";
-
+import { v4 as uuidv4 } from 'uuid';
 const AttendenceTable = ({ student, formdata, open, setOpen }) => {
   const date = dayjs(formdata?.date).format("YYYY-MM-DD");
   const { studentAttendence, setStudentAttendence } = useContext(UserContext);
   const { handleSubmit, control, reset } = useForm();
   const router=useRouter()
+  const id= uuidv4()
   const onSubmit = (data) => {
     const attendence = student.map((item) => ({
       name: item.name,
@@ -21,6 +22,7 @@ const AttendenceTable = ({ student, formdata, open, setOpen }) => {
       section: item.section,
       rollno: item.rollno,
       date: date,
+      id:id,
       attendanceStatus: data[`attendance_status_${item.name}`],
     }));
     const storedData = [...studentAttendence, ...attendence];

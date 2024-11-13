@@ -5,18 +5,16 @@ import React, { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import EditClassRoutine from "./EditClassRoutine";
 import { successMsg } from "../Toastmsg/toaster";
-const ClassRoutineEdit = ({ handleClose, open, editindex }) => {
+const ClassRoutineEdit = ({ handleClose, open, editindex,edit }) => {
   const { timeTable, setTimeTable } = useContext(UserContext);
-  console.log("editindex", editindex);
-  const { handleSubmit, control, reset } = useForm({
-  });
+  const { handleSubmit, control, reset } = useForm({});
   const style = {
     position: "absolute",
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
     width: 600,
-    bgcolor: "background.paper",
+    bgcolor: "snow",
     border: "2px solid #000",
     boxShadow: 24,
     p: 4,
@@ -25,24 +23,18 @@ const ClassRoutineEdit = ({ handleClose, open, editindex }) => {
   };
   useEffect(() => {
     if (editindex !== null) {
-const selectedData= timeTable[editindex]
-      const resetData = {...selectedData,
-        start_time: new Date(selectedData.start_time),
-        end_time: new Date(selectedData.end_time),
-        
-      };
-      reset(selectedData)
+      reset(edit);
     }
-  }, [editindex, timeTable, reset]);
+  }, [editindex]);
 
   const onSubmit = (data) => {
-    const updatedData = timeTable.map((item, index) =>
-      index === editindex ? data : item
+    const updatedData = timeTable.map((item) =>
+      item.id === editindex ? data : item
     );
     setTimeTable(updatedData);
     handleClose();
     reset();
-    successMsg("The class schedule was updated successfully.")
+    successMsg("The class schedule was updated successfully.");
   };
 
   return (

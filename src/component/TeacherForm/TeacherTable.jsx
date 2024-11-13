@@ -18,7 +18,7 @@ const TeacherTable = ({
   handleDelete,
   handleEdit,
   isLoading,
-  handleClose,
+  
 }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -76,12 +76,11 @@ const TeacherTable = ({
                     <TableCell>
                       <DeleteIcon
                         className="text-red-500"
-                        onClick={() => handleDelete(index)}
+                        onClick={() => handleDelete(item)}
                       />
-
                       <EditIcon
                         className="text-green-500"
-                        onClick={() => handleEdit(index)}
+                        onClick={() => handleEdit(item)}
                       />
                     </TableCell>
                   </TableRow>

@@ -22,10 +22,21 @@ const FormSelect = ({
           helperText={errors?.[name]?.message}
           defaultValue={defaultValue || ""}
           render={({ field }) => (
-            <Select label={label} id={name} className={className} {...field}>
+            <Select
+              label={label}
+              id={name}
+              className={className}
+              {...field}
+              error={!!errors?.[name]}
+              helperText={errors?.[name]?.message}
+            >
               {options?.map((option, index) => (
-                <MenuItem key={index} value={option.rollno||option.name} className="capitalize">
-                  {option.rollno||option.name}
+                <MenuItem
+                  key={index}
+                  value={option.rollno || option.name}
+                  className="capitalize"
+                >
+                  {option.rollno || option.name}
                 </MenuItem>
               ))}
             </Select>

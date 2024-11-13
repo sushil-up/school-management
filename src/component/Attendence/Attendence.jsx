@@ -8,13 +8,15 @@ import DateSelect from "../shared/form/DatePicker";
 import AttendenceTable from "./AttendenceTable";
 import { selectclass } from "../SelectClass";
 const Attendence = () => {
-  const { handleSubmit, control } = useForm();
+  const { handleSubmit, control } = useForm({defaultValues:{
+    class:"1",
+    section:"A",
+  }});
   const [formdata, setFormdata] = useState();
   const [open, setOpen] = useState(false);
   const [student, setStudent] = useState();
   const onSubmit = (data) => {
     setFormdata(data);
-
     setOpen(true);
   };
   const { studentData } = useContext(UserContext);

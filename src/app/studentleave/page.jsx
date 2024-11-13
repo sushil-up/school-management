@@ -9,6 +9,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Container } from "@mui/joy";
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
+import { v4 as uuidv4 } from "uuid";
 
 const Page = () => {
   const [open, setOpen] = useState(false);
@@ -26,14 +27,14 @@ const Page = () => {
   const handleChange = (event) => {
     setValue(event.target.value);
   };
+  const id = uuidv4();
   const onSubmit = (data) => {
+    const setid = { ...data, id };
     try {
       const storedData =
         editIndex !== null
-          ? studentleave.map((item, index) =>
-              index === editIndex ? data : item
-            )
-          : [...studentleave, data];
+          ? studentleave.map((item) => (item.id === editIndex ? data : item))
+          : [...studentleave, setid];
       setEditIndex(null);
       setStudentLeave(storedData);
       editIndex !== null
@@ -44,16 +45,22 @@ const Page = () => {
     } catch (error) {}
     reset();
   };
-  const handleEdit = (index) => {
-    setEditIndex(index);
+  const handleEdit = (item) => {
+    setEditIndex(item.id);
     setOpen(true);
-    reset(studentleave[index]);
+    reset(item);
   };
-  const handleDelete = (index) => {
-    const updatedData = studentleave.filter((_, i) => i !== index);
+  const onDelete = () => {
+    const updatedData = studentleave.filter(
+      (item, i) => item.id !== deleteIndex
+    );
     setStudentLeave(updatedData);
-    successMsg("Student deleted successfully");
+    successMsg("Student leave deleted successfully");
+    setDeleteOpenModal(false);
+  };
+  const handleDelete = (item) => {
     setDeleteOpenModal(true);
+    setDeleteIndex(item.id);
   };
   const deleteHandleModalClose = () => {
     setDeleteOpenModal(false);

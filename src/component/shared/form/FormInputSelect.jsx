@@ -30,16 +30,20 @@ const FormInputSelect = ({
               {...field}
               multiple={multiple}
               value={field?.value||(multiple?[]:"")}
+              error={!!errors?.[name]}
+              
+              helperText={errors?.[name]?.message}
             >
               {options?.map((option, index) => (
                 <MenuItem key={index} value={option} className="capitalize">
                   {option}
                 </MenuItem>
+                
               ))}
             </Select>
           )}
         />
-        {errors?.[name] && (
+          {errors?.[name] && (
           <p className="text-red-600 ">{errors[name]?.message}</p>
         )}
       </FormControl>

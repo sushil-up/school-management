@@ -223,7 +223,7 @@ export default function Form({ control, update, handleClose, errors }) {
                         <FormInput
                           control={control}
                           className="mt-4"
-                          name="id"
+                          name="id_proof"
                           label="Upload ID Proof"
                           placeholder="Upload ID Proof"
                           inputType="file"

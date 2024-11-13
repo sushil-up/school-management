@@ -3,6 +3,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { Controller } from "react-hook-form";
+import dayjs from "dayjs";
 export default function DateSelect({
   name,
   control,
@@ -10,6 +11,7 @@ export default function DateSelect({
   className,
   placeholder,
   value,
+  errors
 }) {
   return (
     <FormControl fullWidth>
@@ -17,7 +19,7 @@ export default function DateSelect({
         <Controller
           name={name}
           control={control}
-          defaultValue={new Date()}
+          defaultValue={dayjs(new Date())}
           render={({ field }) => (
             <DatePicker
               {...field}
@@ -28,7 +30,13 @@ export default function DateSelect({
               onChange={(date) => {
                 field.onChange(date);
               }}
-              renderInput={(params) => <TextField {...params} />}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  error={!!errors?.[name]}
+                  helperText={errors?.[name]?.message}
+                />
+              )}
             />
           )}
         />
