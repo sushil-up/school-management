@@ -23,6 +23,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { ListItemIcon } from "@mui/material";
 import { ToastContainer } from "react-toastify";
+import ResponsiveAppBar from "./Navbar";
 
 const drawerWidth = 240;
 
@@ -161,7 +162,9 @@ export default function MiniDrawer({ children }) {
   return (
     <>
       {session === null || undefined ? (
-        <>{children}</>
+        <>
+        <ResponsiveAppBar/>
+        {children}</>
       ) : (
         <Box sx={{ display: "flex" }}>
           <CssBaseline />
@@ -220,6 +223,7 @@ export default function MiniDrawer({ children }) {
                 label="Student Leave"
                 open={open}
               />
+            
             </List>
             <Divider />
             <List>
@@ -247,6 +251,20 @@ export default function MiniDrawer({ children }) {
                 open={open}
               />
             </List>
+            <Divider />
+            <List>
+            <DrawerListItemButton
+                href={routesUrl.exam}
+                label="Exam Schedule"
+                open={open}
+              />
+                 <DrawerListItemButton
+                href={routesUrl.examTable}
+                label="Exam Schedule Table"
+                open={open}
+              />
+            </List>
+
             <Divider />
           </Drawer>
           <Box component="main" sx={{ flexGrow: 1, p: 3 }}>

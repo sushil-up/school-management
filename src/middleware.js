@@ -8,7 +8,9 @@ export const ProtectedRoutes = [
   routesUrl.teacherleave,
   routesUrl.studentleave,
   routesUrl.viewAttendence,
-  routesUrl.viewtimetable
+  routesUrl.viewtimetable,
+  routesUrl.exam,
+  routesUrl.examTable
 ];
 export const UnprotectedRoutes = [routesUrl.signIn];
 

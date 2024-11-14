@@ -1,4 +1,5 @@
 "use client";
+import DeleteModal from "@/component/Modal/DeleteModal";
 import Form from "@/component/StudentForm/Form";
 import StudentTable from "@/component/StudentForm/StudentTable";
 import { successMsg } from "@/component/Toastmsg/toaster";
@@ -35,6 +36,8 @@ const Student = () => {
   const [editIndex, setEditIndex] = useState(null);
   const [openForm, setOpenForm] = useState(false);
   const [update, setUpdate] = useState(false);
+  const [deleteOpenModal, setDeleteOpenModal] = useState(false);
+  const [deleteIndex,setDeleteIndex]=useState(null)
   const id= uuidv4()
   const onSubmit = (formData) => {
     const setid = {...formData,id}
@@ -55,9 +58,18 @@ const Student = () => {
     } catch (error) {}
   };
   const handleDelete = (item) => {
-    const updatedData = studentData?.filter((del, i) =>del.id !== item.id);
+ 
+    setDeleteIndex(item.id);
+    setDeleteOpenModal(true);
+  };
+  const onDelete=()=>{
+    const updatedData = studentData?.filter((item, i) =>item.id !== deleteIndex);
     setStudentData(updatedData);
+    setDeleteOpenModal(false)
     successMsg("Student deleted successfully");
+  }
+  const deleteHandleModalClose = () => {
+    setDeleteOpenModal(false);
   };
   const handleEdit = (item) => {
     setEditIndex(item.id);
@@ -126,6 +138,12 @@ const Student = () => {
 
         <br />
       </Container>
+      <DeleteModal
+        onDelete={onDelete}
+        deleteOpenModal={deleteOpenModal}
+        deleteMessage="Are you sure with this deletion"
+        deleteHandleModalClose={deleteHandleModalClose}
+      />
     </>
   );
 };

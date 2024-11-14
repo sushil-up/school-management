@@ -193,7 +193,7 @@ const ClassRoutineTable = () => {
         edit={edit}
         handleClose={handleClose}
         editindex={editindex}
-        setEditIndex={setEditIndex}
+        
       />
       <DeleteModal
         onDelete={onDelete}

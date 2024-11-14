@@ -25,7 +25,7 @@ const ClassRoutineEdit = ({ handleClose, open, editindex,edit }) => {
     if (editindex !== null) {
       reset(edit);
     }
-  }, [editindex]);
+  }, [editindex,edit,reset]);
 
   const onSubmit = (data) => {
     const updatedData = timeTable.map((item) =>

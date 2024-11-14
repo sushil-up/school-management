@@ -10,6 +10,7 @@ import Link from "next/link";
 import FormInput from "@/component/shared/form/TextField";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SigninValidation } from "@/component/Validation/SigninValidation";
+import { routesUrl } from "@/utils/pagesurl";
 const Login = () => {
   const {
     control,
@@ -30,7 +31,7 @@ const Login = () => {
       if (res.error) {
         return errorMsg("Invalid credentials");
       } else {
-        router.replace("/");
+        router.replace(routesUrl.student);
         return successMsg("Login Successfully");
       }
     } catch (error) {

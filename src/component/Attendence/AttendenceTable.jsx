@@ -1,4 +1,4 @@
-import {  Button, Container, Table, Typography } from "@mui/joy";
+import { Button, Container, Table, Typography } from "@mui/joy";
 import { TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
@@ -8,13 +8,13 @@ import UserContext from "@/context/UserContext";
 import { useRouter } from "next/navigation";
 import { routesUrl } from "@/utils/pagesurl";
 import { successMsg } from "../Toastmsg/toaster";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 const AttendenceTable = ({ student, formdata, open, setOpen }) => {
   const date = dayjs(formdata?.date).format("YYYY-MM-DD");
   const { studentAttendence, setStudentAttendence } = useContext(UserContext);
   const { handleSubmit, control, reset } = useForm();
-  const router=useRouter()
-  const id= uuidv4()
+  const router = useRouter();
+  const id = uuidv4();
   const onSubmit = (data) => {
     const attendence = student.map((item) => ({
       name: item.name,
@@ -22,15 +22,15 @@ const AttendenceTable = ({ student, formdata, open, setOpen }) => {
       section: item.section,
       rollno: item.rollno,
       date: date,
-      id:id,
+      id: id,
       attendanceStatus: data[`attendance_status_${item.name}`],
     }));
     const storedData = [...studentAttendence, ...attendence];
     setStudentAttendence(storedData);
     setOpen(false);
     reset();
-    successMsg("Attendance has been recorded successfully")
-    router.replace(routesUrl.viewAttendence)
+    successMsg("Attendance has been recorded successfully");
+    router.replace(routesUrl.viewAttendence);
   };
   return (
     <>
@@ -92,8 +92,8 @@ const AttendenceTable = ({ student, formdata, open, setOpen }) => {
           {open ? (
             <>
               <Container className="bg-slate-50 mt-5 border-4 shadow-md rounded-lg border-white text-center">
-                <Typography className="text-center" >
-                 {`Sorry, student data is not available right now. Please check back or contact support for assistance.`}
+                <Typography className="text-center">
+                  {`Sorry, student data is not available right now. Please check back or contact support for assistance.`}
                 </Typography>
               </Container>
             </>
@@ -101,7 +101,7 @@ const AttendenceTable = ({ student, formdata, open, setOpen }) => {
             <>
               <Container className="bg-slate-50 mt-5 border-4 shadow-md rounded-lg border-white text-center">
                 <Typography className="text-center">
-                Kindly choose your class and section before proceeding.
+                  Kindly choose your class and section before proceeding.
                 </Typography>
               </Container>
             </>

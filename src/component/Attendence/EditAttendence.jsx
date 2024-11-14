@@ -27,10 +27,9 @@ const EditAttendence = ({ handleClose, open, editIndex ,setEditIndex,edit,setEdi
   useEffect(() => {
     if (editIndex !== null) {
       const resetData = edit;
-      console.log("resetData",resetData)
       setData(resetData);
     }
-  }, [editIndex]);
+  }, [editIndex,edit]);
   const onSubmit = (attData) => {
     const attendence = {
       name: data?.name,

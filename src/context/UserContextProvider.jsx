@@ -11,6 +11,7 @@ const UserContextProvider = ({ children }) => {
   const [studentAttendence, setStudentAttendence] = useLocalStorage("studentAttendence", []);
   const [teacherData, setTeacherData] = useLocalStorage("teacherData", []);
   const [timeTable, setTimeTable] = useLocalStorage("timeTable", []);
+  const [examination, setExamination] = useLocalStorage("Exam", []);
   return (
     <UserContext.Provider
       value={{
@@ -24,6 +25,7 @@ const UserContextProvider = ({ children }) => {
         studentleave, setStudentLeave,
         studentAttendence, setStudentAttendence,
         timeTable, setTimeTable,
+        examination, setExamination,
       }}
     >
       {children}
