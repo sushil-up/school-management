@@ -10,28 +10,28 @@ import Link from "next/link";
 import FormInput from "@/component/shared/form/TextField";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SigninValidation } from "@/component/Validation/SigninValidation";
-import { routesUrl } from "@/utils/pagesurl";
 const Login = () => {
   const {
     control,
     handleSubmit,
-    formState:{errors}
+    formState: { errors },
   } = useForm({resolver:yupResolver(SigninValidation)});
   const router = useRouter();
 
   const onSubmit = async (data) => {
-    const { username, password } = data;
-
+    const { email, password } = data;
+    const localData = localStorage.getItem("teacherData");
     try {
       const res = await signIn("credentials", {
-        username,
+        email,
         password,
         redirect: false,
+        localData,
       });
       if (res.error) {
         return errorMsg("Invalid credentials");
       } else {
-        router.replace(routesUrl.student);
+        router.replace("/student");
         return successMsg("Login Successfully");
       }
     } catch (error) {
@@ -62,7 +62,7 @@ const Login = () => {
                 px: 5,
                 display: "flex",
                 flexDirection: "column",
-                alignItems:"center",
+                alignItems: "center",
                 gap: 2,
               }}
             >
@@ -77,11 +77,11 @@ const Login = () => {
                   <FormControl>
                     <FormInput
                       className="w-80 ml-2"
-                      label="Username"
+                      label="Email"
                       control={control}
                       errors={errors}
-                      name="username"
-                      inputType="text"
+                      name="email"
+                      inputType="email"
                       placeholder="example123@gmail.com"
                     />
                   </FormControl>

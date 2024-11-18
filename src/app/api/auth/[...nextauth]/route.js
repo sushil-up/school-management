@@ -1,77 +1,48 @@
 import NextAuth from "next-auth";
-import Credentials from "next-auth/providers/credentials";
+import CredentialsProvider from "next-auth/providers/credentials";
 
 const handler = NextAuth({
   providers: [
-    Credentials({
-      async authorize(credentials, req) {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            username: credentials.username,
-            password: credentials.password,
-            expiresInMins: 30,
-          }),
-        });
-
-        const data = await res.json();
-
-        if (res.ok && data) {
+    CredentialsProvider({
+      name: "credentials",
+      async authorize(credentials) {
+        const { email, password, localData } = credentials;
+        const parsedData = JSON.parse(localData)||[];
+        const user = parsedData.find(
+          (item) => item.email === email && item.password === password
+        );
+        if (user) {
           return {
-            ...data.user,
-            username: credentials.username,
-            email: data.email,
-            firstName: data.firstName,
-            lastName: data.lastName,
-            image: data.image,
-            accessToken: data.access_token,
-            refreshToken: data.refresh_token,
-            iat: data.iat,
-            exp: data.exp,
-            jti: data.jti,
+            email: user.email,
+            password: user.password,
+            role: user.role,
           };
         } else {
-          throw new Error("CredentialsSignin");
+          return null;
         }
       },
     }),
   ],
-
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
         return {
           ...token,
-          username: user.username,
-          accessToken: user.accessToken,
-          refreshToken: user.refreshToken,
-          id: user.id,
           email: user.email,
-          fullName: user.fullName,
-          profileImage: user.profileImage,
-          admin: user.admin,
+          password: user.password,
+          role: user.role,
         };
       }
       return token;
     },
-
     async session({ session, token }) {
       session.user = {
         ...session.user,
-        id: token.id,
-        email: token.email,
-        username: token.username,
-        fullName: token.fullName,
-        profileImage: token.profileImage,
-        accessToken: token.accessToken,
-        refreshToken: token.refreshToken,
-        admin: token.admin,
-        dummyImage: "/assets/images/dummy-profile-img.webp",
+        role: token.role||"guest",
       };
       return session;
-    },
-  },
+    }
+  }, 
 });
 
-export { handler as GET, handler as POST };
+export { handler as GET, handler as POST };       

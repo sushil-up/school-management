@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import {
-  Table,
   TableBody,
   TableCell,
   TableHead,
@@ -11,7 +10,7 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import dayjs from "dayjs";
-import { Container } from "@mui/joy";
+import { Container, Table } from "@mui/joy";
 
 const TeacherTable = ({
   teacherData,

@@ -14,7 +14,7 @@ import FormInput from "../shared/form/TextField";
 import FormInputSelect from "../shared/form/FormInputSelect";
 import DateSelect from "../shared/form/DatePicker";
 
-const steps = ["Personal Details", "Joining Detail", "Class Teacher"];
+const steps = ["Personal Details", "Joining Detail", "Class Teacher","Set Password"];
 
 export default function Form({ control, update, handleClose,errors }) {
   const Item = styled(Paper)(({ theme }) => ({
@@ -269,6 +269,45 @@ export default function Form({ control, update, handleClose,errors }) {
                                 className="mt-4"
                                 label="Select Section"
                                 options={["A", "B", "C"]}
+                                errors={errors}
+                              />
+                            </Item>
+                          </Grid>
+                        </Grid>
+                      </Box>
+                    </>
+                  )}
+                </Typography>
+                <Typography sx={{ mt: 2, mb: 1, py: 1 }}>
+                  {activeStep === 3 && (
+                    <>
+                      <Box className="detail">Set Password</Box>
+                      <Box sx={{ flexGrow: 1 }}>
+                        <Grid
+                          container
+                          spacing={{ xs: 2, md: 3 }}
+                          columns={{ xs: 4, sm: 8, md: 12 }}
+                        >
+                          <Grid item xs={4} sm={8} md={12}>
+                            <Item>
+                              <FormInput
+                                control={control}
+                                name="password"
+                                className="mt-4"
+                                label="Set Password"
+                                placeholder="Set Password"
+                                inputType="password"
+                                id="class"
+                                min="0"
+                                max="12"
+                                errors={errors}
+                              />
+                              <FormInputSelect
+                                control={control}
+                                name="role"
+                                className="mt-4"
+                                label="Select Role"
+                                options={["Admin", "Member", "User"]}
                                 errors={errors}
                               />
                             </Item>

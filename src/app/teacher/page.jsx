@@ -27,7 +27,6 @@ const Teacher = () => {
       address: "",
     },
   });
-
   const { teacherData, setTeacherData } = useContext(UserContext);
   const [editIndex, setEditIndex] = useState(null);
   const [openForm, setOpenForm] = useState(false);
