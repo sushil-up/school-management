@@ -16,6 +16,7 @@ import FormSelect from "../shared/form/FormSelect";
 import RadioButton from "../shared/form/RadioButton";
 import { selectclass } from "../SelectClass";
 const StudentLeave = ({ handleChange, value, control, editIndex,errors }) => {
+  console.log("value",value)
   const { studentData } = useContext(UserContext);
   return (
     <>
@@ -65,7 +66,7 @@ const StudentLeave = ({ handleChange, value, control, editIndex,errors }) => {
               label="Select Class"
               options={selectclass}
             />
-          </FormControl>{" "}
+          </FormControl>
           <FormControl>
             <FormInputSelect
               control={control}
@@ -100,7 +101,7 @@ const StudentLeave = ({ handleChange, value, control, editIndex,errors }) => {
             <>
               <DateRangeSelect
                 control={control}
-                name="leavedate"
+                name="multileave"
                 className="mt-4"
                 label="Leave Date"
                 errors={errors}

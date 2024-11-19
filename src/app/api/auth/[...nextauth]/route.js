@@ -6,8 +6,12 @@ const handler = NextAuth({
     CredentialsProvider({
       name: "credentials",
       async authorize(credentials) {
-        const { email, password, localData } = credentials;
-        const parsedData = JSON.parse(localData)||[];
+        const { email, password, localData, stuData } = credentials;
+        let parsedData = [];
+        try {
+          if (localData) parsedData = JSON.parse(localData);
+          if (stuData) parsedData = [...JSON.parse(stuData), ...parsedData];
+        } catch (error) {}
         const user = parsedData.find(
           (item) => item.email === email && item.password === password
         );
@@ -38,11 +42,11 @@ const handler = NextAuth({
     async session({ session, token }) {
       session.user = {
         ...session.user,
-        role: token.role||"guest",
+        role: token.role || "guest",
       };
       return session;
-    }
-  }, 
+    },
+  },
 });
 
-export { handler as GET, handler as POST };       
+export { handler as GET, handler as POST };

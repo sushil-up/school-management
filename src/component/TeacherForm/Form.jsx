@@ -307,7 +307,7 @@ export default function Form({ control, update, handleClose,errors }) {
                                 name="role"
                                 className="mt-4"
                                 label="Select Role"
-                                options={["Admin", "Member", "User"]}
+                                options={["admin", "teacher"]}
                                 errors={errors}
                               />
                             </Item>

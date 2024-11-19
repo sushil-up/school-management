@@ -14,7 +14,7 @@ import FormInputSelect from "../shared/form/FormInputSelect";
 import DateSelect from "../shared/form/DatePicker";
 import { useState } from "react";
 
-const steps = ["Personal Details", "Admission Detail", "Parents Detail"];
+const steps = ["Personal Details", "Admission Detail", "Parents Detail","Set Password"];
 
 export default function Form({ control, update, handleClose, errors }) {
   const Item = styled(Paper)(({ theme }) => ({
@@ -409,6 +409,43 @@ export default function Form({ control, update, handleClose, errors }) {
                               id="motheroccupation"
                               errors={errors}
                             />
+                          </Item>
+                        </Grid>
+                      </Grid>
+                    </Box>
+                  </>
+                )}
+              </Typography>
+              <Typography sx={{ mt: 2, mb: 1, py: 1 }}>
+                {activeStep === 3 && (
+                  <>
+                    <Box className="detail">Set Password</Box>
+                    <Box sx={{ flexGrow: 1 }}>
+                      <Grid
+                        container
+                        spacing={{ xs: 2, md: 3 }}
+                        columns={{ xs: 4, sm: 8, md: 12 }}
+                      >
+                        <Grid item xs={4} sm={8} md={12}>
+                          <Item>
+                            <FormInput
+                              control={control}
+                              name="password"
+                              className="mt-4"
+                              label="Password"
+                              placeholder="Password"
+                              inputType="password"
+                              id="password"
+                              errors={errors}
+                            />
+                             <FormInputSelect
+                                control={control}
+                                name="role"
+                                className="mt-4"
+                                label="Select Role"
+                                options={[ "student"]}
+                                errors={errors}
+                              />
                           </Item>
                         </Grid>
                       </Grid>

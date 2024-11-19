@@ -17,16 +17,18 @@ const Login = () => {
     formState: { errors },
   } = useForm({resolver:yupResolver(SigninValidation)});
   const router = useRouter();
-
   const onSubmit = async (data) => {
     const { email, password } = data;
     const localData = localStorage.getItem("teacherData");
+    const stuData = localStorage.getItem("student");
+   
     try {
       const res = await signIn("credentials", {
         email,
         password,
         redirect: false,
         localData,
+        stuData
       });
       if (res.error) {
         return errorMsg("Invalid credentials");

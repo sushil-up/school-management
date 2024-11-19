@@ -49,8 +49,8 @@ const LeaveTable = ({ handleDelete, handleEdit }) => {
                     <TableRow key={index}>
                       <TableCell>{item.reason}</TableCell>
                       <TableCell>
-                        {Array.isArray(item.leavedate)
-                          ? `${dayjs(item.leavedate[0]).format("YYYY-MM-DD")} to ${dayjs(item.leavedate[1]).format("YYYY-MM-DD")}`
+                        {item.multileave
+                          ? `${dayjs(item.multileave[0]).format("YYYY-MM-DD")} to ${dayjs(item.multileave[1]).format("YYYY-MM-DD")}`
                           : dayjs(item.leavedate).format("YYYY-MM-DD")}
                       </TableCell>
                       <TableCell>{item.status}</TableCell>
