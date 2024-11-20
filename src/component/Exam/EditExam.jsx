@@ -34,7 +34,7 @@ const EditExam = ({ open, handleClose, edit, editIndex }) => {
     if (editIndex !== null) {
       reset(edit);
     }
-  }, [editIndex, edit]);
+  }, [editIndex, edit,reset]);
   const onSubmit = (data) => {
     const updatedData = examination.map((item) =>
         item.id === editIndex ? data : item

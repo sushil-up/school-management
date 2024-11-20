@@ -42,9 +42,3 @@ export default function RootLayout({ children }) {
   );
 }
 
-RootLayout.propTypes = {
-  /**
-   * Child components to be rendered inside the layout.
-   */
-  children: PropTypes.node.isRequired,
-};

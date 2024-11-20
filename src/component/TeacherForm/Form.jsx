@@ -75,17 +75,6 @@ export default function Form({ control, update, handleClose,errors }) {
           <div>
             {allStepsCompleted() ? (
             <React.Fragment>
-            <Typography sx={{ mt: 2, mb: 1 }}>
-              All steps completed
-              <div className="grid justify-items-end ">
-                <Button
-                  type="submit"
-                  className="btn mt-4 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600"
-                >
-                  {update === false ? <>Add Teacher</> : <>Update Teacher</>}
-                </Button>
-              </div>
-            </Typography>
             <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
               <Box sx={{ flex: "1 1 auto" }} />
               <Button
@@ -105,7 +94,7 @@ export default function Form({ control, update, handleClose,errors }) {
                     alignItems="center"
                     className="addstudent"
                   >
-                    <Typography variant="h6"> Add New Admin</Typography>
+                    <Typography variant="h6"> Add New Teacher</Typography>
                     <Button
                       className="btn mt-4 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600"
                       onClick={handleClose}
@@ -132,7 +121,7 @@ export default function Form({ control, update, handleClose,errors }) {
                           <FormInputSelect
                             control={control}
                             name="gender"
-                            className="mt-4"
+                            className="mt-4 text-left"
                             label="Select Gender"
                             options={["Male", "Female", "Other"]}
                             errors={errors}
@@ -242,7 +231,7 @@ export default function Form({ control, update, handleClose,errors }) {
                 <Typography sx={{ mt: 2, mb: 1, py: 1 }}>
                   {activeStep === 2 && (
                     <>
-                      <Box className="detail">Parents Detail</Box>
+                      <Box className="detail">Class Detail</Box>
                       <Box sx={{ flexGrow: 1 }}>
                         <Grid
                           container
@@ -266,7 +255,7 @@ export default function Form({ control, update, handleClose,errors }) {
                               <FormInputSelect
                                 control={control}
                                 name="section"
-                                className="mt-4"
+                                className="mt-4 text-left"
                                 label="Select Section"
                                 options={["A", "B", "C"]}
                                 errors={errors}
@@ -305,7 +294,7 @@ export default function Form({ control, update, handleClose,errors }) {
                               <FormInputSelect
                                 control={control}
                                 name="role"
-                                className="mt-4"
+                                className="mt-4 text-left"
                                 label="Select Role"
                                 options={["admin", "teacher"]}
                                 errors={errors}
@@ -344,14 +333,33 @@ export default function Form({ control, update, handleClose,errors }) {
                         Step {activeStep + 1} already completed
                       </Typography>
                     ) : (
-                      <Button
-                        onClick={handleComplete}
-                        className="btn  bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
-                      >
-                        {completedSteps() === totalSteps() - 1
-                          ? "Finish"
-                          : "Complete Step"}
-                      </Button>
+                      <>
+                      {completedSteps() === totalSteps() - 1 ? (
+                        <>
+                          <Button
+                            className="btn  bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+                            type="submit"
+                          >
+                            {update === false ? <>Finish</> : <>Update</>}
+                          </Button>
+                        </>
+                      ) : (
+                        <>
+                         {update === true ? (
+                            <></>
+                          ) : (
+                            <>
+                              <Button
+                                onClick={handleComplete}
+                                className="btn  bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+                              >
+                                Complete Step
+                              </Button>
+                            </>
+                          )}
+                        </>
+                      )}
+                    </>
                     ))}
                 </Box>
               </React.Fragment>

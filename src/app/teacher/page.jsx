@@ -43,6 +43,9 @@ const Teacher = () => {
               item.id === editIndex ? formData : item
             )
           : [...teacherData, setId];
+          editIndex !== null
+          ? successMsg("Teacher information has been successfully edited.")
+          : successMsg("Teacher record created successfully.");
       setTeacherData(storedData);
       setEditIndex(null)
       reset();
@@ -59,7 +62,7 @@ const Teacher = () => {
     setDeleteOpenModal(true)
   };
   const deleteHandleModalClose=()=>{
-    deleteHandleModalClose(false)
+    setDeleteOpenModal(false)
   }
   const handleEdit = (item) => {
     setEditIndex(item.id);

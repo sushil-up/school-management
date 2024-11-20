@@ -22,7 +22,7 @@ export  const SideBarAdmin  = [
           subItems: [
             {
               title: "Add Attendence",
-              icon: <i class="uil uil-plus-circle menu-icon"></i>,
+              icon: <i className="uil uil-plus-circle menu-icon"></i>,
               route: routesUrl.attendence,
             },
             {
@@ -38,7 +38,7 @@ export  const SideBarAdmin  = [
           subItems: [
             {
               title: "Add Class Routine",
-              icon: <i class="uil uil-plus-circle menu-icon"></i>,
+              icon: <i className="uil uil-plus-circle menu-icon"></i>,
               route: routesUrl.timetable,
             },
             {
@@ -50,11 +50,11 @@ export  const SideBarAdmin  = [
         },
         {
           title: "Teacher",
-          icon: <i class="uil uil-user header-icon"></i>,
+          icon: <i className="uil uil-user header-icon"></i>,
           subItems: [
             {
               title: "Add Teacher",
-              icon: <i class="uil uil-plus-circle menu-icon"></i>,
+              icon: <i className="uil uil-plus-circle menu-icon"></i>,
               route: routesUrl.teacher,
             },
             {
@@ -70,7 +70,7 @@ export  const SideBarAdmin  = [
           subItems: [
             {
               title: "Add Exam Schedule",
-              icon: <i class="uil uil-plus-circle menu-icon"></i>,
+              icon: <i className="uil uil-plus-circle menu-icon"></i>,
               route: routesUrl.exam,
             },
             {
@@ -105,7 +105,7 @@ export  const SideBarAdmin  = [
           subItems: [
             {
               title: "Add Attendence",
-              icon: <i class="uil uil-plus-circle menu-icon"></i>,
+              icon: <i className="uil uil-plus-circle menu-icon"></i>,
               route: routesUrl.attendence,
             },
             {
@@ -121,7 +121,7 @@ export  const SideBarAdmin  = [
           subItems: [
             {
               title: "Add Class Routine",
-              icon: <i class="uil uil-plus-circle menu-icon"></i>,
+              icon: <i className="uil uil-plus-circle menu-icon"></i>,
               route: routesUrl.timetable,
             },
             {
@@ -133,7 +133,7 @@ export  const SideBarAdmin  = [
         },
         {
           title: "Teacher",
-          icon: <i class="uil uil-user header-icon"></i>,
+          icon: <i className="uil uil-user header-icon"></i>,
           subItems: [
             {
               title: "Leave Request",
@@ -148,7 +148,7 @@ export  const SideBarAdmin  = [
           subItems: [
             {
               title: "Add Exam Schedule",
-              icon: <i class="uil uil-plus-circle menu-icon"></i>,
+              icon: <i className="uil uil-plus-circle menu-icon"></i>,
               route: routesUrl.exam,
             },
             {

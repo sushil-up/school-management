@@ -6,19 +6,14 @@ import {
   TableHead,
   TablePagination,
   TableRow,
+  Tooltip,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import dayjs from "dayjs";
 import { Container, Table } from "@mui/joy";
 
-const TeacherTable = ({
-  teacherData,
-  handleDelete,
-  handleEdit,
-  isLoading,
-  
-}) => {
+const TeacherTable = ({ teacherData, handleDelete, handleEdit, isLoading }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [tabledata, setTableData] = useState();
@@ -65,7 +60,15 @@ const TeacherTable = ({
                     <TableCell>{item.class}</TableCell>
                     <TableCell>{item.section}</TableCell>
                     <TableCell>{item.designation}</TableCell>
-                    <TableCell>{item.email}</TableCell>
+                    <TableCell>
+                      <Tooltip
+                        arrow
+                        placement="top-start"
+                        title={<span>{item.email}</span>}
+                      >
+                        <span>{`${item.email.slice(0, 30)}`}</span>
+                      </Tooltip>
+                    </TableCell>
                     <TableCell>{item.phone}</TableCell>
                     <TableCell>
                       {dayjs(item.joining).format("YYYY-MM-DD")}
@@ -88,7 +91,7 @@ const TeacherTable = ({
               <>
                 <TableRow>
                   <TableCell colSpan={9} className="text-center">
-                  {`  Sorry, teacher data is not available right now. Please check
+                    {`  Sorry, teacher data is not available right now. Please check
                     back or contact support for assistance.`}
                   </TableCell>
                 </TableRow>

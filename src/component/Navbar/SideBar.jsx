@@ -177,6 +177,7 @@ export default function MiniDrawer({ children }) {
                 toggleCollapse={toggleCollapse}
                 selectedSubIndex={selectedSubIndex}
                 openItems={openItems}
+                open={open}
                 handleItemClick={handleItemClick}
               />
               <Divider />

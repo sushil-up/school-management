@@ -4,15 +4,16 @@ import { Collapse, ListItemIcon, ListItemText } from "@mui/material";
 import { useSession } from "next-auth/react";
 import React from "react";
 import {useTheme } from "@mui/material/styles";
-import { SideBarAdmin, SideBarStudent } from "./SideBarpage";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import Link from "next/link";
+import { SideBarAdmin, SideBarStudent } from "./SideBarpage";
 const SideBarList = ({
   selectedIndex,
   toggleCollapse,
   selectedSubIndex,
   openItems,
+  open,
   handleItemClick,
 }) => {
   const { data: session } = useSession();
