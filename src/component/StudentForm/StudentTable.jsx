@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import {
-  
+  Table,
   TableBody,
   TableCell,
   TableHead,
@@ -11,18 +11,17 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import dayjs from "dayjs";
-import { Box, Button, Container, Table } from "@mui/joy";
+import { Box, Button, Container } from "@mui/joy";
 import FormInputSelect from "../shared/form/FormInputSelect";
 import { selectclass } from "../SelectClass";
 import { useForm } from "react-hook-form";
-import SearchIcon from "@mui/icons-material/Search";
 
 const StudentTable = ({ studentData, handleDelete, handleEdit, isLoading }) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [tabledata, setTableData] = useState();
   const [formData, setFormdata] = useState({ class: "All", section: "All" });
-  const { handleSubmit, control,reset } = useForm({
+  const { handleSubmit, control, reset } = useForm({
     defaultValues: {
       class: "All",
       section: "All",
@@ -30,7 +29,7 @@ const StudentTable = ({ studentData, handleDelete, handleEdit, isLoading }) => {
   });
   const onSubmit = (data) => {
     setFormdata(data);
-    reset()
+    reset();
   };
   useEffect(() => {
     if (formData) {
@@ -44,7 +43,7 @@ const StudentTable = ({ studentData, handleDelete, handleEdit, isLoading }) => {
     } else {
       setTableData(studentData);
     }
-  }, [formData,studentData]);
+  }, [formData, studentData]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -70,37 +69,37 @@ const StudentTable = ({ studentData, handleDelete, handleEdit, isLoading }) => {
                 className="mt-4 "
                 name="class"
                 label="Select Class"
-                options={["All",...selectclass]}
+                options={["All", ...selectclass]}
               />
               <FormInputSelect
                 control={control}
                 className="mt-4 ml-2"
                 name="section"
                 label="Select Section"
-                options={["All","A", "B", "C"]}
+                options={["All", "A", "B", "C"]}
               />
 
               <Button
                 type="submit"
-                className="ml-2 h-fit mt-5 bg-white border-4 rounded border-black "
+                className="ml-2 h-fit mt-5 border-4 bg-teal-400 rounded border-black "
               >
-                <SearchIcon className="text-black" />
+                Search
               </Button>
             </div>
           </form>
         </Box>
-        <Table>
+        <Table >
           <TableHead>
             <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell>Father Name</TableCell>
-              <TableCell>Mother Name</TableCell>
-              <TableCell>Class & Section</TableCell>
-              <TableCell>Roll No</TableCell>
-              <TableCell>DOB</TableCell>
-              <TableCell>Gender</TableCell>
-              <TableCell>Address</TableCell>
-              <TableCell>Actions</TableCell>
+              <TableCell className="font-bold text-base">Name</TableCell>
+              <TableCell className="font-bold text-base">Father Name</TableCell>
+              <TableCell className="font-bold text-base">Mother Name</TableCell>
+              <TableCell className="font-bold text-base">Class & Section</TableCell>
+              <TableCell className="font-bold text-base">Roll No</TableCell>
+              <TableCell className="font-bold text-base">DOB</TableCell>
+              <TableCell className="font-bold text-base">Gender</TableCell>
+              <TableCell className="font-bold text-base">Address</TableCell>
+              <TableCell className="font-bold text-base">Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -135,8 +134,8 @@ const StudentTable = ({ studentData, handleDelete, handleEdit, isLoading }) => {
             ) : (
               <>
                 <TableRow>
-                  <TableCell colSpan={9} className="text-center" >
-               {`  No user data is available`}
+                  <TableCell colSpan={9} className="text-center">
+                    {`  No user data is available`}
                   </TableCell>
                 </TableRow>
               </>

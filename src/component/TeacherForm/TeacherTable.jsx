@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import {
+  Table,
   TableBody,
   TableCell,
   TableHead,
@@ -11,7 +12,7 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import dayjs from "dayjs";
-import { Container, Table } from "@mui/joy";
+import { Container } from "@mui/joy";
 
 const TeacherTable = ({ teacherData, handleDelete, handleEdit, isLoading }) => {
   const [page, setPage] = useState(0);
@@ -34,20 +35,20 @@ const TeacherTable = ({ teacherData, handleDelete, handleEdit, isLoading }) => {
 
   return (
     <>
-      <Container>
+      <Container className="w-full">
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell>Class Allotted</TableCell>
-              <TableCell>Section</TableCell>
-              <TableCell>Designation</TableCell>
-              <TableCell>Email</TableCell>
-              <TableCell>Phone</TableCell>
-              <TableCell>Joining Date</TableCell>
-              <TableCell>Gender</TableCell>
-              <TableCell>Address</TableCell>
-              <TableCell>Actions</TableCell>
+              <TableCell className="font-bold text-base">Name</TableCell>
+              <TableCell className="font-bold text-base">Class Allotted</TableCell>
+              <TableCell className="font-bold text-base">Section</TableCell>
+              <TableCell className="font-bold text-base">Designation</TableCell>
+              <TableCell className="font-bold text-base">Email</TableCell>
+              <TableCell className="font-bold text-base">Phone</TableCell>
+              <TableCell className="font-bold text-base">Joining Date</TableCell>
+              <TableCell className="font-bold text-base">Gender</TableCell>
+              <TableCell className="font-bold text-base">Address</TableCell>
+              <TableCell className="font-bold text-base">Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

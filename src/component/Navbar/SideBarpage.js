@@ -17,7 +17,7 @@ export  const SideBarAdmin  = [
           ],
         },
         {
-          title: "Student Attendence",
+          title: " Attendence",
           icon: <i className="uil uil-file-upload header-icon"></i>,
           subItems: [
             {
@@ -100,7 +100,7 @@ export  const SideBarAdmin  = [
           ],
         },
         {
-          title: "Student Attendence",
+          title: " Attendence",
           icon: <i className="uil uil-file-upload header-icon"></i>,
           subItems: [
             {
@@ -174,7 +174,7 @@ export  const SideBarAdmin  = [
           ],
         },
         {
-          title: "Student Attendence",
+          title: " Attendence",
           icon: <i className="uil uil-file-upload header-icon"></i>,
           subItems: [
             {

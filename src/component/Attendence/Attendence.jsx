@@ -33,7 +33,7 @@ const Attendence = () => {
     <>
       <Container className="bg-slate-50 mt-5 border-4 shadow-md rounded-lg border-white">
         <Box>
-          <Typography className="text-2xl">Take Student Attendence</Typography>
+          <Typography className="text-2xl"> Attendence</Typography>
           <Typography className="text-sm">
             By select your class and section{" "}
           </Typography>
@@ -64,7 +64,7 @@ const Attendence = () => {
                 className="mt-4 ml-2 bg-red-500 hover:bg-red-600"
                 type="submit"
               >
-                Take Attendence
+                 Attendence
               </Button>
             </div>
             <br />

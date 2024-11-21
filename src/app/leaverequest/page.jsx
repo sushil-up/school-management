@@ -2,6 +2,7 @@
 import { LeaveRequest } from "@/component/LeaveRequest/LeaveRequest";
 import LeaveTable from "@/component/LeaveRequest/LeaveTable";
 import DeleteModal from "@/component/Modal/DeleteModal";
+import { successMsg } from "@/component/Toastmsg/toaster";
 import { LeaveRequestValidation } from "@/component/Validation/LeaveRequestValidation";
 import UserContext from "@/context/UserContext";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -35,19 +36,24 @@ const Leave = () => {
           ? leaveRequest.map((item) => (item.id === editIndex ? data : item))
           : [...leaveRequest, setId];
       setEditIndex(null);
+      editIndex !== null
+        ? successMsg("Leave Request is edited successfully")
+        : successMsg("Leave Request is edited successfully");
+
       setLeaveRequest(storedData);
       reset();
       setOpen(false);
     } catch (error) {}
-    reset();
   };
   const handleToggle = () => {
     setOpen(!open);
+    reset()
   };
   const onDelete = () => {
     const updatedData = leaveRequest.filter((item) => item.id !== deleteIndex);
     setLeaveRequest(updatedData);
     setDeleteOpenModal(false);
+    successMsg("Leave Request is deleted successfully")
   };
   const handleDelete = (item) => {
     setDeleteIndex(item.id);

@@ -1,7 +1,8 @@
 "use client";
 import UserContext from "@/context/UserContext";
-import { Container, Table, Typography } from "@mui/joy";
+import { Container, Typography } from "@mui/joy";
 import {
+  Table,
   TableBody,
   TableCell,
   TableHead,
@@ -34,10 +35,15 @@ const LeaveTable = ({ handleDelete, handleEdit }) => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Reason</TableCell>
-              <TableCell>Leave Date</TableCell>
-              <TableCell>Leave Status</TableCell>
-              <TableCell>Action</TableCell>
+              <TableCell className="font-bold text-base">Name</TableCell>
+              <TableCell className="font-bold text-base">Roll No</TableCell>
+              <TableCell className="font-bold text-base">Class&Section</TableCell>
+              <TableCell className="font-bold text-base">Leave Date</TableCell>
+              <TableCell className="font-bold text-base">Reason</TableCell>
+              <TableCell className="font-bold text-base">
+                Leave Status
+              </TableCell>
+              <TableCell className="font-bold text-base">Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -47,12 +53,15 @@ const LeaveTable = ({ handleDelete, handleEdit }) => {
                 {studentleave?.map((item, index) => (
                   <>
                     <TableRow key={index}>
-                      <TableCell>{item.reason}</TableCell>
+                    <TableCell>{item.name}</TableCell>
+                    <TableCell>{item.rollno}</TableCell>
+                    <TableCell>{item.class}&{item.section}</TableCell>
                       <TableCell>
                         {item.multileave
                           ? `${dayjs(item.multileave[0]).format("YYYY-MM-DD")} to ${dayjs(item.multileave[1]).format("YYYY-MM-DD")}`
                           : dayjs(item.leavedate).format("YYYY-MM-DD")}
                       </TableCell>
+                          <TableCell>{item.reason}</TableCell>
                       <TableCell>{item.status}</TableCell>
                       <TableCell>
                         <DeleteIcon

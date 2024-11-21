@@ -10,11 +10,12 @@ const FormSelect = ({
   errors,
   defaultValue,
   className,
+  onChange
 }) => {
   return (
     <>
       <FormControl fullWidth error={!!errors?.[name]}>
-        <InputLabel className="mt-4">{label}</InputLabel>
+        <InputLabel className={className}>{label}</InputLabel>
         <Controller
           name={name}
           control={control}
@@ -29,16 +30,20 @@ const FormSelect = ({
               {...field}
               error={!!errors?.[name]}
               helperText={errors?.[name]?.message}
+              onChange={(e) => {
+                field.onChange(e); 
+                onChange?.(e);
+              }}
             >
               {options?.map((option, index) => (
                 <MenuItem
                   key={index}
-                  value={option.rollno || option.name}
+                  value={option}
                   className="capitalize"
                 >
-                  {option.rollno || option.name}
+                  {option}
                 </MenuItem>
-              ))}
+              ))}rollno
             </Select>
           )}
         />

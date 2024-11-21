@@ -8,7 +8,6 @@ export const StudentValidation = Yup.object().shape({
   section:Yup.string().required("Section is required"),
   class:Yup.string().required("Class is required"),
   email:Yup.string().required("Email is required"),
-  phone:Yup.number().required("Phone number is required"),
   dob:Yup.string().required("DOB is required"),
   fathername:Yup.string().required("Father's name is required"),
   city:Yup.string().required("City is required"),

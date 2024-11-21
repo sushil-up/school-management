@@ -23,27 +23,29 @@ const Page = () => {
   const [deleteOpenModal, setDeleteOpenModal] = useState(false);
   const [deleteIndex, setDeleteIndex] = useState(null);
   const [editIndex, setEditIndex] = useState(null);
-  const [value, setValue] = useState("singleday");
-  const handleChange = (event) => {
-    setValue(event.target.value);
-  };
+  const [value, setValue] = useState();
   const id = uuidv4();
   const onSubmit = (data) => {
+    console.log("data",data)
     const setid = { ...data, id };
     try {
       const storedData =
-        editIndex !== null
-          ? studentleave.map((item) => (item.id === editIndex ? data : item))
-          : [...studentleave, setid];
+      editIndex !== null
+      ? studentleave.map((item) => (item.id === editIndex ? data : item))
+      : [...studentleave, setid];
       setEditIndex(null);
       setStudentLeave(storedData);
       editIndex !== null
-        ? successMsg("Student leave edited successfully")
-        : successMsg("Student leave added successfully");
+      ? successMsg("Student leave edited successfully")
+      : successMsg("Student leave added successfully");
       reset();
       setOpen(false);
     } catch (error) {}
     reset();
+  };
+  const handleChange = (event) => {
+    setValue(event.target.value);
+    reset()
   };
   const handleEdit = (item) => {
     setEditIndex(item.id);

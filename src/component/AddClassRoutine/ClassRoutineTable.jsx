@@ -1,7 +1,8 @@
 "use client";
 import UserContext from "@/context/UserContext";
-import { Box, Button, Container, Modal, Table, Typography } from "@mui/joy";
+import { Box, Button, Container,  Typography } from "@mui/joy";
 import {
+  Table,
   TableBody,
   TableCell,
   TableHead,
@@ -114,17 +115,18 @@ const ClassRoutineTable = () => {
               </div>
             </form>
           </Box>
+          <br/>
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>Class</TableCell>
-                <TableCell>Section</TableCell>
-                <TableCell>Subject</TableCell>
-                <TableCell>Start Time</TableCell>
-                <TableCell>End Time</TableCell>
-                <TableCell>Days</TableCell>
-                <TableCell>Teacher</TableCell>
-                <TableCell>Action</TableCell>
+                <TableCell className="font-bold text-base">Class</TableCell>
+                <TableCell className="font-bold text-base">Section</TableCell>
+                <TableCell className="font-bold text-base">Subject</TableCell>
+                <TableCell className="font-bold text-base">Start Time</TableCell>
+                <TableCell className="font-bold text-base">End Time</TableCell>
+                <TableCell className="font-bold text-base">Days</TableCell>
+                <TableCell className="font-bold text-base">Teacher</TableCell>
+                <TableCell className="font-bold text-base">Action</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>

@@ -23,6 +23,7 @@ const EditAttendence = ({ handleClose, open, editIndex ,setEditIndex,edit,setEdi
   };
   const { studentAttendence, setStudentAttendence } = useContext(UserContext);
   const [data, setData] = useState();
+
   const { handleSubmit, control, reset } = useForm();
   useEffect(() => {
     if (editIndex !== null) {

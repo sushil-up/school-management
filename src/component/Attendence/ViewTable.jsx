@@ -1,6 +1,7 @@
 "use client";
-import { Container, Table } from "@mui/joy";
+import { Container,  } from "@mui/joy";
 import {
+  Table,
   TableBody,
   TableCell,
   TableHead,
@@ -41,6 +42,7 @@ const ViewTable = ({ student }) => {
     setDeleteOpenModal(false);
   };
   const handleEdit = (item) => {
+    console.log("item",item)
     setEditIndex(item.id);
     setEdit(item)
     setOpen(true);
@@ -55,15 +57,15 @@ const ViewTable = ({ student }) => {
   return (
     <>
       <Container className="attendance-form bg-slate-50 mt-5 border-4 shadow-md rounded-lg border-white">
-        <Table>
+        <Table >
           <TableHead>
             <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell>Roll No</TableCell>
-              <TableCell>Class</TableCell>
-              <TableCell>Section</TableCell>
-              <TableCell>Attendence Status</TableCell>
-              <TableCell>Action</TableCell>
+              <TableCell className="font-bold text-base" >Name</TableCell>
+              <TableCell className="font-bold text-base">Roll No</TableCell>
+              <TableCell className="font-bold text-base">Class</TableCell>
+              <TableCell className="font-bold text-base">Section</TableCell>
+              <TableCell className="font-bold text-base">Attendence Status</TableCell>
+              <TableCell className="font-bold text-base">Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

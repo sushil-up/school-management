@@ -22,7 +22,7 @@ const AttendenceTable = ({ student, formdata, open, setOpen }) => {
       section: item.section,
       rollno: item.rollno,
       date: date,
-      id: id,
+      id: item.id,
       attendanceStatus: data[`attendance_status_${item.name}`],
     }));
     const storedData = [...studentAttendence, ...attendence];

@@ -1,7 +1,8 @@
 "use client";
 import UserContext from "@/context/UserContext";
-import { Container, Table } from "@mui/joy";
+import { Container } from "@mui/joy";
 import {
+  Table,
   TableBody,
   TableCell,
   TableHead,
@@ -29,9 +30,10 @@ const LeaveTable = ({ handleDelete, handleEdit }) => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Reason</TableCell>
-              <TableCell>Leave Date</TableCell>
-              <TableCell>Action</TableCell>
+            <TableCell className="font-bold text-base">Name</TableCell>
+              <TableCell className="font-bold text-base">Reason</TableCell>
+              <TableCell className="font-bold text-base">Leave Date</TableCell>
+              <TableCell className="font-bold text-base">Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -41,6 +43,7 @@ const LeaveTable = ({ handleDelete, handleEdit }) => {
                 {leaveRequest?.map((item, index) => (
                   <>
                     <TableRow key={index}>
+                    <TableCell>{item.name}</TableCell>
                       <TableCell>{item.reason}</TableCell>
                       <TableCell>
                         {Array.isArray(item.leavedate)

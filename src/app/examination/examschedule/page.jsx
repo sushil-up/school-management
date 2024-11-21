@@ -1,7 +1,6 @@
 "use client";
 import ExamTable from "@/component/Exam/ExamTable";
 import React, { useContext, useEffect, useState } from "react";
-import SearchIcon from "@mui/icons-material/Search";
 import FormInputSelect from "@/component/shared/form/FormInputSelect";
 import { selectclass } from "@/component/SelectClass";
 import { Box, Button } from "@mui/joy";
@@ -60,9 +59,9 @@ const ExamSchedule = () => {
             />
             <Button
               type="submit"
-              className="ml-2 h-fit mt-5 bg-white border-4 rounded border-black "
+               className="ml-2 h-fit mt-5 border-4 bg-teal-400 rounded border-black "
             >
-              <SearchIcon className="text-black" />
+              Search
             </Button>
           </div>
         </form>

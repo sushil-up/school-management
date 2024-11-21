@@ -1,5 +1,6 @@
-import { Container, Table } from "@mui/joy";
+import { Container } from "@mui/joy";
 import {
+  Table,
   TableBody,
   TableCell,
   TableHead,
@@ -59,13 +60,13 @@ const ExamTable = ({ tableData }) => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Class</TableCell>
-              <TableCell>Section</TableCell>
-              <TableCell>Subject</TableCell>
-              <TableCell>Exam Type</TableCell>
-              <TableCell>Exam Date</TableCell>
-              <TableCell>Exam Time</TableCell>
-              <TableCell>Action</TableCell>
+              <TableCell className="font-bold text-base">Class</TableCell>
+              <TableCell className="font-bold text-base">Section</TableCell>
+              <TableCell className="font-bold text-base">Subject</TableCell>
+              <TableCell className="font-bold text-base">Exam Type</TableCell>
+              <TableCell className="font-bold text-base">Exam Date</TableCell>
+              <TableCell className="font-bold text-base">Exam Time</TableCell>
+              <TableCell className="font-bold text-base">Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

@@ -12,8 +12,14 @@ import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
 import FormInput from "../shared/form/TextField";
 import DateRangeSelect from "../shared/form/DateRangePicker";
 import DateSelect from "../shared/form/DatePicker";
+import { useSession } from "next-auth/react";
+import { useContext } from "react";
+import UserContext from "@/context/UserContext";
+import FormSelect from "../shared/form/FormSelect";
 export const LeaveRequest = ({handleChange, value,control,errors}) => {
- 
+  const {teacherData}= useContext(UserContext)
+ const {data:session}=useSession()
+ const techData= teacherData.filter((item)=>item.email===session?.user?.email)
   return (
     <>
     <Container className="bg-slate-50 mt-5 border-4 shadow-md rounded-lg border-white">
@@ -41,9 +47,18 @@ export const LeaveRequest = ({handleChange, value,control,errors}) => {
               <FormControlLabel
                 value="multipledays"
                 control={<Radio />}
-                label="Muiltiple Days"
+                label="Multiple Days"
               />
             </RadioGroup>
+            <FormControl>
+              <FormSelect
+                control={control}
+                className="mt-4 w-56 ml-2"
+                name="name"
+                label="Select Name"
+                options={techData?.map((item)=>item.name)}
+              />
+            </FormControl>
           </FormControl>
             {value === "singleday" ? (
               <>
@@ -52,7 +67,6 @@ export const LeaveRequest = ({handleChange, value,control,errors}) => {
                   className="mt-4"
                   name="leavedate"
                   label="Leave Date"
-                  errors={errors}
                 />
               </>
             ) : (
@@ -62,7 +76,6 @@ export const LeaveRequest = ({handleChange, value,control,errors}) => {
                   name="leavedate"
                   className="mt-4"
                   label="Leave Date"
-                  errors={errors}
                 />
               </>
             )}
