@@ -2,16 +2,17 @@
 import UserContext from "@/context/UserContext";
 import { Box, Button, Container, Table, Typography } from "@mui/joy";
 import React, { useContext, useEffect, useState } from "react";
-import FormInputSelect from "../shared/form/FormInputSelect";
-import { useForm } from "react-hook-form";
+import {  useForm } from "react-hook-form";
 import DateSelect from "../shared/form/DatePicker";
 import AttendenceTable from "./AttendenceTable";
-import { selectclass } from "../SelectClass";
+import SelectBox from "../SelectBox";
 const Attendence = () => {
-  const { handleSubmit, control } = useForm({defaultValues:{
-    class:"1",
-    section:"A",
-  }});
+  const { handleSubmit, control } = useForm({
+    defaultValues: {
+      class: "1",
+      section: "A",
+    },
+  });
   const [formdata, setFormdata] = useState();
   const [open, setOpen] = useState(false);
   const [student, setStudent] = useState();
@@ -23,11 +24,13 @@ const Attendence = () => {
   useEffect(() => {
     if (formdata) {
       const studenAtt = studentData.filter(
-        (item) => item?.class === formdata?.class && item.section === formdata?.section
+        (item) =>
+          item?.class === formdata?.class && item.section === formdata?.section
       );
       setStudent(studenAtt);
     }
-  },[formdata,studentData]);
+  }, [formdata, studentData]);
+
 
   return (
     <>
@@ -40,20 +43,7 @@ const Attendence = () => {
           <br />
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="attendance">
-              <FormInputSelect
-                control={control}
-                className="mt-4 "
-                name="class"
-                label="Select Class"
-                options={selectclass}
-              /> 
-              <FormInputSelect
-                control={control}
-                className="mt-4 ml-2"
-                name="section"
-                label="Select Section"
-                options={["A", "B", "C"]}
-              />{" "}
+          <SelectBox control={control}/>
               <DateSelect
                 className="mt-4 ml-2"
                 control={control}
@@ -64,7 +54,7 @@ const Attendence = () => {
                 className="mt-4 ml-2 bg-red-500 hover:bg-red-600"
                 type="submit"
               >
-                 Attendence
+                Attendence
               </Button>
             </div>
             <br />

@@ -40,7 +40,7 @@ const FormInputSelect = ({
             >
               {options?.map((option, index) => (
                 <MenuItem key={index} value={option} className="capitalize">
-                  {option}
+                  {option}{option.value}
                 </MenuItem>
                 
               ))}

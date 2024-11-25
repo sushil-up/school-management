@@ -6,7 +6,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import FormInputSelect from "../shared/form/FormInputSelect";
 import { successMsg } from "../Toastmsg/toaster";
-
+import { v4 as uuidv4 } from "uuid";
 const EditAttendence = ({ handleClose, open, editIndex ,setEditIndex,edit,setEdit}) => {
   const style = {
     position: "absolute",
@@ -23,7 +23,7 @@ const EditAttendence = ({ handleClose, open, editIndex ,setEditIndex,edit,setEdi
   };
   const { studentAttendence, setStudentAttendence } = useContext(UserContext);
   const [data, setData] = useState();
-
+  const id =uuidv4()
   const { handleSubmit, control, reset } = useForm();
   useEffect(() => {
     if (editIndex !== null) {
@@ -38,6 +38,7 @@ const EditAttendence = ({ handleClose, open, editIndex ,setEditIndex,edit,setEdi
       section: data?.section,
       rollno: data?.rollno,
       date: data?.date,
+      id:id,
       attendanceStatus: attData?.attendance_status,
 
     };

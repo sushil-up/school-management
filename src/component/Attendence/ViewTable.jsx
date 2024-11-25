@@ -7,6 +7,7 @@ import {
   TableHead,
   TablePagination,
   TableRow,
+  Tooltip,
 } from "@mui/material";
 import React, { useContext, useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -15,6 +16,7 @@ import UserContext from "@/context/UserContext";
 import EditAttendence from "./EditAttendence";
 import { successMsg } from "../Toastmsg/toaster";
 import DeleteModal from "../Modal/DeleteModal";
+import { useSession } from "next-auth/react";
 const ViewTable = ({ student }) => {
   const { studentAttendence, setStudentAttendence } = useContext(UserContext);
   const [editIndex, setEditIndex] = useState(null);
@@ -24,6 +26,8 @@ const ViewTable = ({ student }) => {
   const [deleteOpenModal, setDeleteOpenModal] = useState(false);
   const [deleteIndex,setDeleteIndex]=useState(null)
   const [edit,setEdit]=useState(null)
+  console.log("editIndex",editIndex)
+  const {data:session}= useSession()
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -42,7 +46,6 @@ const ViewTable = ({ student }) => {
     setDeleteOpenModal(false);
   };
   const handleEdit = (item) => {
-    console.log("item",item)
     setEditIndex(item.id);
     setEdit(item)
     setOpen(true);
@@ -80,15 +83,23 @@ const ViewTable = ({ student }) => {
                     <TableCell>{item.section}</TableCell>
                     <TableCell>{item.attendanceStatus}</TableCell>
                     <TableCell>
-                      {" "}
-                      <DeleteIcon
+                      {session?.user?.role==="student"?(<> 
+                   
+                       <DeleteIcon
+                        className="text-red-500"
+                      />
+                      <EditIcon
+                        className="text-green-500"
+                      /></>):(<>  <DeleteIcon
                         className="text-red-500"
                         onClick={() => handleDelete(item)}
                       />
                       <EditIcon
                         className="text-green-500"
                         onClick={() => handleEdit(item)}
-                      />
+                      /></>)}
+
+                    
                     </TableCell>
                   </TableRow>
                 ))}

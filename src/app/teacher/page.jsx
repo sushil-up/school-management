@@ -57,6 +57,7 @@ const Teacher = () => {
     const updatedData = teacherData.filter((item, i) => item.id !== deleteIndex);
     setTeacherData(updatedData);
     setDeleteOpenModal(false)
+    successMsg("Teacher information has been successfully deleted.")
   }
   const handleDelete = (item) => {
   setDeleteIndex(item.id)

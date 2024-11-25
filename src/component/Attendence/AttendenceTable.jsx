@@ -1,6 +1,6 @@
 import { Button, Container, Table, Typography } from "@mui/joy";
 import { TableBody, TableCell, TableHead, TableRow } from "@mui/material";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import FormInputSelect from "../shared/form/FormInputSelect";
 import dayjs from "dayjs";
@@ -16,6 +16,7 @@ const AttendenceTable = ({ student, formdata, open, setOpen }) => {
   const router = useRouter();
   const id = uuidv4();
   const onSubmit = (data) => {
+    console.log("attendencefirst",data)
     const attendence = student.map((item) => ({
       name: item.name,
       class: item.class,
@@ -23,14 +24,15 @@ const AttendenceTable = ({ student, formdata, open, setOpen }) => {
       rollno: item.rollno,
       date: date,
       id: item.id,
-      attendanceStatus: data[`attendance_status_${item.name}`],
+      attendanceStatus: data[`attendance_status_${item.id}`],
     }));
+    console.log("attendence",attendence)
     const storedData = [...studentAttendence, ...attendence];
     setStudentAttendence(storedData);
     setOpen(false);
     reset();
     successMsg("Attendance has been recorded successfully");
-    router.replace(routesUrl.viewAttendence);
+    // router.replace(routesUrl.viewAttendence);
   };
   return (
     <>
@@ -66,9 +68,9 @@ const AttendenceTable = ({ student, formdata, open, setOpen }) => {
                       <TableCell>
                         <FormInputSelect
                           control={control}
-                          name={`attendance_status_${item.name}`}
+                          name={`attendance_status_${item.id}`}
                           label="Mark Attendance"
-                          options={["Present", "Absent", "Leave"]}
+                          options={["Present", "Absent", `Leave `]}
                           className="mt-4 w-44"
                         />
                       </TableCell>
