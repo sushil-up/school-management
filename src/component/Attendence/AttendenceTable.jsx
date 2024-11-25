@@ -16,17 +16,17 @@ const AttendenceTable = ({ student, formdata, open, setOpen }) => {
   const router = useRouter();
   const id = uuidv4();
   const onSubmit = (data) => {
-    console.log("attendencefirst",data)
-    const attendence = student.map((item) => ({
-      name: item.name,
-      class: item.class,
-      section: item.section,
-      rollno: item.rollno,
-      date: date,
-      id: item.id,
-      attendanceStatus: data[`attendance_status_${item.id}`],
-    }));
-    console.log("attendence",attendence)
+    const attendence = student.map((item) => {
+      const dataid = uuidv4()
+      return {
+        date: date,
+        ...item,
+        studentid: item.studentid,
+        attendanceStatus: data[`attendance_status_${item.studentid}`],
+        id:dataid
+      };
+    });
+    console.log("attendence", attendence);
     const storedData = [...studentAttendence, ...attendence];
     setStudentAttendence(storedData);
     setOpen(false);
@@ -60,7 +60,7 @@ const AttendenceTable = ({ student, formdata, open, setOpen }) => {
                 </TableHead>
                 <TableBody>
                   {student?.map((item) => (
-                    <TableRow key={item.id}>
+                    <TableRow key={item.studentid}>
                       <TableCell>{item.name}</TableCell>
                       <TableCell>{item.class}</TableCell>
                       <TableCell>{item.rollno}</TableCell>
@@ -68,7 +68,8 @@ const AttendenceTable = ({ student, formdata, open, setOpen }) => {
                       <TableCell>
                         <FormInputSelect
                           control={control}
-                          name={`attendance_status_${item.id}`}
+                          name={`attendance_status_${item.studentid}`}
+                          attendenceid={`attendence_id_${id}`}
                           label="Mark Attendance"
                           options={["Present", "Absent", `Leave `]}
                           className="mt-4 w-44"

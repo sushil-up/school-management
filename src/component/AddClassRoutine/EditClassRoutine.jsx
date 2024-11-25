@@ -73,10 +73,10 @@ const EditClassRoutine = ({ control }) => {
           <br />
           <FormSelect
             control={control}
-            className="mt-4  "
+            className="mt-4 "
             name="teacher"
             label="Select Teacher"
-            options={teacherData}
+            options={teacherData.map((item)=>item?.name)}
           />
           <br />
           <Button

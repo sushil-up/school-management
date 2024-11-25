@@ -11,10 +11,11 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import dayjs from "dayjs";
-import { Box, Button, Container } from "@mui/joy";
+import { Box, Button, Container, Tooltip } from "@mui/joy";
 import FormInputSelect from "../shared/form/FormInputSelect";
 import { selectclass } from "../SelectClass";
 import { useForm } from "react-hook-form";
+import { useSession } from "next-auth/react";
 
 const StudentTable = ({ studentData, handleDelete, handleEdit, isLoading }) => {
   const [page, setPage] = React.useState(0);
@@ -27,6 +28,7 @@ const StudentTable = ({ studentData, handleDelete, handleEdit, isLoading }) => {
       section: "All",
     },
   });
+  const { data: session } = useSession();
   const onSubmit = (data) => {
     setFormdata(data);
     reset();
@@ -88,13 +90,15 @@ const StudentTable = ({ studentData, handleDelete, handleEdit, isLoading }) => {
             </div>
           </form>
         </Box>
-        <Table >
+        <Table>
           <TableHead>
             <TableRow>
               <TableCell className="font-bold text-base">Name</TableCell>
               <TableCell className="font-bold text-base">Father Name</TableCell>
               <TableCell className="font-bold text-base">Mother Name</TableCell>
-              <TableCell className="font-bold text-base">Class & Section</TableCell>
+              <TableCell className="font-bold text-base">
+                Class & Section
+              </TableCell>
               <TableCell className="font-bold text-base">Roll No</TableCell>
               <TableCell className="font-bold text-base">DOB</TableCell>
               <TableCell className="font-bold text-base">Gender</TableCell>
@@ -118,17 +122,41 @@ const StudentTable = ({ studentData, handleDelete, handleEdit, isLoading }) => {
                     </TableCell>
                     <TableCell>{item.gender}</TableCell>
                     <TableCell>{item.address}</TableCell>
-                    <TableCell>
-                      <DeleteIcon
-                        className="text-red-500"
-                        onClick={() => handleDelete(item)}
-                      />
+                    {session?.user?.role === "student" ? (
+                      <>
+                        <TableCell  >
+                          <Tooltip
+                          arrow
+                          placement="top-start"
+                          title="You are not authorized to delete">
+                            <DeleteIcon className="text-red-500" />
+                          </Tooltip>
+                          <Tooltip
+                          arrow
+                          placement="top-start"
+                          title="You are not authorized to edit">
+                            <EditIcon
+                              className="text-green-500"
+                            />
+                          </Tooltip>
+                        </TableCell>
+                      </>
+                    ) : (
+                      <>
+                        {" "}
+                        <TableCell>
+                          <DeleteIcon
+                            className="text-red-500"
+                            onClick={() => handleDelete(item)}
+                          />
 
-                      <EditIcon
-                        className="text-green-500"
-                        onClick={() => handleEdit(item)}
-                      />
-                    </TableCell>
+                          <EditIcon
+                            className="text-green-500"
+                            onClick={() => handleEdit(item)}
+                          />
+                        </TableCell>
+                      </>
+                    )}
                   </TableRow>
                 ))
             ) : (

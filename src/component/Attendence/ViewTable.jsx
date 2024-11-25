@@ -1,5 +1,5 @@
 "use client";
-import { Container,  } from "@mui/joy";
+import { Container } from "@mui/joy";
 import {
   Table,
   TableBody,
@@ -24,10 +24,10 @@ const ViewTable = ({ student }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [deleteOpenModal, setDeleteOpenModal] = useState(false);
-  const [deleteIndex,setDeleteIndex]=useState(null)
-  const [edit,setEdit]=useState(null)
-  console.log("editIndex",editIndex)
-  const {data:session}= useSession()
+  const [deleteIndex, setDeleteIndex] = useState(null);
+  const [edit, setEdit] = useState(null);
+  console.log("editIndex", editIndex);
+  const { data: session } = useSession();
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -40,14 +40,16 @@ const ViewTable = ({ student }) => {
     setDeleteIndex(item.id);
   };
   const onDelete = () => {
-    const updatedData = studentAttendence?.filter((item, i) => item.id !== deleteIndex);
+    const updatedData = studentAttendence?.filter(
+      (item, i) => item.id !== deleteIndex
+    );
     setStudentAttendence(updatedData);
     successMsg("Success! The attendance record was deleted.");
     setDeleteOpenModal(false);
   };
   const handleEdit = (item) => {
     setEditIndex(item.id);
-    setEdit(item)
+    setEdit(item);
     setOpen(true);
   };
   const handleClose = () => {
@@ -60,14 +62,16 @@ const ViewTable = ({ student }) => {
   return (
     <>
       <Container className="attendance-form bg-slate-50 mt-5 border-4 shadow-md rounded-lg border-white">
-        <Table >
+        <Table>
           <TableHead>
             <TableRow>
-              <TableCell className="font-bold text-base" >Name</TableCell>
+              <TableCell className="font-bold text-base">Name</TableCell>
               <TableCell className="font-bold text-base">Roll No</TableCell>
               <TableCell className="font-bold text-base">Class</TableCell>
               <TableCell className="font-bold text-base">Section</TableCell>
-              <TableCell className="font-bold text-base">Attendence Status</TableCell>
+              <TableCell className="font-bold text-base">
+                Attendence Status
+              </TableCell>
               <TableCell className="font-bold text-base">Action</TableCell>
             </TableRow>
           </TableHead>
@@ -77,29 +81,41 @@ const ViewTable = ({ student }) => {
                 {" "}
                 {student?.map((item, index) => (
                   <TableRow key={item.id}>
-                    <TableCell>{item.name}</TableCell>
-                    <TableCell>{item.rollno}</TableCell>
-                    <TableCell>{item.class}</TableCell>
-                    <TableCell>{item.section}</TableCell>
-                    <TableCell>{item.attendanceStatus}</TableCell>
+                    <TableCell>{item?.name}</TableCell>
+                    <TableCell>{item?.rollno}</TableCell>
+                    <TableCell>{item?.class}</TableCell>
+                    <TableCell>{item?.section}</TableCell>
+                    <TableCell>{item?.attendanceStatus}</TableCell>
                     <TableCell>
-                      {session?.user?.role==="student"?(<> 
-                   
-                       <DeleteIcon
-                        className="text-red-500"
-                      />
-                      <EditIcon
-                        className="text-green-500"
-                      /></>):(<>  <DeleteIcon
-                        className="text-red-500"
-                        onClick={() => handleDelete(item)}
-                      />
-                      <EditIcon
-                        className="text-green-500"
-                        onClick={() => handleEdit(item)}
-                      /></>)}
-
-                    
+                      {session?.user?.role === "student" ? (
+                        <>
+                          <Tooltip
+                            arrow
+                            placement="top-start"
+                            title="You are not authorized to edit"
+                          >
+                            <DeleteIcon className="text-red-500" />
+                          </Tooltip>
+                          <Tooltip
+                            arrow
+                            placement="top-start"
+                            title="You are not authorized to edit"
+                          >
+                            <EditIcon className="text-green-500" />
+                          </Tooltip>
+                        </>
+                      ) : (
+                        <>
+                          <DeleteIcon
+                            className="text-red-500"
+                            onClick={() => handleDelete(item)}
+                          />
+                          <EditIcon
+                            className="text-green-500"
+                            onClick={() => handleEdit(item)}
+                          />
+                        </>
+                      )}
                     </TableCell>
                   </TableRow>
                 ))}

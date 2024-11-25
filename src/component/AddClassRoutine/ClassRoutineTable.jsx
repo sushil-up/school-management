@@ -1,6 +1,6 @@
 "use client";
 import UserContext from "@/context/UserContext";
-import { Box, Button, Container,  Typography } from "@mui/joy";
+import { Box, Button, Container, Typography } from "@mui/joy";
 import {
   Table,
   TableBody,
@@ -20,6 +20,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import ClassRoutineEdit from "./ClassRoutineEdit";
 import DeleteModal from "../Modal/DeleteModal";
 import { successMsg } from "../Toastmsg/toaster";
+import { useSession } from "next-auth/react";
 const ClassRoutineTable = () => {
   const { timeTable, setTimeTable } = useContext(UserContext);
   const [search, setSearch] = useState();
@@ -32,7 +33,7 @@ const ClassRoutineTable = () => {
   const [editindex, setEditIndex] = useState(null);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [edit,setEdit]=useState()
+  const [edit, setEdit] = useState();
   const [open, setOpen] = useState(false);
   const { handleSubmit, control } = useForm({
     defaultValues: {
@@ -43,6 +44,7 @@ const ClassRoutineTable = () => {
   const onSubmit = (data) => {
     setFormdata(data);
   };
+  const { data: session } = useSession();
   useEffect(() => {
     setSearch(formData);
     if (formData) {
@@ -58,7 +60,7 @@ const ClassRoutineTable = () => {
     const updatedData = timeTable.filter((item, i) => item.id !== deleteIndex);
     setTimeTable(updatedData);
     setDeleteOpenModal(false);
-    successMsg("Class schedule was deleted successfully.")
+    successMsg("Class schedule was deleted successfully.");
   };
   const handleDelete = (item) => {
     setDeleteIndex(item.id);
@@ -69,7 +71,7 @@ const ClassRoutineTable = () => {
   };
   const handleEdit = (item) => {
     setEditIndex(item.id);
-    setEdit(item)
+    setEdit(item);
     setOpen(true);
   };
   const handleChangePage = (event, newPage) => {
@@ -115,14 +117,16 @@ const ClassRoutineTable = () => {
               </div>
             </form>
           </Box>
-          <br/>
+          <br />
           <Table>
             <TableHead>
               <TableRow>
                 <TableCell className="font-bold text-base">Class</TableCell>
                 <TableCell className="font-bold text-base">Section</TableCell>
                 <TableCell className="font-bold text-base">Subject</TableCell>
-                <TableCell className="font-bold text-base">Start Time</TableCell>
+                <TableCell className="font-bold text-base">
+                  Start Time
+                </TableCell>
                 <TableCell className="font-bold text-base">End Time</TableCell>
                 <TableCell className="font-bold text-base">Days</TableCell>
                 <TableCell className="font-bold text-base">Teacher</TableCell>
@@ -154,15 +158,33 @@ const ClassRoutineTable = () => {
                       </TableCell>
                       <TableCell>{item.teacher}</TableCell>
                       <TableCell>
-                        {" "}
-                        <DeleteIcon
-                          className="text-red-500"
-                          onClick={() => handleDelete(item)}
-                        />
-                        <EditIcon
-                          className="text-green-500"
-                          onClick={() => handleEdit(item)}
-                        />
+                        {session?.user?.role === "studet" ? (
+                          <>
+                            <Tooltip
+                                arrow
+                                placement="top-start"
+                                title="You are not authorized to delete">
+                              <DeleteIcon className="text-red-500" />
+                            </Tooltip>
+                            <Tooltip
+                                arrow
+                                placement="top-start"
+                                title="You are not authorized to edit">
+                              <EditIcon className="text-green-500" />
+                            </Tooltip>
+                          </>
+                        ) : (
+                          <>
+                            <DeleteIcon
+                              className="text-red-500"
+                              onClick={() => handleDelete(item)}
+                            />
+                            <EditIcon
+                              className="text-green-500"
+                              onClick={() => handleEdit(item)}
+                            />
+                          </>
+                        )}
                       </TableCell>
                     </TableRow>
                   ))}
@@ -195,7 +217,6 @@ const ClassRoutineTable = () => {
         edit={edit}
         handleClose={handleClose}
         editindex={editindex}
-        
       />
       <DeleteModal
         onDelete={onDelete}

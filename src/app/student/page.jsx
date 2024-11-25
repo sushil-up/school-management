@@ -7,10 +7,11 @@ import { StudentValidation } from "@/component/Validation/StudentValidation";
 import UserContext from "@/context/UserContext";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Container } from "@mui/joy";
-import {  Button } from "@mui/material";
-import React, { useContext,  useState } from "react";
+import { Button } from "@mui/material";
+import { useSession } from "next-auth/react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 const Student = () => {
   const {
     control,
@@ -31,21 +32,21 @@ const Student = () => {
       address: "",
     },
   });
-
+  const { data: session } = useSession();
   const { studentData, setStudentData } = useContext(UserContext);
   const [editIndex, setEditIndex] = useState(null);
   const [openForm, setOpenForm] = useState(false);
   const [update, setUpdate] = useState(false);
   const [deleteOpenModal, setDeleteOpenModal] = useState(false);
-  const [deleteIndex,setDeleteIndex]=useState(null)
-  const id= uuidv4()
+  const [deleteIndex, setDeleteIndex] = useState(null);
+  const studentid = uuidv4();
   const onSubmit = (formData) => {
-    const setid = {...formData,id}
+    const setid = { ...formData, studentid }
     try {
       const storedData =
         editIndex !== null
           ? studentData?.map((item, index) =>
-              item.id === editIndex ? formData : item
+              item.studentid === editIndex ? formData : item
             )
           : [...studentData, setid];
       setEditIndex(null);
@@ -58,21 +59,22 @@ const Student = () => {
     } catch (error) {}
   };
   const handleDelete = (item) => {
- 
-    setDeleteIndex(item.id);
+    setDeleteIndex(item.studentid);
     setDeleteOpenModal(true);
   };
-  const onDelete=()=>{
-    const updatedData = studentData?.filter((item, i) =>item.id !== deleteIndex);
+  const onDelete = () => {
+    const updatedData = studentData?.filter(
+      (item, i) => item.studentid !== deleteIndex
+    );
     setStudentData(updatedData);
-    setDeleteOpenModal(false)
+    setDeleteOpenModal(false);
     successMsg("Student deleted successfully");
-  }
+  };
   const deleteHandleModalClose = () => {
     setDeleteOpenModal(false);
   };
   const handleEdit = (item) => {
-    setEditIndex(item.id);
+    setEditIndex(item.studentid);
     reset(item);
     setOpenForm(true);
     setUpdate(true);
@@ -99,7 +101,7 @@ const Student = () => {
     <>
       <Container>
         <div className="grid justify-items-end ">
-          {openForm === true ? (
+          {openForm === true || session?.user?.role === "student" ? (
             <></>
           ) : (
             <>

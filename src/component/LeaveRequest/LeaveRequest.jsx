@@ -19,7 +19,7 @@ import FormSelect from "../shared/form/FormSelect";
 export const LeaveRequest = ({handleChange, value,control,errors}) => {
   const {teacherData}= useContext(UserContext)
  const {data:session}=useSession()
- const techData= teacherData.filter((item)=>item.email===session?.user?.email)
+ const techData= teacherData.filter((item)=>item?.email===session?.user?.email)
   return (
     <>
     <Container className="bg-slate-50 mt-5 border-4 shadow-md rounded-lg border-white">

@@ -34,13 +34,13 @@ const FormInputSelect = ({
               label={label}
               helperText={errors?.[name]?.message}
               onChange={(e) => {
-                field.onChange(e); 
+                field?.onChange(e); 
                 onChange?.(e);
               }}
             >
               {options?.map((option, index) => (
                 <MenuItem key={index} value={option} className="capitalize">
-                  {option}{option.value}
+                  {option}{option?.value}
                 </MenuItem>
                 
               ))}

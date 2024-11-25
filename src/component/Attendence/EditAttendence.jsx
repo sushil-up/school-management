@@ -7,7 +7,14 @@ import { useForm } from "react-hook-form";
 import FormInputSelect from "../shared/form/FormInputSelect";
 import { successMsg } from "../Toastmsg/toaster";
 import { v4 as uuidv4 } from "uuid";
-const EditAttendence = ({ handleClose, open, editIndex ,setEditIndex,edit,setEdit}) => {
+const EditAttendence = ({
+  handleClose,
+  open,
+  editIndex,
+  setEditIndex,
+  edit,
+  setEdit,
+}) => {
   const style = {
     position: "absolute",
     top: "50%",
@@ -23,34 +30,29 @@ const EditAttendence = ({ handleClose, open, editIndex ,setEditIndex,edit,setEdi
   };
   const { studentAttendence, setStudentAttendence } = useContext(UserContext);
   const [data, setData] = useState();
-  const id =uuidv4()
   const { handleSubmit, control, reset } = useForm();
   useEffect(() => {
     if (editIndex !== null) {
       const resetData = edit;
       setData(resetData);
     }
-  }, [editIndex,edit]);
+  }, [editIndex, edit]);
   const onSubmit = (attData) => {
     const attendence = {
-      name: data?.name,
-      class: data?.class,
-      section: data?.section,
-      rollno: data?.rollno,
+      ...data,
       date: data?.date,
-      id:id,
+      id: data?.id,
       attendanceStatus: attData?.attendance_status,
-
     };
     const updateData = studentAttendence.map((item) =>
       item.id == editIndex ? attendence : item
     );
-    setData(null)
-    setStudentAttendence(updateData)
-    setEditIndex(null)
+    setData(null);
+    setStudentAttendence(updateData);
+    setEditIndex(null);
     handleClose();
-    successMsg("The attendance record was edited successfully!")
-    reset()
+    successMsg("The attendance record was edited successfully!");
+    reset();
   };
   return (
     <>

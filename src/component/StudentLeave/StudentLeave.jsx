@@ -74,7 +74,7 @@ const StudentLeave = ({ handleChange, value, control, editIndex, errors }) => {
                 className="mt-4 w-56"
                 name="class"
                 label="Select Class"
-                onChange={(e) => setStoreClass(e.target.value)}
+                onChange={(e) => setStoreClass(e?.target?.value)}
                 options={selectclass}
               />
             </FormControl>
@@ -85,7 +85,7 @@ const StudentLeave = ({ handleChange, value, control, editIndex, errors }) => {
                 name="section"
                 label="Select Section"
                 options={["A", "B", "C"]}
-                onChange={(e) => setStoreSection(e.target.value)}
+                onChange={(e) => setStoreSection(e?.target?.value)}
                 errors={errors}
               />
             </FormControl>
@@ -95,7 +95,7 @@ const StudentLeave = ({ handleChange, value, control, editIndex, errors }) => {
                 className="mt-4 w-56 ml-2"
                 name="name"
                 label="Select Name"
-                options={rollno?.map((item)=>item.name)}
+                options={rollno?.map((item)=>item?.name)}
                 errors={errors}
               />
             </FormControl>
@@ -105,7 +105,7 @@ const StudentLeave = ({ handleChange, value, control, editIndex, errors }) => {
                 className="mt-4 w-56 ml-2"
                 name="rollno"
                 label="Select Rollno"
-                options={rollno?.map((item)=>item.rollno)}
+                options={rollno?.map((item)=>item?.rollno)}
                 errors={errors}
               />
             </FormControl>

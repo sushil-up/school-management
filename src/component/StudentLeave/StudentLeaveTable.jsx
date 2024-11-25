@@ -1,6 +1,6 @@
 "use client";
 import UserContext from "@/context/UserContext";
-import { Container, Typography } from "@mui/joy";
+import { Container, Tooltip, Typography } from "@mui/joy";
 import {
   Table,
   TableBody,
@@ -13,15 +13,17 @@ import dayjs from "dayjs";
 import React, { useContext, useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import { useSession } from "next-auth/react";
 const LeaveTable = ({ handleDelete, handleEdit }) => {
   const { studentleave } = useContext(UserContext);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const { data: session } = useSession();
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
   const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
+    setRowsPerPage(+event?.target?.value);
     setPage(0);
   };
   return (
@@ -37,7 +39,9 @@ const LeaveTable = ({ handleDelete, handleEdit }) => {
             <TableRow>
               <TableCell className="font-bold text-base">Name</TableCell>
               <TableCell className="font-bold text-base">Roll No</TableCell>
-              <TableCell className="font-bold text-base">Class&Section</TableCell>
+              <TableCell className="font-bold text-base">
+                Class&Section
+              </TableCell>
               <TableCell className="font-bold text-base">Leave Date</TableCell>
               <TableCell className="font-bold text-base">Reason</TableCell>
               <TableCell className="font-bold text-base">
@@ -53,26 +57,47 @@ const LeaveTable = ({ handleDelete, handleEdit }) => {
                 {studentleave?.map((item, index) => (
                   <>
                     <TableRow key={index}>
-                    <TableCell>{item.name}</TableCell>
-                    <TableCell>{item.rollno}</TableCell>
-                    <TableCell>{item.class}&{item.section}</TableCell>
+                      <TableCell>{item?.name}</TableCell>
+                      <TableCell>{item?.rollno}</TableCell>
                       <TableCell>
-                        {item.multileave
-                          ? `${dayjs(item.multileave[0]).format("YYYY-MM-DD")} to ${dayjs(item.multileave[1]).format("YYYY-MM-DD")}`
-                          : dayjs(item.leavedate).format("YYYY-MM-DD")}
+                        {item?.class}&{item?.section}
                       </TableCell>
-                          <TableCell>{item.reason}</TableCell>
-                      <TableCell>{item.status}</TableCell>
                       <TableCell>
-                        <DeleteIcon
-                          className="text-red-500"
-                          onClick={() => handleDelete(item)}
-                        />
-
-                        <EditIcon
-                          className="text-green-500"
-                          onClick={() => handleEdit(item)}
-                        />
+                        {item?.multileave
+                          ? `${dayjs(item?.multileave[0]).format("YYYY-MM-DD")} to ${dayjs(item?.multileave[1]).format("YYYY-MM-DD")}`
+                          : dayjs(item?.leavedate).format("YYYY-MM-DD")}
+                      </TableCell>
+                      <TableCell>{item?.reason}</TableCell>
+                      <TableCell>{item?.status}</TableCell>
+                      <TableCell>
+                        {session?.user?.role === "student" ? (
+                          <>
+                            <Tooltip
+                                arrow
+                                placement="top-start"
+                                title="You are not authorized to delete">
+                              <DeleteIcon className="text-red-500" />
+                            </Tooltip>
+                            <Tooltip
+                                arrow
+                                placement="top-start"
+                                title="You are not authorized to edit">
+                              <EditIcon className="text-green-500" />
+                            </Tooltip>
+                          </>
+                        ) : (
+                          <>
+                            {" "}
+                            <DeleteIcon
+                              className="text-red-500"
+                              onClick={() => handleDelete(item)}
+                            />
+                            <EditIcon
+                              className="text-green-500"
+                              onClick={() => handleEdit(item)}
+                            />
+                          </>
+                        )}
                       </TableCell>
                     </TableRow>
                   </>

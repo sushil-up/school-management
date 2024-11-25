@@ -25,13 +25,16 @@ const Page = () => {
   const [editIndex, setEditIndex] = useState(null);
   const [value, setValue] = useState();
   const id = uuidv4();
+  const handleChange = (event) => {
+    setValue(event?.target?.value);
+    reset()
+  };
   const onSubmit = (data) => {
-    console.log("data",data)
     const setid = { ...data, id };
     try {
       const storedData =
       editIndex !== null
-      ? studentleave.map((item) => (item.id === editIndex ? data : item))
+      ? studentleave?.map((item) => (item?.id === editIndex ? data : item))
       : [...studentleave, setid];
       setEditIndex(null);
       setStudentLeave(storedData);
@@ -43,10 +46,6 @@ const Page = () => {
     } catch (error) {}
     reset();
   };
-  const handleChange = (event) => {
-    setValue(event.target.value);
-    reset()
-  };
   const handleEdit = (item) => {
     setEditIndex(item.id);
     setOpen(true);
@@ -54,7 +53,7 @@ const Page = () => {
   };
   const onDelete = () => {
     const updatedData = studentleave.filter(
-      (item, i) => item.id !== deleteIndex
+      (item, i) => item?.id !== deleteIndex
     );
     setStudentLeave(updatedData);
     successMsg("Student leave deleted successfully");

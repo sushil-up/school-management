@@ -83,7 +83,7 @@ const TimeTable = ({ control ,errors}) => {
               className="mt-4 w-56 ml-2"
               name="teacher"
               label="Select Teacher"
-              options={teacherData}
+              options={teacherData?.map((item)=>item?.name)}
               errors={errors}
             />
           </div>
