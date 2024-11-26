@@ -53,10 +53,9 @@ const LeaveTable = ({ handleDelete, handleEdit }) => {
           <TableBody>
             {studentleave.length > 0 ? (
               <>
-                {" "}
-                {studentleave?.map((item, index) => (
+                {studentleave?.map((item) => (
                   <>
-                    <TableRow key={index}>
+                    <TableRow key={item?.id}>
                       <TableCell>{item?.name}</TableCell>
                       <TableCell>{item?.rollno}</TableCell>
                       <TableCell>
@@ -73,21 +72,22 @@ const LeaveTable = ({ handleDelete, handleEdit }) => {
                         {session?.user?.role === "student" ? (
                           <>
                             <Tooltip
-                                arrow
-                                placement="top-start"
-                                title="You are not authorized to delete">
+                              arrow
+                              placement="top-start"
+                              title="You are not authorized to delete"
+                            >
                               <DeleteIcon className="text-red-500" />
                             </Tooltip>
                             <Tooltip
-                                arrow
-                                placement="top-start"
-                                title="You are not authorized to edit">
+                              arrow
+                              placement="top-start"
+                              title="You are not authorized to edit"
+                            >
                               <EditIcon className="text-green-500" />
                             </Tooltip>
                           </>
                         ) : (
                           <>
-                            {" "}
                             <DeleteIcon
                               className="text-red-500"
                               onClick={() => handleDelete(item)}

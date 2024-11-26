@@ -20,8 +20,6 @@ const FormInputSelect = ({
         <Controller
           name={name}
           control={control}
-          error={!!errors?.[name]}
-          helperText={errors?.[name]?.message}
           defaultValue={defaultValue || ""}
           render={({ field }) => (
             <Select
@@ -32,7 +30,7 @@ const FormInputSelect = ({
               value={field?.value||(multiple?[]:"")}
               error={!!errors?.[name]}
               label={label}
-              helperText={errors?.[name]?.message}
+              helpertext={errors?.[name]?.message}
               onChange={(e) => {
                 field?.onChange(e); 
                 onChange?.(e);

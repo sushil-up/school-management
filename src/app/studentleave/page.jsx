@@ -27,20 +27,20 @@ const Page = () => {
   const id = uuidv4();
   const handleChange = (event) => {
     setValue(event?.target?.value);
-    reset()
+    reset();
   };
   const onSubmit = (data) => {
     const setid = { ...data, id };
     try {
       const storedData =
-      editIndex !== null
-      ? studentleave?.map((item) => (item?.id === editIndex ? data : item))
-      : [...studentleave, setid];
+        editIndex !== null
+          ? studentleave?.map((item) => (item?.id === editIndex ? data : item))
+          : [...studentleave, setid];
       setEditIndex(null);
       setStudentLeave(storedData);
       editIndex !== null
-      ? successMsg("Student leave edited successfully")
-      : successMsg("Student leave added successfully");
+        ? successMsg("Student leave edited successfully")
+        : successMsg("Student leave added successfully");
       reset();
       setOpen(false);
     } catch (error) {}
@@ -49,6 +49,13 @@ const Page = () => {
   const handleEdit = (item) => {
     setEditIndex(item.id);
     setOpen(true);
+    setValue(
+      item?.leavedate !== undefined
+        ? "singleday"
+        : item?.multileave !== undefined
+          ? "multipledays"
+          : "singleday"
+    );
     reset(item);
   };
   const onDelete = () => {

@@ -1,4 +1,4 @@
-import { Container } from "@mui/joy";
+import { Container, Tooltip } from "@mui/joy";
 import {
   Table,
   TableBody,
@@ -6,6 +6,7 @@ import {
   TableHead,
   TablePagination,
   TableRow,
+  
 } from "@mui/material";
 import React, { useContext, useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -15,6 +16,7 @@ import dayjs from "dayjs";
 import EditExam from "./EditExam";
 import DeleteModal from "../Modal/DeleteModal";
 import { successMsg } from "../Toastmsg/toaster";
+import { useSession } from "next-auth/react";
 
 const ExamTable = ({ tableData }) => {
   const { examination, setExamination } = useContext(UserContext);
@@ -25,6 +27,7 @@ const ExamTable = ({ tableData }) => {
   const [open, setOpen] = useState(false);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const { data: session } = useSession();
   const onDelete = () => {
     const updatedData = examination.filter((item) => item.id !== deleteIndex);
     setExamination(updatedData);
@@ -85,15 +88,35 @@ const ExamTable = ({ tableData }) => {
                       {new Date(item.exam_time).toLocaleTimeString()}
                     </TableCell>
                     <TableCell>
-                      <DeleteIcon
-                        className="text-red-500"
-                        onClick={() => handleDelete(item)}
-                      />
-
-                      <EditIcon
-                        className="text-green-500"
-                        onClick={() => handleEdit(item)}
-                      />
+                      {session?.user?.role === "student" ? (
+                        <>
+                          <Tooltip
+                            arrow
+                            placement="top-start"
+                            title="You are not authorized to delete"
+                          >
+                            <DeleteIcon className="text-red-500" />
+                          </Tooltip>
+                          <Tooltip
+                            arrow
+                            placement="top-start"
+                            title="You are not authorized to edit"
+                          >
+                            <EditIcon className="text-green-500" />
+                          </Tooltip>
+                        </>
+                      ) : (
+                        <>
+                          <DeleteIcon
+                            className="text-red-500"
+                            onClick={() => handleDelete(item)}
+                          />
+                          <EditIcon
+                            className="text-green-500"
+                            onClick={() => handleEdit(item)}
+                          />
+                        </>
+                      )}
                     </TableCell>
                   </TableRow>
                 ))}

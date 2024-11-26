@@ -105,15 +105,14 @@ const Student = () => {
             <></>
           ) : (
             <>
-              {" "}
               <Button
                 onClick={handleOpen}
                 className="btn mt-4 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600"
               >
-                Add Student{" "}
+                Add Student
               </Button>
             </>
-          )}{" "}
+          )}
         </div>
         {openForm === true ? (
           <>

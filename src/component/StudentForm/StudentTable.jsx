@@ -110,8 +110,8 @@ const StudentTable = ({ studentData, handleDelete, handleEdit, isLoading }) => {
             {tabledata?.length > 0 ? (
               tabledata
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((item, index) => (
-                  <TableRow key={index}>
+                .map((item) => (
+                  <TableRow key={item?.studentid}>
                     <TableCell>{item.name}</TableCell>
                     <TableCell>{item.fathername}</TableCell>
                     <TableCell>{item.mothername}</TableCell>
@@ -123,50 +123,42 @@ const StudentTable = ({ studentData, handleDelete, handleEdit, isLoading }) => {
                     <TableCell>{item.gender}</TableCell>
                     <TableCell>{item.address}</TableCell>
                     {session?.user?.role === "student" ? (
-                      <>
-                        <TableCell  >
-                          <Tooltip
+                      <TableCell>
+                        <Tooltip
                           arrow
                           placement="top-start"
-                          title="You are not authorized to delete">
-                            <DeleteIcon className="text-red-500" />
-                          </Tooltip>
-                          <Tooltip
+                          title="You are not authorized to delete"
+                        >
+                          <DeleteIcon className="text-red-500" />
+                        </Tooltip>
+                        <Tooltip
                           arrow
                           placement="top-start"
-                          title="You are not authorized to edit">
-                            <EditIcon
-                              className="text-green-500"
-                            />
-                          </Tooltip>
-                        </TableCell>
-                      </>
+                          title="You are not authorized to edit"
+                        >
+                          <EditIcon className="text-green-500" />
+                        </Tooltip>
+                      </TableCell>
                     ) : (
-                      <>
-                        {" "}
-                        <TableCell>
-                          <DeleteIcon
-                            className="text-red-500"
-                            onClick={() => handleDelete(item)}
-                          />
-
-                          <EditIcon
-                            className="text-green-500"
-                            onClick={() => handleEdit(item)}
-                          />
-                        </TableCell>
-                      </>
+                      <TableCell>
+                        <DeleteIcon
+                          className="text-red-500"
+                          onClick={() => handleDelete(item)}
+                        />
+                        <EditIcon
+                          className="text-green-500"
+                          onClick={() => handleEdit(item)}
+                        />
+                      </TableCell>
                     )}
                   </TableRow>
                 ))
             ) : (
-              <>
-                <TableRow>
-                  <TableCell colSpan={9} className="text-center">
-                    {`  No user data is available`}
-                  </TableCell>
-                </TableRow>
-              </>
+              <TableRow >
+                <TableCell colSpan={9} className="text-center">
+                  {`  No user data is available`}
+                </TableCell>
+              </TableRow>
             )}
           </TableBody>
         </Table>

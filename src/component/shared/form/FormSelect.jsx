@@ -19,8 +19,6 @@ const FormSelect = ({
         <Controller
           name={name}
           control={control}
-          error={!!errors?.[name]}
-          helperText={errors?.[name]?.message}
           defaultValue={defaultValue || ""}
           render={({ field }) => (
             <Select
@@ -29,7 +27,7 @@ const FormSelect = ({
               className={className}
               {...field}
               error={!!errors?.[name]}
-              helperText={errors?.[name]?.message}
+              helpertext={errors?.[name]?.message}
               onChange={(e) => {
                 field.onChange(e); 
                 onChange?.(e);
@@ -43,7 +41,7 @@ const FormSelect = ({
                 >
                   {option}
                 </MenuItem>
-              ))}rollno
+              ))}
             </Select>
           )}
         />

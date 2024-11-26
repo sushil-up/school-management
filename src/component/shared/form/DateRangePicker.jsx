@@ -30,7 +30,7 @@ export default function DateRangeSelect({
                 field.onChange(date);
               }}
               error={!!errors?.[name]}
-              helperText={errors?.[name]?.message}
+              helpertext={errors?.[name]?.message}
               renderInput={(startProps, endProps) => (
                 <>
                   <TextField

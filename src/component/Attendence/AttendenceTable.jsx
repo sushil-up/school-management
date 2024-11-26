@@ -26,13 +26,12 @@ const AttendenceTable = ({ student, formdata, open, setOpen }) => {
         id:dataid
       };
     });
-    console.log("attendence", attendence);
     const storedData = [...studentAttendence, ...attendence];
     setStudentAttendence(storedData);
     setOpen(false);
     reset();
     successMsg("Attendance has been recorded successfully");
-    // router.replace(routesUrl.viewAttendence);
+    router.replace(routesUrl.viewAttendence);
   };
   return (
     <>

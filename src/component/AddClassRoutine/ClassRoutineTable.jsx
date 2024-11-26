@@ -14,7 +14,6 @@ import React, { useContext, useEffect, useState } from "react";
 import FormInputSelect from "../shared/form/FormInputSelect";
 import { selectclass } from "../SelectClass";
 import { useForm } from "react-hook-form";
-import SearchIcon from "@mui/icons-material/Search";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import ClassRoutineEdit from "./ClassRoutineEdit";
@@ -107,12 +106,11 @@ const ClassRoutineTable = () => {
                   label="Select Section"
                   options={["A", "B", "C"]}
                 />
-
                 <Button
+                  className="ml-2 h-fit mt-5 border-4 bg-teal-400 rounded border-black "
                   type="submit"
-                  className="ml-2 h-fit mt-5 bg-white border-4 rounded border-black "
                 >
-                  <SearchIcon className="text-black" />
+                  Search
                 </Button>
               </div>
             </form>
@@ -158,18 +156,20 @@ const ClassRoutineTable = () => {
                       </TableCell>
                       <TableCell>{item.teacher}</TableCell>
                       <TableCell>
-                        {session?.user?.role === "studet" ? (
+                        {session?.user?.role === "student" ? (
                           <>
                             <Tooltip
-                                arrow
-                                placement="top-start"
-                                title="You are not authorized to delete">
+                              arrow
+                              placement="top-start"
+                              title="You are not authorized to delete"
+                            >
                               <DeleteIcon className="text-red-500" />
                             </Tooltip>
                             <Tooltip
-                                arrow
-                                placement="top-start"
-                                title="You are not authorized to edit">
+                              arrow
+                              placement="top-start"
+                              title="You are not authorized to edit"
+                            >
                               <EditIcon className="text-green-500" />
                             </Tooltip>
                           </>

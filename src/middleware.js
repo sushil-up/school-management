@@ -10,7 +10,7 @@ export const ProtectedRoutes = [
   routesUrl.viewAttendence,
   routesUrl.viewtimetable,
   routesUrl.exam,
-  routesUrl.examTable
+  routesUrl.examTable,
 ];
 export const UnprotectedRoutes = [routesUrl.signIn];
 

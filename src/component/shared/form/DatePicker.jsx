@@ -34,7 +34,7 @@ export default function DateSelect({
                 <TextField
                   {...params}
                   error={!!errors?.[name]}
-                  helperText={errors?.[name]?.message}
+                  helpertext={errors?.[name]?.message}
                 />
               )}
             />

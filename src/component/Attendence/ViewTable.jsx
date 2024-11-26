@@ -26,7 +26,6 @@ const ViewTable = ({ student }) => {
   const [deleteOpenModal, setDeleteOpenModal] = useState(false);
   const [deleteIndex, setDeleteIndex] = useState(null);
   const [edit, setEdit] = useState(null);
-  console.log("editIndex", editIndex);
   const { data: session } = useSession();
   const handleChangePage = (event, newPage) => {
     setPage(newPage);

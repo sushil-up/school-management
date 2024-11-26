@@ -52,16 +52,18 @@ const StudentLeave = ({ handleChange, value, control, editIndex, errors }) => {
               <RadioGroup
                 aria-labelledby="demo-controlled-radio-buttons-group"
                 name="controlled-radio-buttons-group"
-                value={value}
+                value={value }
                 onChange={handleChange}
               >
                 <FormControlLabel
                   value="singleday"
+                  name="singleday"
                   control={<Radio />}
                   label="Single Day"
                 />
                 <FormControlLabel
                   value="multipledays"
+                  name="multipledays"
                   control={<Radio />}
                   label="Multiple Days"
                 />
@@ -75,7 +77,8 @@ const StudentLeave = ({ handleChange, value, control, editIndex, errors }) => {
                 name="class"
                 label="Select Class"
                 onChange={(e) => setStoreClass(e?.target?.value)}
-                options={selectclass}
+                options={selectclass||[]}
+                errors={errors}
               />
             </FormControl>
             <FormControl>
@@ -165,5 +168,4 @@ const StudentLeave = ({ handleChange, value, control, editIndex, errors }) => {
     </>
   );
 };
-
 export default StudentLeave;

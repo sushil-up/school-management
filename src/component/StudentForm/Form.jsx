@@ -58,7 +58,6 @@ export default function Form({ control, update, handleClose, errors }) {
     setActiveStep(0);
     setCompleted({});
   };
-  console.log("first", activeStep);
   return (
     <Container>
       <Box sx={{ width: "100%" }}>

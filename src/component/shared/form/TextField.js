@@ -34,7 +34,7 @@ export default function FormInput({
             inputProps={{ min, max }}
             variant="outlined"
             error={!!errors?.[name]}
-            helperText={errors?.[name]?.message}
+            helpertext={errors?.[name]?.message}
           />
         )}
       />
