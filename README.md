@@ -23,7 +23,7 @@ Navigate to your project directory and install the necessary npm packages:
 
 ```bash
   npm install 
-  cd my-project
+  cd my-project                              
 ```
 
 ## Project Scope
