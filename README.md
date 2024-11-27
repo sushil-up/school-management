@@ -11,7 +11,6 @@ The School Management App streamlines your school's daily operations, offering a
 ### Data Management: 
   Securely store and manage essential school data with a user-friendly experience.
 Transform the way you manage your school operations with this all-in-one solution
-
 ## Build with
 * [Next js](https://nextjs.org/) - A React framework for server-side rendering and static site generation..
 * [MUI](https://mui.com/) - A comprehensive UI library.
@@ -39,20 +38,18 @@ Navigate to your project directory and install the necessary npm packages:
 ```
 
 ## Project Scope
-The scope of the Expense Tracker includes:
+The scope of the School Management includes:
 
-### Budget Management: 
-Users can set and adjust their monthly budgets.
-### Expense Tracking: 
-Users can log and categorize their expenditures.
-### Reporting Features:
-Provide visual insights into spending habits and budget adherence.
-### User Authentication: 
-Allow users to create accounts to save and manage their financial data securely.
-### Mobile Responsiveness:
-Ensure the application is accessible on various devices.
+### Student Management: 
+Add, view, and organize student records seamlessly.
+### Teacher Management:
+Create and manage teacher profiles and assignments.
+### Attendance Tracking:
+Maintain attendance records for students and teachers effectively.
+### Exam Scheduling:
+Set and adjust exam schedules efficiently.
 
-By adhering to this scope, the Expense Tracker will serve as a powerful tool for users aiming to achieve better financial management and stability.
+By addressing these areas, the School Management App serves as a comprehensive solution for modern schools.
 ## Conclusion
-The Expense Tracker provides a robust framework for managing your finances effectively. By integrating features such as budget management, expense tracking, and user authentication, this application empowers users to take control of their financial health.
+The School Management App provides an innovative framework for managing school operations efficiently. By integrating key features like student and teacher management, activity tracking, and real-time monitoring, it empowers school administrators to operate with ease and effectiveness.
 
