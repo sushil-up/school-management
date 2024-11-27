@@ -1,34 +1,42 @@
-import {  Button, Container, Table, Typography } from "@mui/joy";
+import { Button, Container, Table, Typography } from "@mui/joy";
 import { TableBody, TableCell, TableHead, TableRow } from "@mui/material";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import FormInputSelect from "../shared/form/FormInputSelect";
 import dayjs from "dayjs";
 import UserContext from "@/context/UserContext";
-
+import { useRouter } from "next/navigation";
+import { routesUrl } from "@/utils/pagesurl";
+import { successMsg } from "../Toastmsg/toaster";
+import { v4 as uuidv4 } from "uuid";
 const AttendenceTable = ({ student, formdata, open, setOpen }) => {
   const date = dayjs(formdata?.date).format("YYYY-MM-DD");
   const { studentAttendence, setStudentAttendence } = useContext(UserContext);
   const { handleSubmit, control, reset } = useForm();
+  const router = useRouter();
+  const id = uuidv4();
   const onSubmit = (data) => {
-    const attendence = student.map((item) => ({
-      name: item.name,
-      class: item.class,
-      section: item.section,
-      rollno: item.rollno,
-      date: date,
-      attendanceStatus: data[`attendance_status_${item.name}`],
-    }));
+    const attendence = student.map((item) => {
+      const dataid = uuidv4()
+      return {
+        date: date,
+        ...item,
+        studentid: item.studentid,
+        attendanceStatus: data[`attendance_status_${item.studentid}`],
+        id:dataid
+      };
+    });
     const storedData = [...studentAttendence, ...attendence];
     setStudentAttendence(storedData);
     setOpen(false);
     reset();
+    successMsg("Attendance has been recorded successfully");
+    router.replace(routesUrl.viewAttendence);
   };
   return (
     <>
       {student?.length !== 0 && open ? (
         <>
-          {" "}
           <Container className="attendance-form bg-slate-50 mt-5 border-4 shadow-md rounded-lg border-white">
             <Typography variant="h4" className="mb-4"></Typography>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -50,7 +58,7 @@ const AttendenceTable = ({ student, formdata, open, setOpen }) => {
                 </TableHead>
                 <TableBody>
                   {student?.map((item) => (
-                    <TableRow key={item.id}>
+                    <TableRow key={item.studentid}>
                       <TableCell>{item.name}</TableCell>
                       <TableCell>{item.class}</TableCell>
                       <TableCell>{item.rollno}</TableCell>
@@ -58,9 +66,10 @@ const AttendenceTable = ({ student, formdata, open, setOpen }) => {
                       <TableCell>
                         <FormInputSelect
                           control={control}
-                          name={`attendance_status_${item.name}`}
+                          name={`attendance_status_${item.studentid}`}
+                          attendenceid={`attendence_id_${id}`}
                           label="Mark Attendance"
-                          options={["Present", "Absent", "Leave"]}
+                          options={["Present", "Absent", `Leave `]}
                           className="mt-4 w-44"
                         />
                       </TableCell>
@@ -84,8 +93,8 @@ const AttendenceTable = ({ student, formdata, open, setOpen }) => {
           {open ? (
             <>
               <Container className="bg-slate-50 mt-5 border-4 shadow-md rounded-lg border-white text-center">
-                <Typography className="text-center" >
-                 {`Sorry, student data is not available right now. Please check back or contact support for assistance.`}
+                <Typography className="text-center">
+                  {`Sorry, student data is not available right now. Please check back or contact support for assistance.`}
                 </Typography>
               </Container>
             </>
@@ -93,7 +102,7 @@ const AttendenceTable = ({ student, formdata, open, setOpen }) => {
             <>
               <Container className="bg-slate-50 mt-5 border-4 shadow-md rounded-lg border-white text-center">
                 <Typography className="text-center">
-                Kindly choose your class and section before proceeding.
+                  Kindly choose your class and section before proceeding.
                 </Typography>
               </Container>
             </>

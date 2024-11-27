@@ -12,8 +12,15 @@ import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
 import FormInput from "../shared/form/TextField";
 import DateRangeSelect from "../shared/form/DateRangePicker";
 import DateSelect from "../shared/form/DatePicker";
-export const LeaveRequest = ({handleChange, value,control,editIndex}) => {
- 
+import { useSession } from "next-auth/react";
+import { useContext } from "react";
+import UserContext from "@/context/UserContext";
+import FormSelect from "../shared/form/FormSelect";
+import RadioButton from "../shared/form/RadioButton";
+export const LeaveRequest = ({handleChange, value,control,errors}) => {
+  const {teacherData}= useContext(UserContext)
+ const {data:session}=useSession()
+ const techData= teacherData.filter((item)=>item?.email===session?.user?.email)
   return (
     <>
     <Container className="bg-slate-50 mt-5 border-4 shadow-md rounded-lg border-white">
@@ -41,9 +48,18 @@ export const LeaveRequest = ({handleChange, value,control,editIndex}) => {
               <FormControlLabel
                 value="multipledays"
                 control={<Radio />}
-                label="Muiltiple Days"
+                label="Multiple Days"
               />
             </RadioGroup>
+            <FormControl>
+              <FormSelect
+                control={control}
+                className="mt-4 w-56 ml-2"
+                name="name"
+                label="Select Name"
+                options={techData?.map((item)=>item.name)}
+              />
+            </FormControl>
           </FormControl>
             {value === "singleday" ? (
               <>
@@ -72,7 +88,23 @@ export const LeaveRequest = ({handleChange, value,control,editIndex}) => {
               placeholder="Enter Reason"
               inputType="text"
               id="reason"
+              errors={errors}
             />
+              {session?.user?.role !== "admin" ? (
+              <></>
+            ) : (
+              <FormControl>
+                <RadioButton
+                  control={control}
+                  label="Status"
+                  name="status"
+                  options={[
+                    { label: "Approved", value: "approved" },
+                    { label: "Unapproved", value: "unapproved" },
+                  ]}
+                />
+              </FormControl>
+            )}
             <Button
               className="btn mt-4 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600"
               type="submit"

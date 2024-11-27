@@ -1,5 +1,4 @@
-"use client";
-import { Container } from "@mui/joy";
+import { Container, Tooltip } from "@mui/joy";
 import {
   Table,
   TableBody,
@@ -7,43 +6,39 @@ import {
   TableHead,
   TablePagination,
   TableRow,
-  Tooltip,
+  
 } from "@mui/material";
 import React, { useContext, useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import UserContext from "@/context/UserContext";
-import EditAttendence from "./EditAttendence";
-import { successMsg } from "../Toastmsg/toaster";
+import dayjs from "dayjs";
+import EditExam from "./EditExam";
 import DeleteModal from "../Modal/DeleteModal";
+import { successMsg } from "../Toastmsg/toaster";
 import { useSession } from "next-auth/react";
-const ViewTable = ({ student }) => {
-  const { studentAttendence, setStudentAttendence } = useContext(UserContext);
+
+const ExamTable = ({ tableData }) => {
+  const { examination, setExamination } = useContext(UserContext);
   const [editIndex, setEditIndex] = useState(null);
-  const [open, setOpen] = useState(false);
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
   const [deleteOpenModal, setDeleteOpenModal] = useState(false);
   const [deleteIndex, setDeleteIndex] = useState(null);
   const [edit, setEdit] = useState(null);
+  const [open, setOpen] = useState(false);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const { data: session } = useSession();
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
+  const onDelete = () => {
+    const updatedData = examination.filter((item) => item.id !== deleteIndex);
+    setExamination(updatedData);
+    setDeleteOpenModal(false);
+    successMsg("The exam schedule was successfully deleted");
   };
   const handleDelete = (item) => {
-    setDeleteOpenModal(true);
     setDeleteIndex(item.id);
+    setDeleteOpenModal(true);
   };
-  const onDelete = () => {
-    const updatedData = studentAttendence?.filter(
-      (item, i) => item.id !== deleteIndex
-    );
-    setStudentAttendence(updatedData);
-    successMsg("Success! The attendance record was deleted.");
+  const deleteHandleModalClose = () => {
     setDeleteOpenModal(false);
   };
   const handleEdit = (item) => {
@@ -52,45 +47,53 @@ const ViewTable = ({ student }) => {
     setOpen(true);
   };
   const handleClose = () => {
-    setOpen(false);
     setEditIndex(null);
+    setOpen(false);
   };
-  const deleteHandleModalClose = () => {
-    setDeleteOpenModal(false);
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
   };
   return (
     <>
-      <Container className="attendance-form bg-slate-50 mt-5 border-4 shadow-md rounded-lg border-white">
+      <Container>
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell className="font-bold text-base">Name</TableCell>
-              <TableCell className="font-bold text-base">Roll No</TableCell>
               <TableCell className="font-bold text-base">Class</TableCell>
               <TableCell className="font-bold text-base">Section</TableCell>
-              <TableCell className="font-bold text-base">
-                Attendence Status
-              </TableCell>
+              <TableCell className="font-bold text-base">Subject</TableCell>
+              <TableCell className="font-bold text-base">Exam Type</TableCell>
+              <TableCell className="font-bold text-base">Exam Date</TableCell>
+              <TableCell className="font-bold text-base">Exam Time</TableCell>
               <TableCell className="font-bold text-base">Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {student?.length > 0 ? (
+            {tableData?.length > 0 ? (
               <>
-                {student?.map((item, index) => (
+                {tableData?.map((item) => (
                   <TableRow key={item.id}>
-                    <TableCell>{item?.name}</TableCell>
-                    <TableCell>{item?.rollno}</TableCell>
-                    <TableCell>{item?.class}</TableCell>
-                    <TableCell>{item?.section}</TableCell>
-                    <TableCell>{item?.attendanceStatus}</TableCell>
+                    <TableCell>{item.class}</TableCell>
+                    <TableCell>{item.section}</TableCell>
+                    <TableCell>{item.subject}</TableCell>
+                    <TableCell>{item.exam_type}</TableCell>
+                    <TableCell>
+                      {dayjs(item.examdate).format("YYYY-MM-DD")}
+                    </TableCell>
+                    <TableCell>
+                      {new Date(item.exam_time).toLocaleTimeString()}
+                    </TableCell>
                     <TableCell>
                       {session?.user?.role === "student" ? (
                         <>
                           <Tooltip
                             arrow
                             placement="top-start"
-                            title="You are not authorized to edit"
+                            title="You are not authorized to delete"
                           >
                             <DeleteIcon className="text-red-500" />
                           </Tooltip>
@@ -122,8 +125,8 @@ const ViewTable = ({ student }) => {
               <>
                 <TableRow>
                   <TableCell colSpan={9} className="text-center">
-                    {`   Sorry, we couldn’t locate an attendance record. You may want
-                    to try a different option or contact support for assistance`}
+                    {`No exam schedule was found for this class. 
+                    Please check your selection or contact us if you need help!`}
                   </TableCell>
                 </TableRow>
               </>
@@ -133,29 +136,27 @@ const ViewTable = ({ student }) => {
         <TablePagination
           rowsPerPageOptions={[10, 25, 100]}
           component="div"
-          count={student?.length}
+          count={tableData?.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Container>
-      <EditAttendence
-        open={open}
-        handleClose={handleClose}
-        editIndex={editIndex}
-        setEditIndex={setEditIndex}
-        edit={edit}
-        setEdit={setEdit}
-      />
       <DeleteModal
         onDelete={onDelete}
-        deleteMessage="Are you certain you want to proceed with this deletion?"
         deleteOpenModal={deleteOpenModal}
+        deleteMessage="Are you sure with this deletion"
         deleteHandleModalClose={deleteHandleModalClose}
+      />
+      <EditExam
+        open={open}
+        edit={edit}
+        handleClose={handleClose}
+        editIndex={editIndex}
       />
     </>
   );
 };
 
-export default ViewTable;
+export default ExamTable;

@@ -23,12 +23,11 @@ const DashBoard = () => {
     <>
       <Container className="mt-5 text-center  rounded-lg border-inherit bg-color">
         <div>
-          {" "}
           <SchoolIcon className="dashboard-icon" />
         </div>
         <Typography className=" text-black font-bold text-2xl md:text-2xl">
-          School DashBoard{" "}
-        </Typography>{" "}
+          School DashBoard
+        </Typography>
       </Container>
       <Box>
         <Grid
@@ -62,7 +61,6 @@ const DashBoard = () => {
           <Grid item xs={3}>
             <Item>
               <Typography className="text-center">
-                {" "}
                 <CalendarMonthIcon className="rounded-full border-black border-2 layer-icon"/>
               </Typography>
               <Typography>0</Typography>
@@ -83,7 +81,6 @@ const DashBoard = () => {
           <Grid item xs={3}>
             <Item>
               <Typography className="text-center">
-                {" "}
                 <StorageIcon className="rounded-full border-black border-2 layer-icon"/>
               </Typography>
               <Typography>0</Typography>

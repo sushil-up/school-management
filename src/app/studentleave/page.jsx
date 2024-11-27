@@ -1,4 +1,5 @@
 "use client";
+import DeleteModal from "@/component/Modal/DeleteModal";
 import StudentLeave from "@/component/StudentLeave/StudentLeave";
 import LeaveTable from "@/component/StudentLeave/StudentLeaveTable";
 import { successMsg } from "@/component/Toastmsg/toaster";
@@ -8,6 +9,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Container } from "@mui/joy";
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
+import { v4 as uuidv4 } from "uuid";
 
 const Page = () => {
   const [open, setOpen] = useState(false);
@@ -18,36 +20,58 @@ const Page = () => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(StudentLeaveValidation) });
   const { studentleave, setStudentLeave } = useContext(UserContext);
+  const [deleteOpenModal, setDeleteOpenModal] = useState(false);
+  const [deleteIndex, setDeleteIndex] = useState(null);
   const [editIndex, setEditIndex] = useState(null);
-  const [value, setValue] = useState("singleday");
+  const [value, setValue] = useState();
+  const id = uuidv4();
   const handleChange = (event) => {
-    setValue(event.target.value);
+    setValue(event?.target?.value);
+    reset();
   };
   const onSubmit = (data) => {
+    const setid = { ...data, id };
     try {
       const storedData =
         editIndex !== null
-          ? studentleave.map((item, index) =>
-              index === editIndex ? data : item
-            )
-          : [...studentleave, data];
+          ? studentleave?.map((item) => (item?.id === editIndex ? data : item))
+          : [...studentleave, setid];
       setEditIndex(null);
       setStudentLeave(storedData);
+      editIndex !== null
+        ? successMsg("Student leave edited successfully")
+        : successMsg("Student leave added successfully");
       reset();
       setOpen(false);
     } catch (error) {}
     reset();
   };
-  const handleEdit = (index) => {
-    setEditIndex(index);
+  const handleEdit = (item) => {
+    setEditIndex(item.id);
     setOpen(true);
-    reset(studentleave[index]);
-    successMsg("Student edited successfully");
+    setValue(
+      item?.leavedate !== undefined
+        ? "singleday"
+        : item?.multileave !== undefined
+          ? "multipledays"
+          : "singleday"
+    );
+    reset(item);
   };
-  const handleDelete = (index) => {
-    const updatedData = studentleave.filter((_, i) => i !== index);
+  const onDelete = () => {
+    const updatedData = studentleave.filter(
+      (item, i) => item?.id !== deleteIndex
+    );
     setStudentLeave(updatedData);
-    successMsg("Student deleted successfully");
+    successMsg("Student leave deleted successfully");
+    setDeleteOpenModal(false);
+  };
+  const handleDelete = (item) => {
+    setDeleteOpenModal(true);
+    setDeleteIndex(item.id);
+  };
+  const deleteHandleModalClose = () => {
+    setDeleteOpenModal(false);
   };
   const handleToggle = () => {
     setOpen(!open);
@@ -81,6 +105,12 @@ const Page = () => {
           </>
         )}
       </Container>
+      <DeleteModal
+        onDelete={onDelete}
+        deleteMessage="Are you certain you want to proceed with this deletion?"
+        deleteOpenModal={deleteOpenModal}
+        deleteHandleModalClose={deleteHandleModalClose}
+      />
     </>
   );
 };

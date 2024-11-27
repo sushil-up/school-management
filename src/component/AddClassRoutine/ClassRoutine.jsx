@@ -7,7 +7,7 @@ import FormInput from "../shared/form/TextField";
 import FormTimePicker from "../shared/form/TimePicker";
 import UserContext from "@/context/UserContext";
 import FormSelect from "../shared/form/FormSelect";
-const TimeTable = ({ control }) => {
+const TimeTable = ({ control ,errors}) => {
   const { teacherData } = useContext(UserContext);
   return (
     <>
@@ -21,6 +21,7 @@ const TimeTable = ({ control }) => {
               name="class"
               label="Select Class"
               options={selectclass}
+              errors={errors}
             />
             <FormInputSelect
               control={control}
@@ -28,6 +29,7 @@ const TimeTable = ({ control }) => {
               name="section"
               label="Select Section"
               options={["A", "B", "C"]}
+              errors={errors}
             />
             <FormInput
               control={control}
@@ -36,6 +38,7 @@ const TimeTable = ({ control }) => {
               label="Subject"
               placeholder="Subject"
               inputType="text"
+              errors={errors}
             />
           </div>
           <br />
@@ -46,12 +49,14 @@ const TimeTable = ({ control }) => {
               lable="Start Time"
               name="start_time"
               className="mt-2"
+              errors={errors}
             />
             <FormTimePicker
               control={control}
               name="end_time"
               lable="End Time"
               className="ml-2 mt-2"
+              errors={errors}
             />
             <FormInputSelect
               control={control}
@@ -60,6 +65,7 @@ const TimeTable = ({ control }) => {
               label="Select day"
               options={selectDays}
               multiple={true}
+              errors={errors}
             />
           </div>
           <div className="attendance">
@@ -70,13 +76,15 @@ const TimeTable = ({ control }) => {
               label="Room No"
               placeholder="Enter Room No"
               inputType="text"
+              errors={errors}
             />
             <FormSelect
               control={control}
               className="mt-4 w-56 ml-2"
               name="teacher"
               label="Select Teacher"
-              options={teacherData}
+              options={teacherData?.map((item)=>item?.name)}
+              errors={errors}
             />
           </div>
           <Button

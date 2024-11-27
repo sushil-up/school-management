@@ -8,7 +8,6 @@ const CheckTimeTable = () => {
   return (
   <Container>
      <ClassRoutineTable/>
-     {/* <ClassRoutineEdit/> */}
   </Container>
   )
 }

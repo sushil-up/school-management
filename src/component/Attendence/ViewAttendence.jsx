@@ -2,12 +2,11 @@
 import UserContext from "@/context/UserContext";
 import { Box, Button, Container, Typography } from "@mui/joy";
 import React, { useContext, useEffect, useState } from "react";
-import FormInputSelect from "../shared/form/FormInputSelect";
 import { useForm } from "react-hook-form";
 import DateSelect from "../shared/form/DatePicker";
 import dayjs from "dayjs";
 import ViewTable from "./ViewTable";
-import { selectclass } from "../SelectClass";
+import SelectBox from "../SelectBox";
 const ViewAttendence = () => {
   const { handleSubmit, control, reset } = useForm({
     defaultValues: {
@@ -23,11 +22,10 @@ const ViewAttendence = () => {
   const [student, setStudent] = useState();
   const onSubmit = (data) => {
     setFormdata(data);
-    reset();
   };
   useEffect(() => {
     if (formdata) {
-      const studenAtt = studentAttendence.filter(
+      const studenAtt = studentAttendence?.filter(
         (item) =>
           item?.class === formdata?.class &&
           item.section === formdata?.section &&
@@ -46,20 +44,7 @@ const ViewAttendence = () => {
           <br />
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="attendance">
-              <FormInputSelect
-                control={control}
-                className="mt-4 "
-                name="class"
-                label="Select Class"
-                options={selectclass}
-              />
-              <FormInputSelect
-                control={control}
-                className="mt-4 ml-2"
-                name="section"
-                label="Select Section"
-                options={["A", "B", "C"]}
-              />
+              <SelectBox control={control} />
               <DateSelect
                 className="mt-4 ml-2"
                 control={control}
@@ -67,10 +52,10 @@ const ViewAttendence = () => {
                 label="Select Date"
               />
               <Button
-                className="mt-4 ml-2 bg-red-500 hover:bg-red-600"
+                className="ml-2 h-fit mt-5 border-4 bg-teal-400 rounded border-black "
                 type="submit"
               >
-                Check Attendence
+                Search
               </Button>
             </div>
             <br />

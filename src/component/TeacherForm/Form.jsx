@@ -14,9 +14,14 @@ import FormInput from "../shared/form/TextField";
 import FormInputSelect from "../shared/form/FormInputSelect";
 import DateSelect from "../shared/form/DatePicker";
 
-const steps = ["Personal Details", "Joining Detail", "Class Teacher"];
+const steps = [
+  "Personal Details",
+  "Joining Detail",
+  "Class Teacher",
+  "Set Password",
+];
 
-export default function Form({ control, update, handleClose,errors }) {
+export default function Form({ control, update, handleClose, errors }) {
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: "#fff",
     ...theme.typography.body2,
@@ -74,28 +79,17 @@ export default function Form({ control, update, handleClose,errors }) {
           </Stepper>
           <div>
             {allStepsCompleted() ? (
-            <React.Fragment>
-            <Typography sx={{ mt: 2, mb: 1 }}>
-              All steps completed
-              <div className="grid justify-items-end ">
-                <Button
-                  type="submit"
-                  className="btn mt-4 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600"
-                >
-                  {update === false ? <>Add Teacher</> : <>Update Teacher</>}
-                </Button>
-              </div>
-            </Typography>
-            <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-              <Box sx={{ flex: "1 1 auto" }} />
-              <Button
-                onClick={handleReset}
-                className="btn mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-red-600"
-              >
-                Reset
-              </Button>
-            </Box>
-          </React.Fragment>
+              <React.Fragment>
+                <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+                  <Box sx={{ flex: "1 1 auto" }} />
+                  <Button
+                    onClick={handleReset}
+                    className="btn mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-red-600"
+                  >
+                    Reset
+                  </Button>
+                </Box>
+              </React.Fragment>
             ) : (
               <React.Fragment>
                 <Typography sx={{ mt: 2, mb: 1, py: 1 }}>
@@ -105,7 +99,7 @@ export default function Form({ control, update, handleClose,errors }) {
                     alignItems="center"
                     className="addstudent"
                   >
-                    <Typography variant="h6"> Add New Admin</Typography>
+                    <Typography variant="h6"> Add New Teacher</Typography>
                     <Button
                       className="btn mt-4 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600"
                       onClick={handleClose}
@@ -132,7 +126,7 @@ export default function Form({ control, update, handleClose,errors }) {
                           <FormInputSelect
                             control={control}
                             name="gender"
-                            className="mt-4"
+                            className="mt-4 text-left"
                             label="Select Gender"
                             options={["Male", "Female", "Other"]}
                             errors={errors}
@@ -142,6 +136,7 @@ export default function Form({ control, update, handleClose,errors }) {
                             name="dob"
                             className="mt-4"
                             label=" DOB"
+                            id="dob"
                             errors={errors}
                           />
                           <FormInput
@@ -184,7 +179,6 @@ export default function Form({ control, update, handleClose,errors }) {
                 <Typography sx={{ mt: 2, mb: 1, py: 1 }}>
                   {activeStep === 1 && (
                     <>
-                      {" "}
                       <Box sx={{ flexGrow: 1 }}>
                         <Grid
                           container
@@ -198,6 +192,7 @@ export default function Form({ control, update, handleClose,errors }) {
                                 name="joiningdate"
                                 className="mt-4"
                                 label=" Joining Date"
+                                id="joiningdate"
                                 errors={errors}
                               />
 
@@ -242,7 +237,7 @@ export default function Form({ control, update, handleClose,errors }) {
                 <Typography sx={{ mt: 2, mb: 1, py: 1 }}>
                   {activeStep === 2 && (
                     <>
-                      <Box className="detail">Parents Detail</Box>
+                      <Box className="detail">Class Detail</Box>
                       <Box sx={{ flexGrow: 1 }}>
                         <Grid
                           container
@@ -266,9 +261,48 @@ export default function Form({ control, update, handleClose,errors }) {
                               <FormInputSelect
                                 control={control}
                                 name="section"
-                                className="mt-4"
+                                className="mt-4 text-left"
                                 label="Select Section"
                                 options={["A", "B", "C"]}
+                                errors={errors}
+                              />
+                            </Item>
+                          </Grid>
+                        </Grid>
+                      </Box>
+                    </>
+                  )}
+                </Typography>
+                <Typography sx={{ mt: 2, mb: 1, py: 1 }}>
+                  {activeStep === 3 && (
+                    <>
+                      <Box className="detail">Set Password</Box>
+                      <Box sx={{ flexGrow: 1 }}>
+                        <Grid
+                          container
+                          spacing={{ xs: 2, md: 3 }}
+                          columns={{ xs: 4, sm: 8, md: 12 }}
+                        >
+                          <Grid item xs={4} sm={8} md={12}>
+                            <Item>
+                              <FormInput
+                                control={control}
+                                name="password"
+                                className="mt-4"
+                                label="Set Password"
+                                placeholder="Set Password"
+                                inputType="password"
+                                id="class"
+                                min="0"
+                                max="12"
+                                errors={errors}
+                              />
+                              <FormInputSelect
+                                control={control}
+                                name="role"
+                                className="mt-4 text-left"
+                                label="Select Role"
+                                options={["admin", "teacher"]}
                                 errors={errors}
                               />
                             </Item>
@@ -305,14 +339,33 @@ export default function Form({ control, update, handleClose,errors }) {
                         Step {activeStep + 1} already completed
                       </Typography>
                     ) : (
-                      <Button
-                        onClick={handleComplete}
-                        className="btn  bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
-                      >
-                        {completedSteps() === totalSteps() - 1
-                          ? "Finish"
-                          : "Complete Step"}
-                      </Button>
+                      <>
+                        {activeStep > 2 ? (
+                          <>
+                            <Button
+                              className="btn  bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+                            type="submit"
+                            >
+                           Finish
+                            </Button>
+                          </>
+                        ) : (
+                          <>
+                            {update === true ? (
+                              <></>
+                            ) : (
+                              <>
+                                {/* <Button
+                                  onClick={handleComplete}
+                                  className="btn  bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+                                >
+                                  Complete Step
+                                </Button> */}
+                              </>
+                            )}
+                          </>
+                        )}
+                      </>
                     ))}
                 </Box>
               </React.Fragment>

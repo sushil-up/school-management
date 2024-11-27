@@ -1,7 +1,8 @@
 "use client";
 import UserContext from "@/context/UserContext";
-import { Container, Table } from "@mui/joy";
+import { Container } from "@mui/joy";
 import {
+  Table,
   TableBody,
   TableCell,
   TableHead,
@@ -29,32 +30,39 @@ const LeaveTable = ({ handleDelete, handleEdit }) => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Reason</TableCell>
-              <TableCell>Leave Date</TableCell>
-              <TableCell>Action</TableCell>
+            <TableCell className="font-bold text-base">Name</TableCell>
+              <TableCell className="font-bold text-base">Reason</TableCell>
+              <TableCell className="font-bold text-base">Leave Date</TableCell>
+              <TableCell className="font-bold text-base">Status</TableCell>
+              <TableCell className="font-bold text-base">Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {leaveRequest?.length > 0 ? (
               <>
-                {" "}
                 {leaveRequest?.map((item, index) => (
                   <>
                     <TableRow key={index}>
+                    <TableCell>{item.name}</TableCell>
                       <TableCell>{item.reason}</TableCell>
                       <TableCell>
                         {Array.isArray(item.leavedate)
                           ? `${dayjs(item.leavedate[0]).format("YYYY-MM-DD")} to ${dayjs(item.leavedate[1]).format("YYYY-MM-DD")}`
                           : dayjs(item.leavedate).format("YYYY-MM-DD")}
                       </TableCell>
+                      {item?.status ? (
+                          <TableCell>{item?.status}</TableCell>
+                      ) : (
+                          <TableCell>Pending</TableCell>
+                      )}
                       <TableCell>
                         <DeleteIcon
                           className="text-red-500"
-                          onClick={() => handleDelete(index)}
+                          onClick={() => handleDelete(item)}
                         />
                         <EditIcon
                           className="text-green-500"
-                          onClick={() => handleEdit(index)}
+                          onClick={() => handleEdit(item)}
                         />
                       </TableCell>
                     </TableRow>

@@ -7,19 +7,14 @@ import {
   TableHead,
   TablePagination,
   TableRow,
+  Tooltip,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import dayjs from "dayjs";
 import { Container } from "@mui/joy";
 
-const TeacherTable = ({
-  teacherData,
-  handleDelete,
-  handleEdit,
-  isLoading,
-  handleClose,
-}) => {
+const TeacherTable = ({ teacherData, handleDelete, handleEdit, isLoading }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [tabledata, setTableData] = useState();
@@ -40,20 +35,19 @@ const TeacherTable = ({
 
   return (
     <>
-      <Container>
+      <Container >
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell>Class Allotted</TableCell>
-              <TableCell>Section</TableCell>
-              <TableCell>Designation</TableCell>
-              <TableCell>Email</TableCell>
-              <TableCell>Phone</TableCell>
-              <TableCell>Joining Date</TableCell>
-              <TableCell>Gender</TableCell>
-              <TableCell>Address</TableCell>
-              <TableCell>Actions</TableCell>
+              <TableCell className="font-bold text-base">Name</TableCell>
+              <TableCell className="font-bold text-base">Class Allotted</TableCell>
+              <TableCell className="font-bold text-base">Section</TableCell>
+              <TableCell className="font-bold text-base">Designation</TableCell>
+              <TableCell className="font-bold text-base">Email</TableCell>
+              <TableCell className="font-bold text-base">Phone</TableCell>
+              <TableCell className="font-bold text-base">Joining Date</TableCell>
+              <TableCell className="font-bold text-base">Address</TableCell>
+              <TableCell className="font-bold text-base">Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -66,22 +60,28 @@ const TeacherTable = ({
                     <TableCell>{item.class}</TableCell>
                     <TableCell>{item.section}</TableCell>
                     <TableCell>{item.designation}</TableCell>
-                    <TableCell>{item.email}</TableCell>
+                    <TableCell>
+                      <Tooltip
+                        arrow
+                        placement="top-start"
+                        title={<span>{item.email}</span>}
+                      >
+                        <span>{`${item.email.slice(0, 30)}`}</span>
+                      </Tooltip>
+                    </TableCell>
                     <TableCell>{item.phone}</TableCell>
                     <TableCell>
                       {dayjs(item.joining).format("YYYY-MM-DD")}
                     </TableCell>
-                    <TableCell>{item.gender}</TableCell>
                     <TableCell>{item.address}</TableCell>
                     <TableCell>
                       <DeleteIcon
                         className="text-red-500"
-                        onClick={() => handleDelete(index)}
+                        onClick={() => handleDelete(item)}
                       />
-
                       <EditIcon
                         className="text-green-500"
-                        onClick={() => handleEdit(index)}
+                        onClick={() => handleEdit(item)}
                       />
                     </TableCell>
                   </TableRow>
@@ -90,7 +90,7 @@ const TeacherTable = ({
               <>
                 <TableRow>
                   <TableCell colSpan={9} className="text-center">
-                  {`  Sorry, teacher data is not available right now. Please check
+                    {`  Sorry, teacher data is not available right now. Please check
                     back or contact support for assistance.`}
                   </TableCell>
                 </TableRow>

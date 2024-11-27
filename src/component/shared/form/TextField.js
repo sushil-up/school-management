@@ -1,5 +1,5 @@
 import { FormControl } from "@mui/material";
-import TextField from "@mui/material/TextField";
+import TextField from '@mui/material/TextField';
 import { Controller } from "react-hook-form";
 
 export default function FormInput({
@@ -34,7 +34,7 @@ export default function FormInput({
             inputProps={{ min, max }}
             variant="outlined"
             error={!!errors?.[name]}
-            helperText={errors?.[name]?.message}
+            helpertext={errors?.[name]?.message}
           />
         )}
       />
