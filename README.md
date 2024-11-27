@@ -3,13 +3,13 @@ The School Management App streamlines your school's daily operations, offering a
 
 ## Key Features:
 ### Add and Manage Students: 
-                                  Seamlessly add, view, and organize student information.
+   Seamlessly add, view, and organize student information.
 ### Add and Manage Teachers:
-                                  Easily handle teacher records and their assignments.
+  Easily handle teacher records and their assignments.
 ### Activity Monitoring: 
-                                  Keep track of your school's activities in real time.
+  Keep track of your school's activities in real time.
 ### Data Management: 
-                                  Securely store and manage essential school data with a user-friendly experience.
+  Securely store and manage essential school data with a user-friendly experience.
 Transform the way you manage your school operations with this all-in-one solution
 
 ## Build with
