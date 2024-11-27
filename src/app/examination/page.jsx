@@ -8,6 +8,7 @@ import { Container } from "@mui/joy";
 import { successMsg } from "@/component/Toastmsg/toaster";
 import { useRouter } from "next/navigation";
 import { routesUrl } from "@/utils/pagesurl";
+import { useSession } from "next-auth/react";
 const Examination = () => {
   const {
     handleSubmit,
@@ -15,9 +16,13 @@ const Examination = () => {
     reset,
     formState: { errors },
   } = useForm();
+  const {data:session}=useSession()
+  const router= useRouter()
+  if(session?.user?.role==="student"||session?.user?.role==="teacher"){
+    router.replace(routesUrl.examTable)
+  }
   const { examination, setExamination } = useContext(UserContext);
   const id = uuidv4();
-  const router= useRouter()
   const onSubmit = (examdata) => {
     const setId = { ...examdata, id };
     const storedData = [...examination, setId];

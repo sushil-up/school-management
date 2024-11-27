@@ -8,7 +8,8 @@ export const ProtectedRoutes = [
   routesUrl.teacherleave,
   routesUrl.studentleave,
   routesUrl.viewAttendence,
-  routesUrl.viewtimetable,
+  routesUrl.viewclassroutine,
+  routesUrl.classroutine,
   routesUrl.exam,
   routesUrl.examTable,
 ];

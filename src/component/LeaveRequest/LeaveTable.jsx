@@ -33,13 +33,13 @@ const LeaveTable = ({ handleDelete, handleEdit }) => {
             <TableCell className="font-bold text-base">Name</TableCell>
               <TableCell className="font-bold text-base">Reason</TableCell>
               <TableCell className="font-bold text-base">Leave Date</TableCell>
+              <TableCell className="font-bold text-base">Status</TableCell>
               <TableCell className="font-bold text-base">Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {leaveRequest?.length > 0 ? (
               <>
-                {" "}
                 {leaveRequest?.map((item, index) => (
                   <>
                     <TableRow key={index}>
@@ -50,6 +50,11 @@ const LeaveTable = ({ handleDelete, handleEdit }) => {
                           ? `${dayjs(item.leavedate[0]).format("YYYY-MM-DD")} to ${dayjs(item.leavedate[1]).format("YYYY-MM-DD")}`
                           : dayjs(item.leavedate).format("YYYY-MM-DD")}
                       </TableCell>
+                      {item?.status ? (
+                          <TableCell>{item?.status}</TableCell>
+                      ) : (
+                          <TableCell>Pending</TableCell>
+                      )}
                       <TableCell>
                         <DeleteIcon
                           className="text-red-500"

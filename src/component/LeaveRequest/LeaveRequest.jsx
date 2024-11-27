@@ -16,6 +16,7 @@ import { useSession } from "next-auth/react";
 import { useContext } from "react";
 import UserContext from "@/context/UserContext";
 import FormSelect from "../shared/form/FormSelect";
+import RadioButton from "../shared/form/RadioButton";
 export const LeaveRequest = ({handleChange, value,control,errors}) => {
   const {teacherData}= useContext(UserContext)
  const {data:session}=useSession()
@@ -89,6 +90,21 @@ export const LeaveRequest = ({handleChange, value,control,errors}) => {
               id="reason"
               errors={errors}
             />
+              {session?.user?.role !== "admin" ? (
+              <></>
+            ) : (
+              <FormControl>
+                <RadioButton
+                  control={control}
+                  label="Status"
+                  name="status"
+                  options={[
+                    { label: "Approved", value: "approved" },
+                    { label: "Unapproved", value: "unapproved" },
+                  ]}
+                />
+              </FormControl>
+            )}
             <Button
               className="btn mt-4 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600"
               type="submit"

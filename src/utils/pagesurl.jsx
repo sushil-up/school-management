@@ -7,8 +7,8 @@ export const routesUrl = {
   home: "/",
   teacherleave: "/leaverequest",
   studentleave: "/studentleave",
-  timetable: "/timetable",
-  viewtimetable:"/timetable/checktimetable",
+  classroutine: "/classroutine",
+  viewclassroutine:"/classroutine/checkclassroutine",
   exam:"/examination",
   examTable:"/examination/examschedule"
 };

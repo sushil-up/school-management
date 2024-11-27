@@ -5,10 +5,12 @@ import StudentTable from "@/component/StudentForm/StudentTable";
 import { successMsg } from "@/component/Toastmsg/toaster";
 import { StudentValidation } from "@/component/Validation/StudentValidation";
 import UserContext from "@/context/UserContext";
+import { routesUrl } from "@/utils/pagesurl";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Container } from "@mui/joy";
 import { Button } from "@mui/material";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
@@ -40,6 +42,10 @@ const Student = () => {
   const [deleteOpenModal, setDeleteOpenModal] = useState(false);
   const [deleteIndex, setDeleteIndex] = useState(null);
   const studentid = uuidv4();
+  const router=useRouter()
+  if (session?.user?.role==="student"){
+    router.replace(routesUrl.studentleave)
+  }
   const onSubmit = (formData) => {
     const setid = { ...formData, studentid }
     try {
@@ -101,7 +107,7 @@ const Student = () => {
     <>
       <Container>
         <div className="grid justify-items-end ">
-          {openForm === true || session?.user?.role === "student" ? (
+          {openForm === true || session?.user?.role === "student"||session?.user?.role === "teacher" ? (
             <></>
           ) : (
             <>
@@ -116,7 +122,6 @@ const Student = () => {
         </div>
         {openForm === true ? (
           <>
-            {" "}
             <form onSubmit={handleSubmit(onSubmit)}>
               <Form
                 control={control}
@@ -128,7 +133,6 @@ const Student = () => {
           </>
         ) : (
           <>
-            {" "}
             <StudentTable
               studentData={studentData}
               handleDelete={handleDelete}

@@ -179,7 +179,6 @@ export default function Form({ control, update, handleClose, errors }) {
                 <Typography sx={{ mt: 2, mb: 1, py: 1 }}>
                   {activeStep === 1 && (
                     <>
-                      {" "}
                       <Box sx={{ flexGrow: 1 }}>
                         <Grid
                           container

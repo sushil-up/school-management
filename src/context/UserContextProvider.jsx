@@ -1,5 +1,4 @@
 "use client";
-import { useEffect, useState } from "react";
 import UserContext from "./UserContext";
 import useLocalStorage from "use-local-storage";
 

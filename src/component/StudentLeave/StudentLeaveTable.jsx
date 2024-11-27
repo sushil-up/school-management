@@ -67,7 +67,11 @@ const LeaveTable = ({ handleDelete, handleEdit }) => {
                           : dayjs(item?.leavedate).format("YYYY-MM-DD")}
                       </TableCell>
                       <TableCell>{item?.reason}</TableCell>
-                      <TableCell>{item?.status}</TableCell>
+                      {item?.status ? (
+                          <TableCell>{item?.status}</TableCell>
+                      ) : (
+                          <TableCell>Pending</TableCell>
+                      )}
                       <TableCell>
                         {session?.user?.role === "student" ? (
                           <>

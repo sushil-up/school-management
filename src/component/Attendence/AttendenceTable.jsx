@@ -37,7 +37,6 @@ const AttendenceTable = ({ student, formdata, open, setOpen }) => {
     <>
       {student?.length !== 0 && open ? (
         <>
-          {" "}
           <Container className="attendance-form bg-slate-50 mt-5 border-4 shadow-md rounded-lg border-white">
             <Typography variant="h4" className="mb-4"></Typography>
             <form onSubmit={handleSubmit(onSubmit)}>

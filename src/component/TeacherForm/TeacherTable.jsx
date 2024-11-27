@@ -35,7 +35,7 @@ const TeacherTable = ({ teacherData, handleDelete, handleEdit, isLoading }) => {
 
   return (
     <>
-      <Container className="w-full">
+      <Container >
         <Table>
           <TableHead>
             <TableRow>

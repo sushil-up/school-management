@@ -6,9 +6,12 @@ import TeacherTable from "@/component/TeacherForm/TeacherTable";
 import { successMsg } from "@/component/Toastmsg/toaster";
 import { TeacherValidation } from "@/component/Validation/TecherValidation";
 import UserContext from "@/context/UserContext";
+import { routesUrl } from "@/utils/pagesurl";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Container } from "@mui/joy";
 import { Button } from "@mui/material";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { v4 as uuidv4 } from 'uuid';
@@ -28,6 +31,7 @@ const Teacher = () => {
       address: "",
     },
   });
+
   const { teacherData, setTeacherData } = useContext(UserContext);
   const [editIndex, setEditIndex] = useState(null);
   const [openForm, setOpenForm] = useState(false);
@@ -35,6 +39,11 @@ const Teacher = () => {
   const [update, setUpdate] = useState(false);
   const [deleteIndex,setDeleteIndex]=useState()
   const id = uuidv4()
+  const {data:session}=useSession()
+  const router= useRouter()
+  if (session?.user?.role==="student"||session?.user?.role==="teacher"){
+    router.replace(routesUrl.home)
+  }
   const onSubmit = (formData) => {
     const setId= {...formData,id}
     try {
@@ -93,7 +102,6 @@ const Teacher = () => {
             <></>
           ) : (
             <>
-              {" "}
               <Button
                 onClick={handleOpen}
                 className="btn mt-4 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 
@@ -102,7 +110,7 @@ const Teacher = () => {
                 Add Teacher
               </Button>
             </>
-          )}{" "}
+          )}
         </div>
         {openForm === true ? (
           <>

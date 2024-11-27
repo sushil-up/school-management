@@ -38,7 +38,7 @@ const Attendence = () => {
         <Box>
           <Typography className="text-2xl"> Attendence</Typography>
           <Typography className="text-sm">
-            By select your class and section{" "}
+            By select your class and section
           </Typography>
           <br />
           <form onSubmit={handleSubmit(onSubmit)}>

@@ -6,7 +6,6 @@ import { Button, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { errorMsg, successMsg } from "@/component/Toastmsg/toaster";
-import Link from "next/link";
 import FormInput from "@/component/shared/form/TextField";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SigninValidation } from "@/component/Validation/SigninValidation";
@@ -21,7 +20,6 @@ const Login = () => {
     const { email, password } = data;
     const localData = localStorage.getItem("teacherData");
     const stuData = localStorage.getItem("student");
-   
     try {
       const res = await signIn("credentials", {
         email,

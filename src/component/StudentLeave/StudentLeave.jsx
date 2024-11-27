@@ -15,11 +15,13 @@ import FormInput from "../shared/form/TextField";
 import FormSelect from "../shared/form/FormSelect";
 import RadioButton from "../shared/form/RadioButton";
 import { selectclass } from "../SelectClass";
+import { useSession } from "next-auth/react";
 const StudentLeave = ({ handleChange, value, control, editIndex, errors }) => {
   const { studentData } = useContext(UserContext);
   const [storeClass, setStoreClass] = useState(null);
   const [storeSection, setStoreSection] = useState(null);
   const [rollno, setRollNo] = useState([]);
+  const {data:session}=useSession()
   useEffect(() => {
     if (storeClass && storeSection !== null) {
       const list = studentData?.filter(
@@ -52,7 +54,7 @@ const StudentLeave = ({ handleChange, value, control, editIndex, errors }) => {
               <RadioGroup
                 aria-labelledby="demo-controlled-radio-buttons-group"
                 name="controlled-radio-buttons-group"
-                value={value }
+                value={value}
                 onChange={handleChange}
               >
                 <FormControlLabel
@@ -77,7 +79,7 @@ const StudentLeave = ({ handleChange, value, control, editIndex, errors }) => {
                 name="class"
                 label="Select Class"
                 onChange={(e) => setStoreClass(e?.target?.value)}
-                options={selectclass||[]}
+                options={selectclass || []}
                 errors={errors}
               />
             </FormControl>
@@ -98,7 +100,7 @@ const StudentLeave = ({ handleChange, value, control, editIndex, errors }) => {
                 className="mt-4 w-56 ml-2"
                 name="name"
                 label="Select Name"
-                options={rollno?.map((item)=>item?.name)}
+                options={rollno?.map((item) => item?.name)}
                 errors={errors}
               />
             </FormControl>
@@ -108,7 +110,7 @@ const StudentLeave = ({ handleChange, value, control, editIndex, errors }) => {
                 className="mt-4 w-56 ml-2"
                 name="rollno"
                 label="Select Rollno"
-                options={rollno?.map((item)=>item?.rollno)}
+                options={rollno?.map((item) => item?.rollno)}
                 errors={errors}
               />
             </FormControl>
@@ -141,18 +143,21 @@ const StudentLeave = ({ handleChange, value, control, editIndex, errors }) => {
               inputType="text"
               errors={errors}
             />
-            <FormControl>
-              <RadioButton
-                control={control}
-                label="Status"
-                name="status"
-                options={[
-                  { label: "Approved", value: "approved" },
-                  { label: "Unapproved", value: "unapproved" },
-                ]}
-                errors={errors}
-              />
-            </FormControl>
+            {session?.user?.role === "student" ? (
+              <></>
+            ) : (
+              <FormControl>
+                <RadioButton
+                  control={control}
+                  label="Status"
+                  name="status"
+                  options={[
+                    { label: "Approved", value: "approved" },
+                    { label: "Unapproved", value: "unapproved" },
+                  ]}
+                />
+              </FormControl>
+            )}
             <br />
             <Button
               className="btn mt-4 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600"

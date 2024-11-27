@@ -77,7 +77,6 @@ const ViewTable = ({ student }) => {
           <TableBody>
             {student?.length > 0 ? (
               <>
-                {" "}
                 {student?.map((item, index) => (
                   <TableRow key={item.id}>
                     <TableCell>{item?.name}</TableCell>
