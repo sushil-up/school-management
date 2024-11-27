@@ -46,7 +46,6 @@ const TeacherTable = ({ teacherData, handleDelete, handleEdit, isLoading }) => {
               <TableCell className="font-bold text-base">Email</TableCell>
               <TableCell className="font-bold text-base">Phone</TableCell>
               <TableCell className="font-bold text-base">Joining Date</TableCell>
-              <TableCell className="font-bold text-base">Gender</TableCell>
               <TableCell className="font-bold text-base">Address</TableCell>
               <TableCell className="font-bold text-base">Actions</TableCell>
             </TableRow>
@@ -74,7 +73,6 @@ const TeacherTable = ({ teacherData, handleDelete, handleEdit, isLoading }) => {
                     <TableCell>
                       {dayjs(item.joining).format("YYYY-MM-DD")}
                     </TableCell>
-                    <TableCell>{item.gender}</TableCell>
                     <TableCell>{item.address}</TableCell>
                     <TableCell>
                       <DeleteIcon
