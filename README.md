@@ -15,20 +15,7 @@ Transform the way you manage your school operations with this all-in-one solutio
 * [Next js](https://nextjs.org/) - A React framework for server-side rendering and static site generation..
 * [MUI](https://mui.com/) - A comprehensive UI library.
 
-## Installation
 ## To set up this project, follow these steps:
-Install of framework and library
-For Next js 
-```bash 
-npx create-next-app@latest
-```
-For Mui 
-```bash
-npm install @mui/material @emotion/react @emotion/styled
-npm install @mui/material @mui/styled-engine-sc styled-components
-npm install @fontsource/roboto
-npm install @mui/icons-material
-```
 
 Navigate to your project directory and install the necessary npm packages:
 
