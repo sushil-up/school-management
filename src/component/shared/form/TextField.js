@@ -13,14 +13,15 @@ export default function FormInput({
   multiline,
   rows,
   min,
-  max
+  max,
+  defaultValue
 }) {
   return (
     <FormControl fullWidth>
       <Controller
         name={name}
         control={control}
-        defaultValue=""
+        defaultValue={defaultValue||""}
         render={({ field, fieldState }) => (
           <TextField
             InputLabelProps={{ shrink: true }}

@@ -12,6 +12,8 @@ export const ProtectedRoutes = [
   routesUrl.classroutine,
   routesUrl.exam,
   routesUrl.examTable,
+  routesUrl.library,
+  routesUrl.bookissue,
 ];
 export const UnprotectedRoutes = [routesUrl.signIn];
 

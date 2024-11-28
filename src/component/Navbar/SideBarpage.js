@@ -80,6 +80,22 @@ export const SideBarAdmin = [
       },
     ],
   },
+  {
+    title: "Library",
+    icon: <i className="uil uil-schedule header-icon"></i>,
+    subItems: [
+      {
+        title: "Add Books",
+        icon: <i className="uil uil-plus-circle menu-icon"></i>,
+        route: routesUrl.library,
+      },
+      {
+        title: "Book Issue",
+        icon: <i className="uil uil-file-info-alt menu-icon"></i>,
+        route: routesUrl.bookissue,
+      },
+    ],
+  },
 ];
 
 export const SideBarTeacher = [

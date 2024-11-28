@@ -10,5 +10,7 @@ export const routesUrl = {
   classroutine: "/classroutine",
   viewclassroutine:"/classroutine/checkclassroutine",
   exam:"/examination",
-  examTable:"/examination/examschedule"
+  examTable:"/examination/examschedule",
+  library:"/library",
+  bookissue:"/library/bookissue",
 };
