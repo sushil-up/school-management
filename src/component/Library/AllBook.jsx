@@ -1,5 +1,7 @@
 "use client";
+import React, { useContext, useEffect, useState } from "react";
 import UserContext from "@/context/UserContext";
+import { useForm } from "react-hook-form";
 import { Box, Button } from "@mui/joy";
 import {
   Table,
@@ -7,9 +9,8 @@ import {
   TableCell,
   TableHead,
   TableRow,
+  Tooltip,
 } from "@mui/material";
-import React, { useContext, useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
 import FormSelect from "../shared/form/FormSelect";
 import { useSession } from "next-auth/react";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -92,6 +93,7 @@ const AllBook = ({ handleClose,handleEdit }) => {
         <Table>
           <TableHead>
             <TableRow>
+            <TableCell className="font-bold text-base">Book No</TableCell>
               <TableCell className="font-bold text-base">Book Name</TableCell>
               <TableCell className="font-bold text-base">Writer </TableCell>
               <TableCell className="font-bold text-base">Title </TableCell>
@@ -102,6 +104,7 @@ const AllBook = ({ handleClose,handleEdit }) => {
           <TableBody>
             {tableData?.map((item) => ( 
               <TableRow key={item?.id}>
+                <TableCell>{item?.bookno}</TableCell>
                 <TableCell >{item?.bookname}</TableCell>
                 <TableCell >{item?.writer}</TableCell>
                 <TableCell >{item?.title}</TableCell>

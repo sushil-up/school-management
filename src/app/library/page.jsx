@@ -1,14 +1,14 @@
 "use client";
+import React, { useContext, useState } from "react";
+import { useForm } from "react-hook-form";
+import UserContext from "@/context/UserContext";
 import AddBooks from "@/component/Library/AddBooks";
 import AllBook from "@/component/Library/AllBook";
 import { successMsg } from "@/component/Toastmsg/toaster";
-import UserContext from "@/context/UserContext";
 import { Button } from "@mui/joy";
-import React, { useContext, useState } from "react";
-import { useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 
-const page = () => {
+const Libraray = () => {
   const { libraryrecord, setLibraryRecord } = useContext(UserContext);
   const { handleSubmit, control, reset } = useForm();
   const [open, setopen] = useState(false);
@@ -69,4 +69,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Libraray;

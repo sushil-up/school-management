@@ -1,6 +1,6 @@
-"use client"
-import { Box, Button, Container, Typography } from "@mui/joy";
+"use client";
 import React from "react";
+import { Box, Button, Container, Typography } from "@mui/joy";
 import FormInput from "../shared/form/TextField";
 import FormInputSelect from "../shared/form/FormInputSelect";
 import { selectclass } from "../SelectClass";
@@ -35,6 +35,8 @@ const AddBooks = ({ control }) => {
               name="bookno"
               label="Book No"
               className="ml-2"
+               inputType="number"
+                min="0"
             />
             <FormInputSelect
               control={control}

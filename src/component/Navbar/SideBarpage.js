@@ -80,22 +80,6 @@ export const SideBarAdmin = [
       },
     ],
   },
-  {
-    title: "Library",
-    icon: <i className="uil uil-schedule header-icon"></i>,
-    subItems: [
-      {
-        title: "Add Books",
-        icon: <i className="uil uil-plus-circle menu-icon"></i>,
-        route: routesUrl.library,
-      },
-      {
-        title: "Book Issue",
-        icon: <i className="uil uil-file-info-alt menu-icon"></i>,
-        route: routesUrl.bookissue,
-      },
-    ],
-  },
 ];
 
 export const SideBarTeacher = [
@@ -208,6 +192,29 @@ export const SideBarStudent = [
         title: "View Exam Schedule",
         icon: <i className="uil uil-file-info-alt menu-icon"></i>,
         route: routesUrl.examTable,
+      },
+    ],
+  },
+];
+export const SideBarLibrarian = [
+  {
+    title: "Library",
+    icon: <i className="uil uil-schedule header-icon"></i>,
+    subItems: [
+      {
+        title: "Add Books",
+        icon: <i className="uil uil-plus-circle menu-icon"></i>,
+        route: routesUrl.library,
+      },
+      {
+        title: "Book Issue",
+        icon: <i className="uil uil-file-info-alt menu-icon"></i>,
+        route: routesUrl.bookissue,
+      },
+      {
+        title: "Book Issue Record",
+        icon: <i className="uil uil-file-info-alt menu-icon"></i>,
+        route: routesUrl.record,
       },
     ],
   },

@@ -15,8 +15,8 @@ export const ProtectedRoutes = [
   routesUrl.library,
   routesUrl.bookissue,
 ];
-export const UnprotectedRoutes = [routesUrl.signIn];
 
+export const UnprotectedRoutes = [routesUrl.signIn];
 // Middleware function
 export async function middleware(request) {
   const token = await getToken({ req: request });
@@ -39,6 +39,7 @@ export async function middleware(request) {
     const redirectUrl = UnprotectedRoutes[0];
     return NextResponse.redirect(new URL(redirectUrl, request.url));
   }
+
   return NextResponse.next();
 }
 export const config = {
