@@ -1,28 +1,21 @@
 import { NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
+import {
+  ProtectedPage,
+  ProtectedRoutes,
+  UnprotectedRoutes,
+} from "./utils/Protectedpage";
 import { routesUrl } from "./utils/pagesurl";
-export const ProtectedRoutes = [
-  routesUrl.student,
-  routesUrl.teacher,
-  routesUrl.attendence,
-  routesUrl.teacherleave,
-  routesUrl.studentleave,
-  routesUrl.viewAttendence,
-  routesUrl.viewclassroutine,
-  routesUrl.classroutine,
-  routesUrl.exam,
-  routesUrl.examTable,
-  routesUrl.library,
-  routesUrl.bookissue,
-];
 
-export const UnprotectedRoutes = [routesUrl.signIn];
 // Middleware function
 export async function middleware(request) {
   const token = await getToken({ req: request });
+  const role = token?.role;
+  const allroutes = ProtectedRoutes[role] || ProtectedPage;
   const pathname = request.nextUrl.pathname;
+  console.log("pathname", pathname);
   // Check if the route is protected
-  const isProtectedRoute = ProtectedRoutes.some((route) =>
+  const isProtectedRoute = allroutes?.some((route) =>
     pathname.startsWith(route)
   );
   // Check if the route is UnprotectedRoutes
@@ -31,7 +24,7 @@ export async function middleware(request) {
   );
   // check if the user is authorized and token is  avaliable
   if (isUnprotectedRoute && token) {
-    const redirectUrl = ProtectedRoutes[0];
+    const redirectUrl = allroutes[0];
     return NextResponse.redirect(new URL(redirectUrl, request.url));
   }
   // check if the user is Unauthorized and token is not avaliable
@@ -39,9 +32,14 @@ export async function middleware(request) {
     const redirectUrl = UnprotectedRoutes[0];
     return NextResponse.redirect(new URL(redirectUrl, request.url));
   }
-
+  if(token){
+    const data = pathname === allroutes;
+  if(data){
+    return NextResponse.redirect(new URL(routesUrl.home, request.url));
+  }
+  }
   return NextResponse.next();
 }
 export const config = {
-  matcher: [ProtectedRoutes],
+  matcher: [ProtectedPage],
 };

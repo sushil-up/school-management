@@ -41,9 +41,9 @@ const Teacher = () => {
   const id = uuidv4()
   const {data:session}=useSession()
   const router= useRouter()
-  if (session?.user?.role==="student"||session?.user?.role==="teacher"){
-    router.replace(routesUrl.home)
-  }
+  // if (session?.user?.role==="student"||session?.user?.role==="teacher"){
+  //   router.replace(routesUrl.home)
+  // }
   const onSubmit = (formData) => {
     const setId= {...formData,id}
     try {

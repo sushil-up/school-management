@@ -4,7 +4,7 @@ import BookIssuseteacher from "@/component/Library/BookIssuse/BookIssuseteacher"
 import { Button } from "@mui/joy";
 import React, { useState } from "react";
 
-const page = () => {
+const BookIssue = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => {
     setOpen(true);
@@ -29,4 +29,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default BookIssue;
