@@ -6,7 +6,6 @@ import TeacherTable from "@/component/TeacherForm/TeacherTable";
 import { successMsg } from "@/component/Toastmsg/toaster";
 import { TeacherValidation } from "@/component/Validation/TecherValidation";
 import UserContext from "@/context/UserContext";
-import { routesUrl } from "@/utils/pagesurl";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Container } from "@mui/joy";
 import { Button } from "@mui/material";

@@ -7,6 +7,7 @@ import UserContextProvider from "@/context/UserContextProvider";
 import Provider from "@/component/Provider";
 import { ToastContainer } from "react-toastify";
 import MiniDrawer from "@/component/Navbar/SideBar";
+import ProtectedRouting from "@/component/ProtectedRouting/ProtectedRouting";
 
 // Load custom fonts
 const geistSans = localFont({
@@ -34,6 +35,7 @@ export default function RootLayout({ children }) {
         <ToastContainer />
         <UserContextProvider>
           <Provider>
+            <ProtectedRouting/>
             <MiniDrawer>{children}</MiniDrawer>
           </Provider>
         </UserContextProvider>

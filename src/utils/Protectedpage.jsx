@@ -15,40 +15,39 @@ export const ProtectedPage = [
     routesUrl.bookissue,
 ]
 
-
-export const UnprotectedRoutes = [routesUrl.signIn];
+export const UnprotectedRoutes = [routesUrl.signIn, routesUrl.home];
 export const ProtectedRoutes = {
-    student: [
-      routesUrl.student,
-      routesUrl.viewAttendence,
-      routesUrl.examTable,
-      routesUrl.viewclassroutine,
-      routesUrl.studentleave,
-    ],
-    teacher: [
-      routesUrl.student,
-      routesUrl.attendence,
-      routesUrl.teacherleave,
-      routesUrl.studentleave,
-      routesUrl.viewAttendence,
-      routesUrl.viewclassroutine,
-      routesUrl.classroutine,
-      routesUrl.exam,
-      routesUrl.examTable,
-    ],
-    librarian: [routesUrl.library, routesUrl.bookissue],
-    admin: [
-      routesUrl.student,
-      routesUrl.teacher,
-      routesUrl.attendence,
-      routesUrl.teacherleave,
-      routesUrl.studentleave,
-      routesUrl.viewAttendence,
-      routesUrl.viewclassroutine,
-      routesUrl.classroutine,
-      routesUrl.exam,
-      routesUrl.examTable,
-      routesUrl.library,
-      routesUrl.bookissue,
-    ],
-  };
+  student: [
+    routesUrl.student,
+    routesUrl.viewAttendence,
+    routesUrl.examTable,
+    routesUrl.viewclassroutine,
+    routesUrl.studentleave,
+  ],
+  teacher: [
+    routesUrl.student,
+    routesUrl.attendence,
+    routesUrl.teacherleave,
+    routesUrl.studentleave,
+    routesUrl.viewAttendence,
+    routesUrl.viewclassroutine,
+    routesUrl.classroutine,
+    routesUrl.exam,
+    routesUrl.examTable,
+  ],
+  librarian: [routesUrl.library, routesUrl.bookissue],
+  admin: [
+    routesUrl.student,
+    routesUrl.teacher,
+    routesUrl.attendence,
+    routesUrl.teacherleave,
+    routesUrl.studentleave,
+    routesUrl.viewAttendence,
+    routesUrl.viewclassroutine,
+    routesUrl.classroutine,
+    routesUrl.exam,
+    routesUrl.examTable,
+    routesUrl.library,
+    routesUrl.bookissue,
+  ],
+};
