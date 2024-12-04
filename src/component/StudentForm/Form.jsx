@@ -16,8 +16,8 @@ import { useState } from "react";
 
 const steps = [
   "Personal Details",
-  "Admission Detail",
-  "Parents Detail",
+  "Admission Details",
+  "Parents Details",
   "Set Password",
 ];
 

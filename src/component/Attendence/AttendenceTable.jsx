@@ -83,7 +83,7 @@ const AttendenceTable = ({ student, formdata, open, setOpen }) => {
                 className="btn mt-4 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600"
                 color="primary"
               >
-                Upload Attendence
+                Upload Attendance
               </Button>
             </form>
           </Container>

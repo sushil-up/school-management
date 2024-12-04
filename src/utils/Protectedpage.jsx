@@ -15,7 +15,7 @@ export const ProtectedPage = [
     routesUrl.bookissue,
 ]
 
-export const UnprotectedRoutes = [routesUrl.signIn, routesUrl.home];
+export const UnprotectedRoutes = [routesUrl.signIn, routesUrl.home,];
 export const ProtectedRoutes = {
   student: [
     routesUrl.student,
@@ -35,7 +35,7 @@ export const ProtectedRoutes = {
     routesUrl.exam,
     routesUrl.examTable,
   ],
-  librarian: [routesUrl.library, routesUrl.bookissue],
+  librarian: [routesUrl.library, routesUrl.bookissue,routesUrl.record ],
   admin: [
     routesUrl.student,
     routesUrl.teacher,

@@ -37,7 +37,7 @@ const SideBarList = ({
       <List>
         {currentSideBar?.map((item, index) => (
           <div key={index}>
-            <ListItem disablepadding onClick={() => toggleCollapse(index)}>
+            <ListItem  onClick={() => toggleCollapse(index)}>
               <ListItemButton
                 selected={selectedIndex === index && selectedSubIndex === null}
                 onClick={() => handleItemClick(index)}
@@ -83,7 +83,7 @@ const SideBarList = ({
                 timeout="auto"
                 unmountOnExit
               >
-                <List component="div" disablepadding>
+                <List component="div" >
                   {item.subItems.map((subItem, subIndex) => (
                     <Link href={subItem.route} key={subIndex}>
                       <ListItemButton

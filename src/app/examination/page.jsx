@@ -16,11 +16,7 @@ const Examination = () => {
     reset,
     formState: { errors },
   } = useForm();
-  const {data:session}=useSession()
   const router= useRouter()
-  if(session?.user?.role==="student"||session?.user?.role==="teacher"){
-    router.replace(routesUrl.examTable)
-  }
   const { examination, setExamination } = useContext(UserContext);
   const id = uuidv4();
   const onSubmit = (examdata) => {

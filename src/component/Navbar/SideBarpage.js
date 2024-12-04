@@ -17,7 +17,7 @@ export const SideBarAdmin = [
     ],
   },
   {
-    title: " Attendence",
+    title: " Attendance",
     icon: <i className="uil uil-file-upload header-icon"></i>,
     subItems: [
       // {
@@ -26,7 +26,7 @@ export const SideBarAdmin = [
       //   route: routesUrl.attendence,
       // },
       {
-        title: "View Attendence",
+        title: "View Attendance",
         icon: <i className="uil uil-eye menu-icon"></i>,
         route: routesUrl.viewAttendence,
       },

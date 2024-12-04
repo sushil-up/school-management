@@ -19,7 +19,7 @@ export default function DateSelect({
         <Controller
           name={name}
           control={control}
-          defaultValue={dayjs(new Date())}
+          
           render={({ field }) => (
             <DatePicker
               {...field}
@@ -30,13 +30,17 @@ export default function DateSelect({
               onChange={(date) => {
                 field.onChange(date);
               }}
+              
               renderInput={(params) => (
                 <TextField
                   {...params}
                   error={!!errors?.[name]}
                   helpertext={errors?.[name]?.message}
-                />
+                
+                /> 
               )}
+              disableFuture
+              defaultValue={dayjs(new Date())}
             />
           )}
         />

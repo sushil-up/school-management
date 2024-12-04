@@ -2,7 +2,7 @@ import { useContext } from "react";
 import FormInputSelect from "./shared/form/FormInputSelect";
 import UserContext from "@/context/UserContext";
 
-const SelectBox = ({ control }) => {
+const SelectBox = ({ control,className }) => {
   const { studentData } = useContext(UserContext);
   const classList = studentData?.map((item) => item.class);
   const List = Array?.from(new Set(classList));
@@ -19,7 +19,7 @@ const SelectBox = ({ control }) => {
       />
       <FormInputSelect
         control={control}
-        className="mt-4 ml-2"
+        className={className}
         name="section"
         label="Select Section"
         options={section}

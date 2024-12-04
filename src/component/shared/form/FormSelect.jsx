@@ -1,5 +1,5 @@
 import React from "react";
-import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
+import { FormControl, InputLabel, Select, MenuItem, FormHelperText } from "@mui/material";
 import { Controller } from "react-hook-form";
 
 const FormSelect = ({
@@ -26,8 +26,6 @@ const FormSelect = ({
               id={name}
               className={className}
               {...field}
-              error={!!errors?.[name]}
-              helpertext={errors?.[name]?.message}
               onChange={(e) => {
                 field.onChange(e); 
                 onChange?.(e);
@@ -45,8 +43,8 @@ const FormSelect = ({
             </Select>
           )}
         />
-        {errors?.[name] && (
-          <p className="text-red-600 ">{errors[name]?.message}</p>
+         {errors?.[name] && (
+          <FormHelperText>{errors[name].message}</FormHelperText>
         )}
       </FormControl>
     </>

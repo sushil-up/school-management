@@ -43,7 +43,7 @@ const Attendence = () => {
           <br />
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="attendance">
-          <SelectBox control={control}/>
+          <SelectBox control={control} className="mt-4 ml-2"/>
               <DateSelect
                 className="mt-4 ml-2"
                 control={control}
@@ -54,7 +54,7 @@ const Attendence = () => {
                 className="mt-4 ml-2 bg-red-500 hover:bg-red-600"
                 type="submit"
               >
-                Attendence
+                Attendance
               </Button>
             </div>
             <br />

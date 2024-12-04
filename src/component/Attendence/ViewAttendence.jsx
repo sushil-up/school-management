@@ -39,12 +39,12 @@ const ViewAttendence = () => {
     <>
       <Container className="attendance-form bg-slate-50 mt-5 border-4 shadow-md rounded-lg border-white">
         <Box>
-          <Typography className="text-2xl">Check Student Attendence</Typography>
+          <Typography className="text-2xl">Check Student Attendance</Typography>
           <Typography className="text-sm"></Typography>
           <br />
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="attendance">
-              <SelectBox control={control} />
+              <SelectBox control={control} className="mt-4 ml-2" />
               <DateSelect
                 className="mt-4 ml-2"
                 control={control}

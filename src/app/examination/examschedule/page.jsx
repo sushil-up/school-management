@@ -9,30 +9,40 @@ import { selectclass } from "@/component/SelectClass";
 
 const ExamSchedule = () => {
   const { examination } = useContext(UserContext);
-  const { handleSubmit, control,reset } = useForm({defaultValues:{
-    class:"1",
-    section:"A",
-    select_type:"Class Test"
-  }});
+  const { handleSubmit, control, reset } = useForm({
+    defaultValues: {
+      class: "All",
+      section: "All",
+      select_type: "All",
+    },
+  });
   const [tableData, setTableData] = useState();
-  const [filterData, setFilterData] = useState();
+  const [filterData, setFilterData] = useState({
+    class: "All",
+    section: "All",
+    select_type: "All",
+  });
   const onSubmit = (data) => {
     setFilterData(data);
-    reset()
+    reset();
   };
   useEffect(() => {
     if (filterData) {
       const examData = examination.filter(
         (item) =>
-          item.class === filterData.class &&
-          item.section === filterData.section &&
-          item.exam_type === filterData.select_type
+          (item.class === filterData.class &&
+            item.section === filterData.section &&
+            item.exam_type === filterData.select_type) ||
+          (filterData.class === "All" &&
+            filterData.section === "All" &&
+            filterData.select_type === "All")
       );
       setTableData(examData);
     }
-  },[filterData,examination]);
+  }, [filterData, examination]);
   return (
     <>
+    <Box>View Examination Schedule</Box>
       <Box>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="attendance">
@@ -41,33 +51,39 @@ const ExamSchedule = () => {
               className="mt-4 "
               name="class"
               label="Select Class"
-              options={[...selectclass]}
+              options={[...selectclass, "All"]}
             />
             <FormInputSelect
               control={control}
               className="mt-4 ml-2"
               name="section"
               label="Select Section"
-              options={["A", "B", "C"]}
+              options={["All", "A", "B", "C"]}
             />
             <FormInputSelect
               control={control}
               className="mt-4 ml-2"
               name="select_type"
               label="Select Exam Type"
-              options={["Class Test", "Mid term", "Board Exam", "Anual Exam"]}
+              options={[
+                "All",
+                "Class Test",
+                "Mid term",
+                "Board Exam",
+                "Anual Exam",
+              ]}
             />
             <Button
               type="submit"
-               className="ml-2 h-fit mt-5 border-4 bg-teal-400 rounded border-black "
+              className="ml-2 h-fit mt-5 border-4 bg-teal-400 rounded border-black "
             >
               Search
             </Button>
           </div>
         </form>
       </Box>
-      <br/>
-      <ExamTable tableData={tableData}/>
+      <br />
+      <ExamTable tableData={tableData} />
     </>
   );
 };

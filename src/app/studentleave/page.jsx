@@ -39,7 +39,7 @@ const Page = () => {
       setEditIndex(null);
       setStudentLeave(storedData);
       editIndex !== null
-        ? successMsg("Student leave edited successfully")
+        ? successMsg("Student leave updated successfully")
         : successMsg("Student leave added successfully");
       reset();
       setOpen(false);

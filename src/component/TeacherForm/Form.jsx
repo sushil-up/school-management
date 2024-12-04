@@ -16,7 +16,7 @@ import DateSelect from "../shared/form/DatePicker";
 
 const steps = [
   "Personal Details",
-  "Joining Detail",
+  "Joining Details",
   "Class Teacher",
   "Set Password",
 ];

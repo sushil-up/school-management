@@ -16,12 +16,17 @@ import FormSelect from "../shared/form/FormSelect";
 import RadioButton from "../shared/form/RadioButton";
 import { selectclass } from "../SelectClass";
 import { useSession } from "next-auth/react";
+import SelectBox from "../SelectBox";
 const StudentLeave = ({ handleChange, value, control, editIndex, errors }) => {
   const { studentData } = useContext(UserContext);
   const [storeClass, setStoreClass] = useState(null);
   const [storeSection, setStoreSection] = useState(null);
   const [rollno, setRollNo] = useState([]);
-  const {data:session}=useSession()
+  const { data: session } = useSession();
+  const classList = studentData?.map((item) => item.class);
+  const List = Array?.from(new Set(classList));
+  const sectionList = studentData?.map((item) => item.section);
+  const section = Array?.from(new Set(sectionList));
   useEffect(() => {
     if (storeClass && storeSection !== null) {
       const list = studentData?.filter(
@@ -79,7 +84,7 @@ const StudentLeave = ({ handleChange, value, control, editIndex, errors }) => {
                 name="class"
                 label="Select Class"
                 onChange={(e) => setStoreClass(e?.target?.value)}
-                options={selectclass || []}
+                options={List || []}
                 errors={errors}
               />
             </FormControl>
@@ -89,7 +94,7 @@ const StudentLeave = ({ handleChange, value, control, editIndex, errors }) => {
                 className="mt-4 w-56 ml-2"
                 name="section"
                 label="Select Section"
-                options={["A", "B", "C"]}
+                options={section}
                 onChange={(e) => setStoreSection(e?.target?.value)}
                 errors={errors}
               />
@@ -143,10 +148,13 @@ const StudentLeave = ({ handleChange, value, control, editIndex, errors }) => {
               inputType="text"
               errors={errors}
             />
+            <br/>
             {session?.user?.role === "student" ? (
               <></>
             ) : (
-              <FormControl>
+            <>
+            <br/>
+            <FormControl>
                 <RadioButton
                   control={control}
                   label="Status"
@@ -157,6 +165,7 @@ const StudentLeave = ({ handleChange, value, control, editIndex, errors }) => {
                   ]}
                 />
               </FormControl>
+            </>
             )}
             <br />
             <Button

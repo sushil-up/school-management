@@ -37,8 +37,8 @@ const Leave = () => {
           : [...leaveRequest, setId];
       setEditIndex(null);
       editIndex !== null
-        ? successMsg("Leave Request is edited successfully")
-        : successMsg("Leave Request is edited successfully");
+        ? successMsg("Leave request is updated successfully")
+        : successMsg("Leave Request is added successfully");
 
       setLeaveRequest(storedData);
       reset();

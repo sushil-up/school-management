@@ -40,9 +40,6 @@ const Teacher = () => {
   const id = uuidv4()
   const {data:session}=useSession()
   const router= useRouter()
-  // if (session?.user?.role==="student"||session?.user?.role==="teacher"){
-  //   router.replace(routesUrl.home)
-  // }
   const onSubmit = (formData) => {
     const setId= {...formData,id}
     try {
@@ -53,8 +50,8 @@ const Teacher = () => {
             )
           : [...teacherData, setId];
           editIndex !== null
-          ? successMsg("Teacher information has been successfully edited.")
-          : successMsg("Teacher record created successfully.");
+          ? successMsg("Teacher updated successfully")
+          : successMsg("Teacher added successfully");
       setTeacherData(storedData);
       setEditIndex(null)
       reset();
