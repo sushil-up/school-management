@@ -148,6 +148,17 @@ export const SideBarTeacher = [
       },
     ],
   },
+  {
+    title: " Book Request",
+    icon: <i className="uil uil-file-upload header-icon"></i>,
+    subItems: [
+      {
+        title: "Send Request",
+        icon: <i className="uil uil-plus-circle menu-icon"></i>,
+        route: routesUrl.byteacher,
+      },
+    ],
+  },
 ];
 
 export const SideBarStudent = [
@@ -195,6 +206,17 @@ export const SideBarStudent = [
       },
     ],
   },
+  {
+    title: " Book Request",
+    icon: <i className="uil uil-file-upload header-icon"></i>,
+    subItems: [
+      {
+        title: "Send Request",
+        icon: <i className="uil uil-plus-circle menu-icon"></i>,
+        route: routesUrl.bystudent,
+      },
+    ],
+  },
 ];
 export const SideBarLibrarian = [
   {
@@ -207,14 +229,9 @@ export const SideBarLibrarian = [
         route: routesUrl.library,
       },
       {
-        title: "Book Issue",
-        icon: <i className="uil uil-file-info-alt menu-icon"></i>,
-        route: routesUrl.bookissue,
-      },
-      {
-        title: "Book Issue Record",
-        icon: <i className="uil uil-file-info-alt menu-icon"></i>,
-        route: routesUrl.record,
+        title: " Books Request",
+        icon: <i className="uil uil-plus-circle menu-icon"></i>,
+        route: routesUrl.requestbooks,
       },
     ],
   },

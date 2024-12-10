@@ -10,7 +10,7 @@ import {
   TableRow,
 } from "@mui/material";
 import dayjs from "dayjs";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { useSession } from "next-auth/react";
@@ -19,6 +19,7 @@ const LeaveTable = ({ handleDelete, handleEdit }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const { data: session } = useSession();
+  const [tableData, setTableData] = useState();
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -26,6 +27,20 @@ const LeaveTable = ({ handleDelete, handleEdit }) => {
     setRowsPerPage(+event?.target?.value);
     setPage(0);
   };
+  useEffect(() => {
+  if(session?.user?.role==="student"){
+    if (session) {
+      const emailstu = session?.user?.email
+      const studentEmail = studentleave?.filter(
+        (item) => item.email === emailstu
+      );
+      setTableData(studentEmail)
+    }
+  }
+ else{
+  setTableData(studentleave)
+ }
+  },[session,studentleave]);
   return (
     <>
       <Container>
@@ -51,9 +66,9 @@ const LeaveTable = ({ handleDelete, handleEdit }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {studentleave.length > 0 ? (
+            {tableData?.length > 0 ? (
               <>
-                {studentleave?.map((item) => (
+                {tableData?.map((item) => (
                   <>
                     <TableRow key={item?.id}>
                       <TableCell>{item?.name}</TableCell>
@@ -68,9 +83,9 @@ const LeaveTable = ({ handleDelete, handleEdit }) => {
                       </TableCell>
                       <TableCell>{item?.reason}</TableCell>
                       {item?.status ? (
-                          <TableCell>{item?.status}</TableCell>
+                        <TableCell>{item?.status}</TableCell>
                       ) : (
-                          <TableCell>Pending</TableCell>
+                        <TableCell>Pending</TableCell>
                       )}
                       <TableCell>
                         {session?.user?.role === "student" ? (
@@ -122,7 +137,7 @@ const LeaveTable = ({ handleDelete, handleEdit }) => {
         <TablePagination
           rowsPerPageOptions={[10, 25, 100]}
           component="div"
-          count={studentleave?.length}
+          count={tableData?.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}

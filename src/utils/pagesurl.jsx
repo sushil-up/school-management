@@ -12,6 +12,7 @@ export const routesUrl = {
   exam:"/examination",
   examTable:"/examination/examschedule",
   library:"/library",
-  bookissue:"/library/bookissue",
-  record:"/bookissue",
+  byteacher:"/bookrequest/byteacher",
+  bystudent:"/bookrequest/bystudent",
+  requestbooks:"/requestbooks",
 };

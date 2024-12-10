@@ -10,13 +10,16 @@ import {
   TableRow,
 } from "@mui/material";
 import dayjs from "dayjs";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import { useSession } from "next-auth/react";
 const LeaveTable = ({ handleDelete, handleEdit }) => {
   const { leaveRequest } = useContext(UserContext);
   const [page, setPage] = useState(0);
+  const [tableData, setTableData] = useState();
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const {data:session}= useSession()
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -24,6 +27,20 @@ const LeaveTable = ({ handleDelete, handleEdit }) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+  useEffect(() => {
+    if(session?.user?.role==="teacher"){
+      if (session) {
+        const emailTeacher = session?.user?.email
+        const TeacherEmail = leaveRequest?.filter(
+          (item) => item.email === emailTeacher
+        );
+        setTableData(TeacherEmail)
+      }
+    }
+   else{
+    setTableData(leaveRequest)
+   }
+    },[session,leaveRequest]);
   return (
     <>
       <Container>
@@ -38,9 +55,9 @@ const LeaveTable = ({ handleDelete, handleEdit }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {leaveRequest?.length > 0 ? (
+            {tableData?.length > 0 ? (
               <>
-                {leaveRequest?.map((item, index) => (
+                {tableData?.map((item, index) => (
                   <>
                     <TableRow key={index}>
                     <TableCell>{item.name}</TableCell>
@@ -84,7 +101,7 @@ const LeaveTable = ({ handleDelete, handleEdit }) => {
         <TablePagination
           rowsPerPageOptions={[10, 25, 100]}
           component="div"
-          count={leaveRequest?.length}
+          count={tableData?.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}

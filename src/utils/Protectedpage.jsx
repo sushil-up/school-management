@@ -23,6 +23,7 @@ export const ProtectedRoutes = {
     routesUrl.examTable,
     routesUrl.viewclassroutine,
     routesUrl.studentleave,
+    routesUrl.bystudent,
   ],
   teacher: [
     routesUrl.student,
@@ -34,8 +35,9 @@ export const ProtectedRoutes = {
     routesUrl.classroutine,
     routesUrl.exam,
     routesUrl.examTable,
+    routesUrl.byteacher,
   ],
-  librarian: [routesUrl.library, routesUrl.bookissue,routesUrl.record ],
+  librarian: [routesUrl.library, routesUrl.bookissue,routesUrl.record,routesUrl.requestbooks ],
   admin: [
     routesUrl.student,
     routesUrl.teacher,

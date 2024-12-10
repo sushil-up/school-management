@@ -7,6 +7,7 @@ import { StudentLeaveValidation } from "@/component/Validation/StudentLeaveValid
 import UserContext from "@/context/UserContext";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Container } from "@mui/joy";
+import { useSession } from "next-auth/react";
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
@@ -29,8 +30,10 @@ const Page = () => {
     setValue(event?.target?.value);
     reset();
   };
+  const {data:session}=useSession()
+const email=session?.user?.email
   const onSubmit = (data) => {
-    const setid = { ...data, id };
+    const setid = { ...data, id,email };
     try {
       const storedData =
         editIndex !== null

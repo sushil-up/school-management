@@ -23,7 +23,7 @@ const ProtectedRouting = () => {
         router?.replace(UnprotectedRoutes[1]);
       }
     }
-  },[]);
+  },[protecte,pathname,router]);
 };
 
 export default ProtectedRouting;
