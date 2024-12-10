@@ -13,10 +13,11 @@ const handler = NextAuth({
           if (stuData) parsedData = [...JSON.parse(stuData), ...parsedData];
         } catch (error) {}
         const user = parsedData.find(
-          (item) =>
-            (item.email === email && item.password === password) ||
-            (item.email === "test@gmail.com " && item.password === "123456zx")
+          (item) => item.email === email && item.password === password
         );
+        if (email === "test@gmail.com" && password === "123456zx") {
+          return { email, role: "admin" };
+        }
         if (user) {
           return {
             email: user.email,
