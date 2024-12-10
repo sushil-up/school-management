@@ -3,12 +3,16 @@ export const routesUrl = {
   student: "/student",
   teacher: "/teacher",
   attendence: "/studentattendence",
-  viewAttendence: "viewattendence",
+  viewAttendence: "/viewattendence",
   home: "/",
   teacherleave: "/leaverequest",
   studentleave: "/studentleave",
   classroutine: "/classroutine",
   viewclassroutine:"/classroutine/checkclassroutine",
   exam:"/examination",
-  examTable:"/examination/examschedule"
+  examTable:"/examination/examschedule",
+  library:"/library",
+  byteacher:"/bookrequest/byteacher",
+  bystudent:"/bookrequest/bystudent",
+  requestbooks:"/requestbooks",
 };

@@ -5,28 +5,37 @@ import { useForm } from "react-hook-form";
 import { Button, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
-import { errorMsg, successMsg } from "@/component/Toastmsg/toaster";
 import FormInput from "@/component/shared/form/TextField";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SigninValidation } from "@/component/Validation/SigninValidation";
+import { errorMsg, successMsg } from "@/component/Toastmsg/toaster";
 const Login = () => {
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm({resolver:yupResolver(SigninValidation)});
+  } = useForm({ resolver: yupResolver(SigninValidation) });
   const router = useRouter();
   const onSubmit = async (data) => {
     const { email, password } = data;
     const localData = localStorage.getItem("teacherData");
     const stuData = localStorage.getItem("student");
+    let parsedData = [];
+    try {
+      if (localData) parsedData = JSON.parse(localData);
+      if (stuData) parsedData = [...JSON.parse(stuData), ...parsedData];
+    } catch (error) {}
+    const checkEmail = parsedData.find((item) => item.email === email);
+    if (checkEmail === undefined) {
+      errorMsg("User Doesn't exist");
+    }
     try {
       const res = await signIn("credentials", {
         email,
         password,
         redirect: false,
         localData,
-        stuData
+        stuData,
       });
       if (res.error) {
         return errorMsg("Invalid credentials");

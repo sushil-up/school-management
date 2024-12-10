@@ -14,22 +14,13 @@ import DateRangeSelect from "../shared/form/DateRangePicker";
 import FormInput from "../shared/form/TextField";
 import FormSelect from "../shared/form/FormSelect";
 import RadioButton from "../shared/form/RadioButton";
-import { selectclass } from "../SelectClass";
 import { useSession } from "next-auth/react";
 const StudentLeave = ({ handleChange, value, control, editIndex, errors }) => {
   const { studentData } = useContext(UserContext);
-  const [storeClass, setStoreClass] = useState(null);
-  const [storeSection, setStoreSection] = useState(null);
-  const [rollno, setRollNo] = useState([]);
-  const {data:session}=useSession()
-  useEffect(() => {
-    if (storeClass && storeSection !== null) {
-      const list = studentData?.filter(
-        (item) => item?.class === storeClass && item?.section === storeSection
-      );
-      setRollNo(list);
-    }
-  }, [storeClass, storeSection, studentData]);
+  const { data: session } = useSession();
+  const techData = studentData.filter(
+    (item) => item?.email === session?.user?.email
+  );
   return (
     <>
       <Container className="bg-slate-50 mt-5 border-4 shadow-md rounded-lg border-white">
@@ -73,24 +64,22 @@ const StudentLeave = ({ handleChange, value, control, editIndex, errors }) => {
             </FormControl>
             <br />
             <FormControl>
-              <FormInputSelect
+              <FormSelect
                 control={control}
                 className="mt-4 w-56"
                 name="class"
                 label="Select Class"
-                onChange={(e) => setStoreClass(e?.target?.value)}
-                options={selectclass || []}
+                options={techData?.map((item) => item?.class)}
                 errors={errors}
               />
             </FormControl>
             <FormControl>
-              <FormInputSelect
+              <FormSelect
                 control={control}
                 className="mt-4 w-56 ml-2"
                 name="section"
                 label="Select Section"
-                options={["A", "B", "C"]}
-                onChange={(e) => setStoreSection(e?.target?.value)}
+                options={techData?.map((item) => item?.section)}
                 errors={errors}
               />
             </FormControl>
@@ -100,7 +89,7 @@ const StudentLeave = ({ handleChange, value, control, editIndex, errors }) => {
                 className="mt-4 w-56 ml-2"
                 name="name"
                 label="Select Name"
-                options={rollno?.map((item) => item?.name)}
+                options={techData?.map((item) => item?.name)}
                 errors={errors}
               />
             </FormControl>
@@ -110,7 +99,7 @@ const StudentLeave = ({ handleChange, value, control, editIndex, errors }) => {
                 className="mt-4 w-56 ml-2"
                 name="rollno"
                 label="Select Rollno"
-                options={rollno?.map((item) => item?.rollno)}
+                options={techData?.map((item) => item?.rollno)}
                 errors={errors}
               />
             </FormControl>
@@ -143,10 +132,13 @@ const StudentLeave = ({ handleChange, value, control, editIndex, errors }) => {
               inputType="text"
               errors={errors}
             />
+            <br/>
             {session?.user?.role === "student" ? (
               <></>
             ) : (
-              <FormControl>
+            <>
+            <br/>
+            <FormControl>
                 <RadioButton
                   control={control}
                   label="Status"
@@ -157,6 +149,7 @@ const StudentLeave = ({ handleChange, value, control, editIndex, errors }) => {
                   ]}
                 />
               </FormControl>
+            </>
             )}
             <br />
             <Button

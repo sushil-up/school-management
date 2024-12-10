@@ -18,4 +18,6 @@ export const StudentValidation = Yup.object().shape({
   religion:Yup.string().required("Religion is required"),
   admissionno:Yup.string().required("Admission no is required"),
   admissiondate:Yup.string().required("Admission date is required"),
+  password: Yup.string().required("Password is required"),
+  role: Yup.string().required("Role is required"),
 });

@@ -13,11 +13,12 @@ import FormInput from "../shared/form/TextField";
 import FormInputSelect from "../shared/form/FormInputSelect";
 import DateSelect from "../shared/form/DatePicker";
 import { useState } from "react";
+import { StudentValidation } from "../Validation/StudentValidation";
 
 const steps = [
   "Personal Details",
-  "Admission Detail",
-  "Parents Detail",
+  "Admission Details",
+  "Parents Details",
   "Set Password",
 ];
 
@@ -37,6 +38,7 @@ export default function Form({ control, update, handleClose, errors }) {
   const isLastStep = () => activeStep === totalSteps() - 1;
   const allStepsCompleted = () => completedSteps() === totalSteps();
   const handleNext = () => {
+    StudentValidation
     const newActiveStep =
       isLastStep() && !allStepsCompleted()
         ? steps.findIndex((step, i) => !(i in completed))

@@ -17,7 +17,7 @@ export const SideBarAdmin = [
     ],
   },
   {
-    title: " Attendence",
+    title: " Attendance",
     icon: <i className="uil uil-file-upload header-icon"></i>,
     subItems: [
       // {
@@ -26,7 +26,7 @@ export const SideBarAdmin = [
       //   route: routesUrl.attendence,
       // },
       {
-        title: "View Attendence",
+        title: "View Attendance",
         icon: <i className="uil uil-eye menu-icon"></i>,
         route: routesUrl.viewAttendence,
       },
@@ -148,6 +148,17 @@ export const SideBarTeacher = [
       },
     ],
   },
+  {
+    title: " Book Request",
+    icon: <i className="uil uil-file-upload header-icon"></i>,
+    subItems: [
+      {
+        title: "Send Request",
+        icon: <i className="uil uil-plus-circle menu-icon"></i>,
+        route: routesUrl.byteacher,
+      },
+    ],
+  },
 ];
 
 export const SideBarStudent = [
@@ -192,6 +203,35 @@ export const SideBarStudent = [
         title: "View Exam Schedule",
         icon: <i className="uil uil-file-info-alt menu-icon"></i>,
         route: routesUrl.examTable,
+      },
+    ],
+  },
+  {
+    title: " Book Request",
+    icon: <i className="uil uil-file-upload header-icon"></i>,
+    subItems: [
+      {
+        title: "Send Request",
+        icon: <i className="uil uil-plus-circle menu-icon"></i>,
+        route: routesUrl.bystudent,
+      },
+    ],
+  },
+];
+export const SideBarLibrarian = [
+  {
+    title: "Library",
+    icon: <i className="uil uil-schedule header-icon"></i>,
+    subItems: [
+      {
+        title: "Add Books",
+        icon: <i className="uil uil-plus-circle menu-icon"></i>,
+        route: routesUrl.library,
+      },
+      {
+        title: " Books Request",
+        icon: <i className="uil uil-plus-circle menu-icon"></i>,
+        route: routesUrl.requestbooks,
       },
     ],
   },

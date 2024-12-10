@@ -1,12 +1,12 @@
 // RootLayout.jsx
 import React from "react";
-import PropTypes from "prop-types";
 import localFont from "next/font/local";
 import "./globals.css";
 import UserContextProvider from "@/context/UserContextProvider";
 import Provider from "@/component/Provider";
-import { ToastContainer } from "react-toastify";
 import MiniDrawer from "@/component/Navbar/SideBar";
+import ProtectedRouting from "@/component/ProtectedRouting/ProtectedRouting";
+import { ToastContainer } from "react-toastify";
 
 // Load custom fonts
 const geistSans = localFont({
@@ -30,15 +30,20 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-      <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"></link>
-        <ToastContainer />
+        <link
+          rel="stylesheet"
+          href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"
+        ></link>
         <UserContextProvider>
           <Provider>
-            <MiniDrawer>{children}</MiniDrawer>
+            <ProtectedRouting />
+            <MiniDrawer>
+              <ToastContainer />
+              {children}
+            </MiniDrawer>
           </Provider>
         </UserContextProvider>
       </body>
     </html>
   );
 }
-

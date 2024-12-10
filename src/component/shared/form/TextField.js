@@ -13,15 +13,16 @@ export default function FormInput({
   multiline,
   rows,
   min,
-  max
+  max,
+  defaultValue
 }) {
   return (
     <FormControl fullWidth>
       <Controller
         name={name}
         control={control}
-        defaultValue=""
-        render={({ field, fieldState }) => (
+        defaultValue={defaultValue||""}
+        render={({ field }) => (
           <TextField
             InputLabelProps={{ shrink: true }}
             {...field}
@@ -34,10 +35,11 @@ export default function FormInput({
             inputProps={{ min, max }}
             variant="outlined"
             error={!!errors?.[name]}
-            helpertext={errors?.[name]?.message}
+            helperText={errors?.[name]?.message}
           />
         )}
       />
     </FormControl>
+    
   );
 }

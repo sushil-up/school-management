@@ -16,7 +16,7 @@ import DateSelect from "../shared/form/DatePicker";
 
 const steps = [
   "Personal Details",
-  "Joining Detail",
+  "Joining Details",
   "Class Teacher",
   "Set Password",
 ];
@@ -302,7 +302,7 @@ export default function Form({ control, update, handleClose, errors }) {
                                 name="role"
                                 className="mt-4 text-left"
                                 label="Select Role"
-                                options={["admin", "teacher"]}
+                                options={["admin", "teacher","librarian"]}
                                 errors={errors}
                               />
                             </Item>

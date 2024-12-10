@@ -7,6 +7,7 @@ import { LeaveRequestValidation } from "@/component/Validation/LeaveRequestValid
 import UserContext from "@/context/UserContext";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Container } from "@mui/joy";
+import { useSession } from "next-auth/react";
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
@@ -28,8 +29,10 @@ const Leave = () => {
     setValue(event.target.value);
   };
   const id = uuidv4();
+  const {data:session}=useSession()
+  const email=session?.user?.email
   const onSubmit = (data) => {
-    const setId = { ...data, id };
+    const setId = { ...data, id,email };
     try {
       const storedData =
         editIndex !== null
@@ -37,8 +40,8 @@ const Leave = () => {
           : [...leaveRequest, setId];
       setEditIndex(null);
       editIndex !== null
-        ? successMsg("Leave Request is edited successfully")
-        : successMsg("Leave Request is edited successfully");
+        ? successMsg("Leave request is updated successfully")
+        : successMsg("Leave Request is added successfully");
 
       setLeaveRequest(storedData);
       reset();

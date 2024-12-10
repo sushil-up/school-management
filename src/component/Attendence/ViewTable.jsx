@@ -69,7 +69,7 @@ const ViewTable = ({ student }) => {
               <TableCell className="font-bold text-base">Class</TableCell>
               <TableCell className="font-bold text-base">Section</TableCell>
               <TableCell className="font-bold text-base">
-                Attendence Status
+              Attendance Status
               </TableCell>
               <TableCell className="font-bold text-base">Action</TableCell>
             </TableRow>

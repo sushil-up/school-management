@@ -26,8 +26,8 @@ const ClassRoutineTable = () => {
   const [deleteOpenModal, setDeleteOpenModal] = useState(false);
   const [deleteIndex, setDeleteIndex] = useState(null);
   const [formData, setFormdata] = useState({
-    class: "1",
-    section: "A",
+    class: "All",
+    section: "All",
   });
   const [editindex, setEditIndex] = useState(null);
   const [page, setPage] = useState(0);
@@ -36,8 +36,8 @@ const ClassRoutineTable = () => {
   const [open, setOpen] = useState(false);
   const { handleSubmit, control } = useForm({
     defaultValues: {
-      class: "1",
-      section: "A",
+      class: "All",
+      section: "All",
     },
   });
   const onSubmit = (data) => {
@@ -97,14 +97,14 @@ const ClassRoutineTable = () => {
                   className="mt-4 "
                   name="class"
                   label="Select Class"
-                  options={[...selectclass]}
+                  options={[...selectclass, "All"]}
                 />
                 <FormInputSelect
                   control={control}
                   className="mt-4 ml-2"
                   name="section"
                   label="Select Section"
-                  options={["A", "B", "C"]}
+                  options={["All", "A", "B", "C"]}
                 />
                 <Button
                   className="ml-2 h-fit mt-5 border-4 bg-teal-400 rounded border-black "
