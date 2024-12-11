@@ -15,7 +15,8 @@ const handler = NextAuth({
         const user = parsedData.find(
           (item) => item.email === email && item.password === password
         );
-        if (email === "test@gmail.com" && password === "123456zx") {
+        const data = email === "test@gmail.com" && password === "123456zx"
+        if (data) {
           console.log("email",email)
           return { email, role: "admin" };
         }
