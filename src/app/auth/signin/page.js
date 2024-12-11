@@ -17,6 +17,7 @@ const Login = () => {
   } = useForm({ resolver: yupResolver(SigninValidation) });
   const router = useRouter();
   const onSubmit = async (data) => {
+    console.log("data",data)
     const { email, password } = data;
     const localData = localStorage.getItem("teacherData");
     const stuData = localStorage.getItem("student");
