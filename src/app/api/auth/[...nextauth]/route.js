@@ -16,6 +16,7 @@ const handler = NextAuth({
           (item) => item.email === email && item.password === password
         );
         if (email === "test@gmail.com" && password === "123456zx") {
+          console.log("email",email)
           return { email, role: "admin" };
         }
         if (user) {
