@@ -47,24 +47,7 @@ const Login = () => {
       return errorMsg("Login Error");
     }
   };
-  const handleClick = async () => {
-    try {
-      const res = await signIn("credentials", {
-        email: "test@gmail.com",
-        password: "123456zx",
-        role: "admin",
-        redirect: false,
-      });
-      if (res.error) {
-        errorMsg("Admin login failed");
-      } else {
-        router.replace("/");
-        successMsg("Admin Login Successfully");
-      }
-    } catch (error) {
-      errorMsg("Admin Login Error");
-    }
-  };
+
   return (
     <>
       <div className="mt-5 grid place-items-center h-screen">
@@ -146,13 +129,6 @@ const Login = () => {
                 </div>
               </form>
               <br />
-              <Button
-                onClick={handleClick}
-                className=" btn w-80 ml-2 bg-blue-600 hover:bg-blue-700 text-white font-bold 
-                    cursor-pointer px-6 py-2 rounded-md transition duration-300"
-              >
-                Login As Admin
-              </Button>
             </Sheet>
           </div>
         </div>
