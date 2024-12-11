@@ -40,7 +40,7 @@ const Login = () => {
       if (res.error) {
         return errorMsg("Invalid credentials");
       } else {
-        router.replace("/student");
+        router.replace("/");
         return successMsg("Login Successfully");
       }
     } catch (error) {

@@ -7,7 +7,7 @@ const handler = NextAuth({
       name: "credentials",
       async authorize(credentials) {
         const { email, password, localData, stuData } = credentials;
-       
+
         let parsedData = [];
         try {
           if (localData) parsedData = JSON.parse(localData);
@@ -17,12 +17,11 @@ const handler = NextAuth({
           const user = parsedData.find(
             (item) => item.email === email && item.password === password
           );
-          const data = email === "test@gmail.com" && password === "123456zx"
+          const data = email === "test@gmail.com" && password === "123456zx";
           if (data) {
-            console.log("email",email)
             return { email, role: "admin" };
           }
-          if (user||data) {
+          if (user ) {
             return {
               email: user.email,
               password: user.password,
@@ -31,11 +30,7 @@ const handler = NextAuth({
           } else {
             return null;
           }
-        } catch (error) {
-          
-        }
-       
-       
+        } catch (error) {}
       },
     }),
   ],
