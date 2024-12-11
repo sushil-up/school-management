@@ -118,14 +118,6 @@ const Login = () => {
                     Login
                   </Button>
                   <br />
-                  {/* <p className="mt-2 ml-2">
-                    {`Don't have an account?`}
-                    <span className="ml-2">
-                      <Link href="/signup" className="text-blue-600">
-                        Create account
-                      </Link>
-                    </span>
-                  </p> */}
                 </div>
               </form>
               <br />
