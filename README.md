@@ -23,11 +23,6 @@ Navigate to your project directory and install the necessary npm packages:
 
 ```bash
   npm install 
-<<<<<<< HEAD
-  cd my-project                              
-=======
-  cd my-project
->>>>>>> dev2
 ```
 
 ## Project Scope
