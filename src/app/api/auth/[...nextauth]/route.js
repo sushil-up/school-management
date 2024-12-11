@@ -13,24 +13,21 @@ const handler = NextAuth({
           if (localData) parsedData = JSON.parse(localData);
           if (stuData) parsedData = [...JSON.parse(stuData), ...parsedData];
         } catch (error) {}
-        try {
-          const user = parsedData.find(
-            (item) => item.email === email && item.password === password
-          );
-          const data = email === "test@gmail.com" && password === "123456zx";
-          if (data) {
-            return { email, role: "admin" };
-          }
-          if (user ) {
-            return {
-              email: user.email,
-              password: user.password,
-              role: user.role,
-            };
-          } else {
-            return null;
-          }
-        } catch (error) {}
+        const user = parsedData.find(
+          (item) => item.email === email && item.password === password
+        );
+        if (email === "test@gmail.com" && password === "123456zx") {
+          return { email, role: "admin" };
+        }
+        if (user) {
+          return {
+            email: user.email,
+            password: user.password,
+            role: user.role,
+          };
+        } else {
+          return null;
+        }
       },
     }),
   ],
