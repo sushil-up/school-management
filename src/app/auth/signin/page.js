@@ -47,7 +47,6 @@ const Login = () => {
       return errorMsg("Login Error");
     }
   };
-
   return (
     <>
       <div className="mt-5 grid place-items-center h-screen">
