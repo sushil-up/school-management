@@ -21,7 +21,7 @@ export const SideBarAdmin = [
     icon: <i className="uil uil-file-upload header-icon"></i>,
     subItems: [
       // {
-      //   title: "Add Attendence",
+      //   title: "Add Attendance",
       //   icon: <i className="uil uil-plus-circle menu-icon"></i>,
       //   route: routesUrl.attendence,
       // },
@@ -100,16 +100,16 @@ export const SideBarTeacher = [
     ],
   },
   {
-    title: " Attendence",
+    title: " Attendance",
     icon: <i className="uil uil-file-upload header-icon"></i>,
     subItems: [
       {
-        title: "Add Attendence",
+        title: "Add Attendance",
         icon: <i className="uil uil-plus-circle menu-icon"></i>,
         route: routesUrl.attendence,
       },
       {
-        title: "View Attendence",
+        title: "View Attendance",
         icon: <i className="uil uil-eye menu-icon"></i>,
         route: routesUrl.viewAttendence,
       },
@@ -174,11 +174,11 @@ export const SideBarStudent = [
     ],
   },
   {
-    title: " Attendence",
+    title: " Attendance",
     icon: <i className="uil uil-file-upload header-icon"></i>,
     subItems: [
       {
-        title: "View Attendence",
+        title: "View Attendance",
         icon: <i className="uil uil-eye menu-icon"></i>,
         route: routesUrl.viewAttendence,
       },

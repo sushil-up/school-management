@@ -27,7 +27,7 @@ const Login = () => {
     } catch (error) {}
     const checkEmail = parsedData.find((item) => item.email === email);
     if (checkEmail === undefined) {
-      errorMsg("User Doesn't exist");
+      errorMsg("User doesn’t exist!");
     }
     try {
       const res = await signIn("credentials", {
@@ -38,7 +38,7 @@ const Login = () => {
         stuData,
       });
       if (res.error) {
-        return errorMsg("Invalid credentials");
+        // return errorMsg("Invalid credentials");
       } else {
         router.replace("/");
         return successMsg("Login Successfully");

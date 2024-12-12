@@ -39,7 +39,6 @@ export default function DateSelect({
                 
                 /> 
               )}
-              disableFuture
               defaultValue={dayjs(new Date())}
             />
           )}

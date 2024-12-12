@@ -10,7 +10,8 @@ export const TeacherValidation = Yup.object().shape({
   email: Yup.string().required("Email is required"),
   dob: Yup.string().required("DOB is required"),
   joiningdate: Yup.string().required("Joining Date is required"),
-  salary: Yup.number().required("Salary is required"),
+  salary: Yup.string().required("Salary is required"),
   password: Yup.string().required("Password is required"),
   role: Yup.string().required("Role is required"),
+  phone:Yup.string().required("Phone number is required")
 });

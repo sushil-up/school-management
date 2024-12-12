@@ -9,7 +9,7 @@ import {
   TableRow,
   Tooltip,
 } from "@mui/material";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import UserContext from "@/context/UserContext";
@@ -58,6 +58,13 @@ const ViewTable = ({ student }) => {
   const deleteHandleModalClose = () => {
     setDeleteOpenModal(false);
   };
+  useEffect(() => {
+    const requiredLength = page * 10;
+    if (student?.length === requiredLength) {
+      setPage(0);
+    }
+  }, [page, student?.length]);
+  const displayedData = student || [];
   return (
     <>
       <Container className="attendance-form bg-slate-50 mt-5 border-4 shadow-md rounded-lg border-white">
@@ -69,54 +76,56 @@ const ViewTable = ({ student }) => {
               <TableCell className="font-bold text-base">Class</TableCell>
               <TableCell className="font-bold text-base">Section</TableCell>
               <TableCell className="font-bold text-base">
-              Attendance Status
+                Attendance Status
               </TableCell>
               <TableCell className="font-bold text-base">Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {student?.length > 0 ? (
+            {displayedData?.length > 0 ? (
               <>
-                {student?.map((item, index) => (
-                  <TableRow key={item.id}>
-                    <TableCell>{item?.name}</TableCell>
-                    <TableCell>{item?.rollno}</TableCell>
-                    <TableCell>{item?.class}</TableCell>
-                    <TableCell>{item?.section}</TableCell>
-                    <TableCell>{item?.attendanceStatus}</TableCell>
-                    <TableCell>
-                      {session?.user?.role === "student" ? (
-                        <>
-                          <Tooltip
-                            arrow
-                            placement="top-start"
-                            title="You are not authorized to edit"
-                          >
-                            <DeleteIcon className="text-red-500" />
-                          </Tooltip>
-                          <Tooltip
-                            arrow
-                            placement="top-start"
-                            title="You are not authorized to edit"
-                          >
-                            <EditIcon className="text-green-500" />
-                          </Tooltip>
-                        </>
-                      ) : (
-                        <>
-                          <DeleteIcon
-                            className="text-red-500"
-                            onClick={() => handleDelete(item)}
-                          />
-                          <EditIcon
-                            className="text-green-500"
-                            onClick={() => handleEdit(item)}
-                          />
-                        </>
-                      )}
-                    </TableCell>
-                  </TableRow>
-                ))}
+                {displayedData
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((item, index) => (
+                    <TableRow key={item.id}>
+                      <TableCell>{item?.name}</TableCell>
+                      <TableCell>{item?.rollno}</TableCell>
+                      <TableCell>{item?.class}</TableCell>
+                      <TableCell>{item?.section}</TableCell>
+                      <TableCell>{item?.attendanceStatus}</TableCell>
+                      <TableCell>
+                        {session?.user?.role === "student" ? (
+                          <>
+                            <Tooltip
+                              arrow
+                              placement="top-start"
+                              title="You are not authorized to edit"
+                            >
+                              <DeleteIcon className="text-red-500" />
+                            </Tooltip>
+                            <Tooltip
+                              arrow
+                              placement="top-start"
+                              title="You are not authorized to edit"
+                            >
+                              <EditIcon className="text-green-500" />
+                            </Tooltip>
+                          </>
+                        ) : (
+                          <>
+                            <DeleteIcon
+                              className="text-red-500"
+                              onClick={() => handleDelete(item)}
+                            />
+                            <EditIcon
+                              className="text-green-500"
+                              onClick={() => handleEdit(item)}
+                            />
+                          </>
+                        )}
+                      </TableCell>
+                    </TableRow>
+                  ))}
               </>
             ) : (
               <>
@@ -133,7 +142,7 @@ const ViewTable = ({ student }) => {
         <TablePagination
           rowsPerPageOptions={[10, 25, 100]}
           component="div"
-          count={student?.length}
+          count={displayedData?.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}

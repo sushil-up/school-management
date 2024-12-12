@@ -28,19 +28,25 @@ const LeaveTable = ({ handleDelete, handleEdit }) => {
     setPage(0);
   };
   useEffect(() => {
-  if(session?.user?.role==="student"){
-    if (session) {
-      const emailstu = session?.user?.email
-      const studentEmail = studentleave?.filter(
-        (item) => item.email === emailstu
-      );
-      setTableData(studentEmail)
+    const requiredLength = page * 10; 
+    if (tableData?.length === requiredLength) {
+      setPage(0); 
     }
-  }
- else{
-  setTableData(studentleave)
- }
-  },[session,studentleave]);
+  }, [page, tableData?.length]);
+  const displayedData=tableData||[]
+  useEffect(() => {
+    if (session?.user?.role === "student") {
+      if (session) {
+        const emailstu = session?.user?.email;
+        const studentEmail = studentleave?.filter(
+          (item) => item.email === emailstu
+        );
+        setTableData(studentEmail);
+      }
+    } else {
+      setTableData(studentleave);
+    }
+  }, [session, studentleave]);
   return (
     <>
       <Container>
@@ -66,61 +72,63 @@ const LeaveTable = ({ handleDelete, handleEdit }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {tableData?.length > 0 ? (
+            {displayedData?.length > 0 ? (
               <>
-                {tableData?.map((item) => (
-                  <>
-                    <TableRow key={item?.id}>
-                      <TableCell>{item?.name}</TableCell>
-                      <TableCell>{item?.rollno}</TableCell>
-                      <TableCell>
-                        {item?.class}&{item?.section}
-                      </TableCell>
-                      <TableCell>
-                        {item?.multileave
-                          ? `${dayjs(item?.multileave[0]).format("YYYY-MM-DD")} to ${dayjs(item?.multileave[1]).format("YYYY-MM-DD")}`
-                          : dayjs(item?.leavedate).format("YYYY-MM-DD")}
-                      </TableCell>
-                      <TableCell>{item?.reason}</TableCell>
-                      {item?.status ? (
-                        <TableCell>{item?.status}</TableCell>
-                      ) : (
-                        <TableCell>Pending</TableCell>
-                      )}
-                      <TableCell>
-                        {session?.user?.role === "student" ? (
-                          <>
-                            <Tooltip
-                              arrow
-                              placement="top-start"
-                              title="You are not authorized to delete"
-                            >
-                              <DeleteIcon className="text-red-500" />
-                            </Tooltip>
-                            <Tooltip
-                              arrow
-                              placement="top-start"
-                              title="You are not authorized to edit"
-                            >
-                              <EditIcon className="text-green-500" />
-                            </Tooltip>
-                          </>
+                {displayedData
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((item) => (
+                    <>
+                      <TableRow key={item?.id}>
+                        <TableCell>{item?.name}</TableCell>
+                        <TableCell>{item?.rollno}</TableCell>
+                        <TableCell>
+                          {item?.class}&{item?.section}
+                        </TableCell>
+                        <TableCell>
+                          {item?.multileave
+                            ? `${dayjs(item?.multileave[0]).format("YYYY-MM-DD")} to ${dayjs(item?.multileave[1]).format("YYYY-MM-DD")}`
+                            : dayjs(item?.leavedate).format("YYYY-MM-DD")}
+                        </TableCell>
+                        <TableCell>{item?.reason}</TableCell>
+                        {item?.status ? (
+                          <TableCell>{item?.status}</TableCell>
                         ) : (
-                          <>
-                            <DeleteIcon
-                              className="text-red-500"
-                              onClick={() => handleDelete(item)}
-                            />
-                            <EditIcon
-                              className="text-green-500"
-                              onClick={() => handleEdit(item)}
-                            />
-                          </>
+                          <TableCell>Pending</TableCell>
                         )}
-                      </TableCell>
-                    </TableRow>
-                  </>
-                ))}
+                        <TableCell>
+                          {session?.user?.role === "student" ? (
+                            <>
+                              <Tooltip
+                                arrow
+                                placement="top-start"
+                                title="You are not authorized to delete"
+                              >
+                                <DeleteIcon className="text-red-500" />
+                              </Tooltip>
+                              <Tooltip
+                                arrow
+                                placement="top-start"
+                                title="You are not authorized to edit"
+                              >
+                                <EditIcon className="text-green-500" />
+                              </Tooltip>
+                            </>
+                          ) : (
+                            <>
+                              <DeleteIcon
+                                className="text-red-500"
+                                onClick={() => handleDelete(item)}
+                              />
+                              <EditIcon
+                                className="text-green-500"
+                                onClick={() => handleEdit(item)}
+                              />
+                            </>
+                          )}
+                        </TableCell>
+                      </TableRow>
+                    </>
+                  ))}
               </>
             ) : (
               <>
@@ -137,7 +145,7 @@ const LeaveTable = ({ handleDelete, handleEdit }) => {
         <TablePagination
           rowsPerPageOptions={[10, 25, 100]}
           component="div"
-          count={tableData?.length}
+          count={displayedData?.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}

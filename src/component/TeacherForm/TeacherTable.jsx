@@ -24,6 +24,13 @@ const TeacherTable = ({ teacherData, handleDelete, handleEdit, isLoading }) => {
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
+  useEffect(() => {
+    const requiredLength = page * 10; 
+    if (tabledata?.length === requiredLength) {
+      setPage(0); 
+    }
+  }, [page, tabledata?.length]);
+  const displayedData=tabledata||[]
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
@@ -51,8 +58,8 @@ const TeacherTable = ({ teacherData, handleDelete, handleEdit, isLoading }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {tabledata?.length > 0 ? (
-              tabledata
+            {displayedData?.length > 0 ? (
+              displayedData
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((item, index) => (
                   <TableRow key={index}>
@@ -101,7 +108,7 @@ const TeacherTable = ({ teacherData, handleDelete, handleEdit, isLoading }) => {
         <TablePagination
           rowsPerPageOptions={[10, 25, 100]}
           component="div"
-          count={tabledata?.length}
+          count={displayedData?.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
