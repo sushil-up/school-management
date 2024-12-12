@@ -7,6 +7,7 @@ const handler = NextAuth({
       name: "credentials",
       async authorize(credentials) {
         const { email, password, localData, stuData } = credentials;
+
         let parsedData = [];
         try {
           if (localData) parsedData = JSON.parse(localData);
