@@ -50,12 +50,17 @@ const StudentTable = ({ studentData, handleDelete, handleEdit, isLoading }) => {
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
-
+  useEffect(() => {
+    const requiredLength = page * 10; 
+    if (tabledata?.length === requiredLength) {
+      setPage(0); 
+    }
+  }, [page, tabledata?.length]);
   const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
+    setRowsPerPage(+event?.target?.value);
     setPage(0);
   };
-
+const displayedData=tabledata||[]
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -107,8 +112,8 @@ const StudentTable = ({ studentData, handleDelete, handleEdit, isLoading }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {tabledata?.length > 0 ? (
-              tabledata
+            {displayedData?.length > 0 ? (
+              displayedData
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((item) => (
                   <TableRow key={item?.studentid}>
@@ -127,7 +132,7 @@ const StudentTable = ({ studentData, handleDelete, handleEdit, isLoading }) => {
                         <Tooltip
                           arrow
                           placement="top-start"
-                          title="You are not authorized to delete"
+                          title="You are not authorized to delete"tabledata
                         >
                           <DeleteIcon className="text-red-500" />
                         </Tooltip>
@@ -165,7 +170,7 @@ const StudentTable = ({ studentData, handleDelete, handleEdit, isLoading }) => {
         <TablePagination
           rowsPerPageOptions={[10, 25, 100]}
           component="div"
-          count={tabledata?.length}
+          count={displayedData?.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}

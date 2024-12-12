@@ -6,9 +6,8 @@ import {
   TableHead,
   TablePagination,
   TableRow,
-  
 } from "@mui/material";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import UserContext from "@/context/UserContext";
@@ -57,6 +56,13 @@ const ExamTable = ({ tableData }) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+  useEffect(() => {
+    const requiredLength = page * 10;
+    if (tableData?.length === requiredLength) {
+      setPage(0);
+    }
+  }, [page, tableData?.length]);
+  const displayedData = tableData || [];
   return (
     <>
       <Container>
@@ -73,53 +79,55 @@ const ExamTable = ({ tableData }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {tableData?.length > 0 ? (
+            {displayedData?.length > 0 ? (
               <>
-                {tableData?.map((item) => (
-                  <TableRow key={item.id}>
-                    <TableCell>{item.class}</TableCell>
-                    <TableCell>{item.section}</TableCell>
-                    <TableCell>{item.subject}</TableCell>
-                    <TableCell>{item.exam_type}</TableCell>
-                    <TableCell>
-                      {dayjs(item.examdate).format("YYYY-MM-DD")}
-                    </TableCell>
-                    <TableCell>
-                      {new Date(item.exam_time).toLocaleTimeString()}
-                    </TableCell>
-                    <TableCell>
-                      {session?.user?.role === "student" ? (
-                        <>
-                          <Tooltip
-                            arrow
-                            placement="top-start"
-                            title="You are not authorized to delete"
-                          >
-                            <DeleteIcon className="text-red-500" />
-                          </Tooltip>
-                          <Tooltip
-                            arrow
-                            placement="top-start"
-                            title="You are not authorized to edit"
-                          >
-                            <EditIcon className="text-green-500" />
-                          </Tooltip>
-                        </>
-                      ) : (
-                        <>
-                          <DeleteIcon
-                            className="text-red-500"
-                            onClick={() => handleDelete(item)}
-                          />
-                          <EditIcon
-                            className="text-green-500"
-                            onClick={() => handleEdit(item)}
-                          />
-                        </>
-                      )}
-                    </TableCell>
-                  </TableRow>
-                ))}
+                {displayedData
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((item) => (
+                    <TableRow key={item.id}>
+                      <TableCell>{item.class}</TableCell>
+                      <TableCell>{item.section}</TableCell>
+                      <TableCell>{item.subject}</TableCell>
+                      <TableCell>{item.exam_type}</TableCell>
+                      <TableCell>
+                        {dayjs(item.examdate).format("YYYY-MM-DD")}
+                      </TableCell>
+                      <TableCell>
+                        {new Date(item.exam_time).toLocaleTimeString()}
+                      </TableCell>
+                      <TableCell>
+                        {session?.user?.role === "student" ? (
+                          <>
+                            <Tooltip
+                              arrow
+                              placement="top-start"
+                              title="You are not authorized to delete"
+                            >
+                              <DeleteIcon className="text-red-500" />
+                            </Tooltip>
+                            <Tooltip
+                              arrow
+                              placement="top-start"
+                              title="You are not authorized to edit"
+                            >
+                              <EditIcon className="text-green-500" />
+                            </Tooltip>
+                          </>
+                        ) : (
+                          <>
+                            <DeleteIcon
+                              className="text-red-500"
+                              onClick={() => handleDelete(item)}
+                            />
+                            <EditIcon
+                              className="text-green-500"
+                              onClick={() => handleEdit(item)}
+                            />
+                          </>
+                        )}
+                      </TableCell>
+                    </TableRow>
+                  ))}
               </>
             ) : (
               <>
@@ -136,7 +144,7 @@ const ExamTable = ({ tableData }) => {
         <TablePagination
           rowsPerPageOptions={[10, 25, 100]}
           component="div"
-          count={tableData?.length}
+          count={displayedData?.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}

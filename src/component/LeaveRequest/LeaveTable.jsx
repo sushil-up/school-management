@@ -41,6 +41,13 @@ const LeaveTable = ({ handleDelete, handleEdit }) => {
     setTableData(leaveRequest)
    }
     },[session,leaveRequest]);
+    useEffect(() => {
+      const requiredLength = page * 10; 
+      if (tableData?.length === requiredLength) {
+        setPage(0); 
+      }
+    }, [page, tableData?.length]);
+    const displayedData=tableData||[]
   return (
     <>
       <Container>
@@ -55,9 +62,11 @@ const LeaveTable = ({ handleDelete, handleEdit }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {tableData?.length > 0 ? (
+            {displayedData?.length > 0 ? (
               <>
-                {tableData?.map((item, index) => (
+                {displayedData
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((item, index) => (
                   <>
                     <TableRow key={index}>
                     <TableCell>{item.name}</TableCell>
@@ -101,7 +110,7 @@ const LeaveTable = ({ handleDelete, handleEdit }) => {
         <TablePagination
           rowsPerPageOptions={[10, 25, 100]}
           component="div"
-          count={tableData?.length}
+          count={displayedData?.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}

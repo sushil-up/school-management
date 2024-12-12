@@ -84,6 +84,13 @@ const ClassRoutineTable = () => {
     setOpen(false);
     setEditIndex(null);
   };
+  useEffect(() => {
+    const requiredLength = page * 10;
+    if (search?.length === requiredLength) {
+      setPage(0);
+    }
+  }, [page, search?.length]);
+  const displayedData = search || [];
   return (
     <>
       <Container>
@@ -132,62 +139,64 @@ const ClassRoutineTable = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {search?.length > 0 ? (
+              {displayedData?.length > 0 ? (
                 <>
-                  {search?.map((item, index) => (
-                    <TableRow key={item.name}>
-                      <TableCell>{item.class}</TableCell>
-                      <TableCell>{item.section}</TableCell>
-                      <TableCell>{item.subject}</TableCell>
-                      <TableCell>
-                        {new Date(item.start_time).toLocaleTimeString()}
-                      </TableCell>
-                      <TableCell>
-                        {new Date(item.end_time).toLocaleTimeString()}
-                      </TableCell>
-                      <TableCell className="text-clip overflow-hidden">
-                        <Tooltip
-                          arrow
-                          placement="top-start"
-                          title={<span>{item.day}</span>}
-                        >
-                          <span>{`${item.day.slice(0, 100)}`}</span>
-                        </Tooltip>
-                      </TableCell>
-                      <TableCell>{item.teacher}</TableCell>
-                      <TableCell>
-                        {session?.user?.role === "student" ? (
-                          <>
-                            <Tooltip
-                              arrow
-                              placement="top-start"
-                              title="You are not authorized to delete"
-                            >
-                              <DeleteIcon className="text-red-500" />
-                            </Tooltip>
-                            <Tooltip
-                              arrow
-                              placement="top-start"
-                              title="You are not authorized to edit"
-                            >
-                              <EditIcon className="text-green-500" />
-                            </Tooltip>
-                          </>
-                        ) : (
-                          <>
-                            <DeleteIcon
-                              className="text-red-500"
-                              onClick={() => handleDelete(item)}
-                            />
-                            <EditIcon
-                              className="text-green-500"
-                              onClick={() => handleEdit(item)}
-                            />
-                          </>
-                        )}
-                      </TableCell>
-                    </TableRow>
-                  ))}
+                  {displayedData
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((item, index) => (
+                      <TableRow key={item.name}>
+                        <TableCell>{item.class}</TableCell>
+                        <TableCell>{item.section}</TableCell>
+                        <TableCell>{item.subject}</TableCell>
+                        <TableCell>
+                          {new Date(item.start_time).toLocaleTimeString('en-US')}
+                        </TableCell>
+                        <TableCell>
+                          {new Date(item.end_time).toLocaleTimeString('en-US')}
+                        </TableCell>
+                        <TableCell className="text-clip overflow-hidden">
+                          <Tooltip
+                            arrow
+                            placement="top-start"
+                            title={<span>{item.day}</span>}
+                          >
+                            <span>{`${item.day.slice(0, 100)}`}</span>
+                          </Tooltip>
+                        </TableCell>
+                        <TableCell>{item.teacher}</TableCell>
+                        <TableCell>
+                          {session?.user?.role === "student" ? (
+                            <>
+                              <Tooltip
+                                arrow
+                                placement="top-start"
+                                title="You are not authorized to delete"
+                              >
+                                <DeleteIcon className="text-red-500" />
+                              </Tooltip>
+                              <Tooltip
+                                arrow
+                                placement="top-start"
+                                title="You are not authorized to edit"
+                              >
+                                <EditIcon className="text-green-500" />
+                              </Tooltip>
+                            </>
+                          ) : (
+                            <>
+                              <DeleteIcon
+                                className="text-red-500"
+                                onClick={() => handleDelete(item)}
+                              />
+                              <EditIcon
+                                className="text-green-500"
+                                onClick={() => handleEdit(item)}
+                              />
+                            </>
+                          )}
+                        </TableCell>
+                      </TableRow>
+                    ))}
                 </>
               ) : (
                 <>
@@ -204,7 +213,7 @@ const ClassRoutineTable = () => {
           <TablePagination
             rowsPerPageOptions={[10, 25, 100]}
             component="div"
-            count={search?.length}
+            count={displayedData?.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}

@@ -56,10 +56,11 @@ export const LeaveRequest = ({ handleChange, value, control, errors }) => {
               <FormControl>
                 <FormSelect
                   control={control}
-                  className="mt-4 w-56 ml-2"
+                  className="mt-4 w-56 "
                   name="name"
                   label="Select Name"
                   options={techData?.map((item) => item.name)}
+                  errors={errors}
                 />
               </FormControl>
             </FormControl>
@@ -104,8 +105,8 @@ export const LeaveRequest = ({ handleChange, value, control, errors }) => {
                   label="Status"
                   name="status"
                   options={[
-                    { label: "Approved", value: "approved" },
-                    { label: "Unapproved", value: "unapproved" },
+                    { label: "Approved", value: "Approved" },
+                    { label: "Unapproved", value: "Unapproved" },
                   ]}
                 />
               </FormControl>

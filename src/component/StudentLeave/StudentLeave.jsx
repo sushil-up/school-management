@@ -144,8 +144,8 @@ const StudentLeave = ({ handleChange, value, control, editIndex, errors }) => {
                   label="Status"
                   name="status"
                   options={[
-                    { label: "Approved", value: "approved" },
-                    { label: "Unapproved", value: "unapproved" },
+                    { label: "Approved", value: "Approved" },
+                    { label: "Unapproved", value: "Unapproved" },
                   ]}
                 />
               </FormControl>

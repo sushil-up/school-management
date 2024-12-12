@@ -1,14 +1,16 @@
 "use client";
 import FormSelect from "@/component/shared/form/FormSelect";
+import RadioButton from "@/component/shared/form/RadioButton";
+import FormInput from "@/component/shared/form/TextField";
 import UserContext from "@/context/UserContext";
-import { Button } from "@mui/joy";
+import { Button, FormControl } from "@mui/joy";
 import { Container } from "@mui/material";
 import { useSession } from "next-auth/react";
 import React, { useContext } from "react";
 
-const ByTeacher = ({ control }) => {
+const ByTeacher = ({ control, edit }) => {
   const { teacherData, libraryrecord } = useContext(UserContext);
-  const {data:session}=useSession()
+  const { data: session } = useSession();
   const techData = teacherData.filter(
     (item) => item?.email === session?.user?.email
   );
@@ -16,13 +18,27 @@ const ByTeacher = ({ control }) => {
     <>
       <Container>
         <div className="attendance">
-          <FormSelect
-            control={control}
-            className="mt-4  "
-            name="name"
-            label="Select Name"
-            options={techData?.map((item) => item.name)}
-          />
+          {session?.user?.role === "librarian" ? (
+            <>
+              <FormInput
+                control={control}
+                className="mt-4  "
+                name="name"
+                label="Select Name"
+                defaultValue={edit?.name}
+              />
+            </>
+          ) : (
+            <>
+              <FormSelect
+                control={control}
+                className="mt-4  "
+                name="name"
+                label="Select Name"
+                options={techData?.map((item) => item.name)}
+              />
+            </>
+          )}
           <FormSelect
             control={control}
             className="mt-4 ml-2 "
@@ -44,7 +60,25 @@ const ByTeacher = ({ control }) => {
           name="bookno"
           label="Book No"
           options={libraryrecord?.map((item) => item.bookno)}
-        />
+        /><br/>
+        {session?.user?.role === "librarian" ? (
+          <>
+          <br/>
+            <FormControl>
+              <RadioButton
+                control={control}
+                label="Status"
+                name="status"
+                options={[
+                  { label: "Approved", value: "Approved" },
+                  { label: "Unapproved", value: "Unapproved" },
+                ]}
+              />
+            </FormControl>
+          </>
+        ) : (
+          <></>
+        )}
         <Button type="submit" className="mt-4 bg-red-600 ">
           Send Request
         </Button>
