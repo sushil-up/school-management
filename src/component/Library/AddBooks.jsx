@@ -6,7 +6,7 @@ import FormInputSelect from "../shared/form/FormInputSelect";
 import { selectclass } from "../SelectClass";
 import DateSelect from "../shared/form/DatePicker";
 
-const AddBooks = ({ control }) => {
+const AddBooks = ({ control, errors }) => {
   return (
     <>
       <Container>
@@ -14,29 +14,37 @@ const AddBooks = ({ control }) => {
           <Typography>Add New Book Record</Typography>
 
           <div className="attendance mt-4">
-            <FormInput control={control} name="bookname" label="Book Name" />
+            <FormInput control={control} name="bookname" label="Book Name"   errors={errors}/>
             <FormInput
               control={control}
               name="subject"
               label="Subject"
               className="ml-2"
+              errors={errors}
             />
             <FormInput
               control={control}
               name="title"
               label="Title"
               className="ml-2"
+              errors={errors}
             />
           </div>
           <div className="attendance mt-4">
-            <FormInput control={control} name="writer" label="Writer Name" />
+            <FormInput
+              control={control}
+              name="writer"
+              label="Writer Name"
+              errors={errors}
+            />
             <FormInput
               control={control}
               name="bookno"
               label="Book No"
               className="ml-2"
-               inputType="number"
-                min="0"
+              inputType="number"
+              min="0"
+              errors={errors}
             />
             <FormInputSelect
               control={control}
@@ -44,6 +52,7 @@ const AddBooks = ({ control }) => {
               name="class"
               label="Select Class"
               options={selectclass}
+              errors={errors}
             />
           </div>
           <div className="attendance mt-4">

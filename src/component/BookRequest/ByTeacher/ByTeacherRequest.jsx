@@ -104,7 +104,7 @@ const ByTeacherRequest = () => {
                               placement="top-start"
                               title="You are not authorized to delete"
                             >
-                              <EditIcon className="text-green-500" />
+                              <DeleteIcon className="text-red-500" />
                             </Tooltip>
                           </>
                         ) : (

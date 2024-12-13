@@ -8,7 +8,7 @@ import { Container } from "@mui/material";
 import { useSession } from "next-auth/react";
 import React, { useContext } from "react";
 
-const ByStudent = ({ control, edit }) => {
+const ByStudent = ({ control, edit,errors }) => {
   const { studentData, libraryrecord } = useContext(UserContext);
   const { data: session } = useSession();
   const stuData = studentData.filter(
@@ -26,6 +26,7 @@ const ByStudent = ({ control, edit }) => {
                 name="name"
                 label="Select Name"
                 defaultValue={edit?.name}
+                errors={errors}
               />
             </>
           ) : (
@@ -36,6 +37,7 @@ const ByStudent = ({ control, edit }) => {
                 name="name"
                 label="Select Name"
                 options={stuData?.map((item) => item?.name)}
+                errors={errors}
               />
             </>
           )}
@@ -45,6 +47,7 @@ const ByStudent = ({ control, edit }) => {
             name="book"
             label="Select Book"
             options={libraryrecord?.map((item) => item?.bookname)}
+            errors={errors}
           />
           <FormSelect
             control={control}
@@ -52,6 +55,7 @@ const ByStudent = ({ control, edit }) => {
             name="writer"
             label="Writer Name"
             options={libraryrecord?.map((item) => item?.writer)}
+            errors={errors}
           />
         </div>
         <FormSelect
@@ -60,6 +64,7 @@ const ByStudent = ({ control, edit }) => {
           name="bookno"
           label="Book No"
           options={libraryrecord?.map((item) => item?.bookno)}
+          errors={errors}
         />
         {session?.user?.role === "librarian" ? (
           <>

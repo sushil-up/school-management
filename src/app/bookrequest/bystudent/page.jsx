@@ -2,14 +2,16 @@
 import ByStudent from "@/component/BookRequest/ByStudent/ByStudent";
 import ByStudentRequest from "@/component/BookRequest/ByStudent/ByStudentRequest";
 import { successMsg } from "@/component/Toastmsg/toaster";
+import { ByStudentValidation } from "@/component/Validation/ByStudentValidation";
 import UserContext from "@/context/UserContext";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Container } from "@mui/joy";
 import { useSession } from "next-auth/react";
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 const BookStudent = () => {
-  const { handleSubmit, control, reset } = useForm();
+  const { handleSubmit, control, reset,formState:{errors} } = useForm({resolver:yupResolver(ByStudentValidation)});
   const [open, setOpen] = useState(false);
   const { bystudent, setByStudent } = useContext(UserContext);
   const id = uuidv4();
@@ -36,7 +38,7 @@ const BookStudent = () => {
           <>
             <Button onClick={handleClose}>View Request</Button>
             <form onSubmit={handleSubmit(onSubmit)}>
-              <ByStudent control={control} />
+              <ByStudent control={control} errors={errors}/>
             </form>
           </>
         ) : (

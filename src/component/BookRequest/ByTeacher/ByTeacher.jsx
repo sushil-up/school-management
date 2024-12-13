@@ -8,7 +8,7 @@ import { Container } from "@mui/material";
 import { useSession } from "next-auth/react";
 import React, { useContext } from "react";
 
-const ByTeacher = ({ control, edit }) => {
+const ByTeacher = ({ control, edit, errors }) => {
   const { teacherData, libraryrecord } = useContext(UserContext);
   const { data: session } = useSession();
   const techData = teacherData.filter(
@@ -26,6 +26,7 @@ const ByTeacher = ({ control, edit }) => {
                 name="name"
                 label="Select Name"
                 defaultValue={edit?.name}
+                errors={errors}
               />
             </>
           ) : (
@@ -36,6 +37,7 @@ const ByTeacher = ({ control, edit }) => {
                 name="name"
                 label="Select Name"
                 options={techData?.map((item) => item.name)}
+                errors={errors}
               />
             </>
           )}
@@ -45,6 +47,7 @@ const ByTeacher = ({ control, edit }) => {
             name="book"
             label="Select Book"
             options={libraryrecord?.map((item) => item.bookname)}
+            errors={errors}
           />
           <FormSelect
             control={control}
@@ -52,18 +55,21 @@ const ByTeacher = ({ control, edit }) => {
             name="writer"
             label="Writer Name"
             options={libraryrecord?.map((item) => item.writer)}
+            errors={errors}
           />
         </div>
         <FormSelect
           control={control}
-          className="mt-4  "
+          className="mt-4"
           name="bookno"
           label="Book No"
           options={libraryrecord?.map((item) => item.bookno)}
-        /><br/>
+          errors={errors}
+        />
+        <br />
         {session?.user?.role === "librarian" ? (
           <>
-          <br/>
+            <br />
             <FormControl>
               <RadioButton
                 control={control}
@@ -79,9 +85,19 @@ const ByTeacher = ({ control, edit }) => {
         ) : (
           <></>
         )}
-        <Button type="submit" className="mt-4 bg-red-600 ">
-          Send Request
-        </Button>
+        {session?.user?.role === "librarian" ? (
+          <>
+            <Button type="submit" className="mt-4 bg-red-600 ">
+              Update Request
+            </Button>
+          </>
+        ) : (
+          <>
+            <Button type="submit" className="mt-4 bg-red-600 ">
+              Send Request
+            </Button>
+          </>
+        )}
       </Container>
     </>
   );

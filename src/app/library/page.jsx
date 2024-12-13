@@ -7,10 +7,12 @@ import AllBook from "@/component/Library/AllBook";
 import { successMsg } from "@/component/Toastmsg/toaster";
 import { Button } from "@mui/joy";
 import { v4 as uuidv4 } from "uuid";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { LibraryValidation } from "@/component/Validation/LibraryValidation";
 
 const Libraray = () => {
   const { libraryrecord, setLibraryRecord } = useContext(UserContext);
-  const { handleSubmit, control, reset } = useForm();
+  const { handleSubmit, control, reset,formState:{errors} } = useForm({resolver:yupResolver(LibraryValidation)});
   const [open, setopen] = useState(false);
   const [editIndex, setEditIndex] = useState(null);
   const id = uuidv4();
@@ -57,7 +59,7 @@ const Libraray = () => {
       {open === true ? (
         <>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <AddBooks control={control} />
+            <AddBooks control={control} errors={errors}/>
           </form>
         </>
       ) : (

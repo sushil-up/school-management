@@ -154,7 +154,7 @@ const ExamTable = ({ tableData }) => {
       <DeleteModal
         onDelete={onDelete}
         deleteOpenModal={deleteOpenModal}
-        deleteMessage="Are you sure with this deletion"
+        deleteMessage="Are you certain you want to proceed with this deletion?"
         deleteHandleModalClose={deleteHandleModalClose}
       />
       <EditExam
