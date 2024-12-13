@@ -93,7 +93,7 @@ const ExamTable = ({ tableData }) => {
                         {dayjs(item.examdate).format("YYYY-MM-DD")}
                       </TableCell>
                       <TableCell>
-                        {new Date(item.exam_time).toLocaleTimeString()}
+                        {new Date(item.exam_time).toLocaleTimeString('en-US')}
                       </TableCell>
                       <TableCell>
                         {session?.user?.role === "student" ? (
