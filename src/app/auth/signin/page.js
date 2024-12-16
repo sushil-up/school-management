@@ -2,13 +2,14 @@
 import { FormControl } from "@mui/joy";
 import { Sheet } from "@mui/joy";
 import { useForm } from "react-hook-form";
-import { Button, Typography } from "@mui/material";
+import { Button, CircularProgress, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import FormInput from "@/component/shared/form/TextField";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SigninValidation } from "@/component/Validation/SigninValidation";
 import { errorMsg, successMsg } from "@/component/Toastmsg/toaster";
+import { useState } from "react";
 const Login = () => {
   const {
     control,
@@ -16,10 +17,12 @@ const Login = () => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(SigninValidation) });
   const router = useRouter();
+  const [loader, setLoader] = useState(false);
   const onSubmit = async (data) => {
     const { email, password } = data;
     const localData = localStorage.getItem("teacherData");
     const stuData = localStorage.getItem("student");
+    setLoader(true);
     let parsedData = [];
     try {
       if (localData) parsedData = JSON.parse(localData);
@@ -110,13 +113,23 @@ const Login = () => {
                 </div>
                 <br />
                 <div>
-                  <Button
-                    type="submit"
-                    className=" btn w-80 ml-2 bg-blue-600 hover:bg-blue-700 text-white font-bold 
+                  {loader === false ? (
+                    <>
+                      <Button
+                        type="submit"
+                        className=" btn w-80 ml-2 bg-blue-600 hover:bg-blue-700 text-white font-bold 
                     cursor-pointer px-6 py-2 rounded-md transition duration-300"
-                  >
-                    Login
-                  </Button>
+                      >
+                        Login
+                      </Button>
+                    </>
+                  ) : (
+                    <>
+                      <div className="flex justify-center">
+                        <CircularProgress size={24} />
+                      </div>
+                    </>
+                  )}
                   <br />
                 </div>
               </form>

@@ -17,9 +17,13 @@ const BookStudent = () => {
   const id = uuidv4();
   const { data: session } = useSession();
   const email = session?.user?.email;
+  const [loader, setLoader] = useState(false);
+
+
   const onSubmit = (data) => {
     const setId = { ...data, id, email };
     const storedData = [...bystudent, setId];
+    setLoader(true);
     setByStudent(storedData);
     reset();
     successMsg("Book Request Send Successfully");
@@ -38,7 +42,7 @@ const BookStudent = () => {
           <>
             <Button onClick={handleClose}>View Request</Button>
             <form onSubmit={handleSubmit(onSubmit)}>
-              <ByStudent control={control} errors={errors}/>
+              <ByStudent control={control} errors={errors} loader={loader}/>
             </form>
           </>
         ) : (

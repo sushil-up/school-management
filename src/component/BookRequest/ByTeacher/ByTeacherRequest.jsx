@@ -78,9 +78,9 @@ const ByTeacherRequest = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {byteacher?.length > 0 ? (
+            {displayedData?.length > 0 ? (
               <>
-                {byteacher
+                {displayedData
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((item) => (
                     <TableRow key={item.id}>
@@ -137,7 +137,7 @@ const ByTeacherRequest = () => {
         <TablePagination
           rowsPerPageOptions={[10, 25, 100]}
           component="div"
-          count={byteacher?.length}
+          count={displayedData?.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}

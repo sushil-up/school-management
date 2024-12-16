@@ -4,11 +4,11 @@ import RadioButton from "@/component/shared/form/RadioButton";
 import FormInput from "@/component/shared/form/TextField";
 import UserContext from "@/context/UserContext";
 import { Button, FormControl } from "@mui/joy";
-import { Container } from "@mui/material";
+import { CircularProgress, Container } from "@mui/material";
 import { useSession } from "next-auth/react";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 
-const ByStudent = ({ control, edit,errors }) => {
+const ByStudent = ({ control, edit, errors ,loader}) => {
   const { studentData, libraryrecord } = useContext(UserContext);
   const { data: session } = useSession();
   const stuData = studentData.filter(
@@ -84,9 +84,22 @@ const ByStudent = ({ control, edit,errors }) => {
         ) : (
           <></>
         )}
-        <Button type="submit" className="mt-4 bg-red-600 ">
-          Send Request
-        </Button>
+        {loader === false ? (
+          <>
+            <Button
+              type="submit"
+              className="mt-4 bg-red-600 "
+            >
+              Send Request
+            </Button>
+          </>
+        ) : (
+          <>
+            <div className="flex justify-center">
+              <CircularProgress size={24} />
+            </div>
+          </>
+        )}
       </Container>
     </>
   );

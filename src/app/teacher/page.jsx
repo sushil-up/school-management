@@ -37,6 +37,7 @@ const Teacher = () => {
   const [deleteOpenModal,setDeleteOpenModal]=useState(false)
   const [update, setUpdate] = useState(false);
   const [deleteIndex,setDeleteIndex]=useState()
+  const [loader, setLoader] = useState(false);
   const id = uuidv4()
   const {data:session}=useSession()
   const router= useRouter()
@@ -53,6 +54,7 @@ const Teacher = () => {
           ? successMsg("Teacher updated successfully")
           : successMsg("Teacher added successfully");
       setTeacherData(storedData);
+      setLoader(true)
       setEditIndex(null)
       reset();
       setOpenForm(false);
@@ -116,6 +118,7 @@ const Teacher = () => {
                 update={update}
                 handleClose={handleClose}
                 errors={errors}
+                loader={loader}
               />
             </form>
           </>

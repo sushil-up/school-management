@@ -94,12 +94,12 @@ const ViewTable = ({ student }) => {
                       <TableCell>{item?.section}</TableCell>
                       <TableCell>{item?.attendanceStatus}</TableCell>
                       <TableCell>
-                        {session?.user?.role === "student" ? (
+                        {session?.user?.role === "admin" ? (
                           <>
                             <Tooltip
                               arrow
                               placement="top-start"
-                              title="You are not authorized to edit"
+                              title="You are not authorized to delete"
                             >
                               <DeleteIcon className="text-red-500" />
                             </Tooltip>

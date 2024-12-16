@@ -6,7 +6,7 @@ import Step from "@mui/material/Step";
 import StepButton from "@mui/material/StepButton";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { Container, Grid } from "@mui/joy";
+import { CircularProgress, Container, Grid } from "@mui/joy";
 import { experimentalStyled as styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import FormInput from "../shared/form/TextField";
@@ -22,7 +22,7 @@ const steps = [
   "Set Password",
 ];
 
-export default function Form({ control, update, handleClose, errors }) {
+export default function Form({ control, update, handleClose, errors, loader }) {
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: "#fff",
     ...theme.typography.body2,
@@ -38,7 +38,7 @@ export default function Form({ control, update, handleClose, errors }) {
   const isLastStep = () => activeStep === totalSteps() - 1;
   const allStepsCompleted = () => completedSteps() === totalSteps();
   const handleNext = () => {
-    StudentValidation
+    StudentValidation;
     const newActiveStep =
       isLastStep() && !allStepsCompleted()
         ? steps.findIndex((step, i) => !(i in completed))
@@ -482,12 +482,22 @@ export default function Form({ control, update, handleClose, errors }) {
                     <>
                       {activeStep > 2 ? (
                         <>
-                          <Button
-                            className="btn  bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
-                            type="submit"
-                          >
-                            Finish
-                          </Button>
+                          {loader === false ? (
+                            <>
+                              <Button
+                                className="btn  bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+                                type="submit"
+                              >
+                                Finish
+                              </Button>
+                            </>
+                          ) : (
+                            <>
+                              <div className="flex justify-center">
+                                <CircularProgress size={24} />
+                              </div>
+                            </>
+                          )}
                         </>
                       ) : (
                         <>

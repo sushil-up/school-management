@@ -41,6 +41,7 @@ const Student = () => {
   const [update, setUpdate] = useState(false);
   const [deleteOpenModal, setDeleteOpenModal] = useState(false);
   const [deleteIndex, setDeleteIndex] = useState(null);
+  const [loader, setLoader] = useState(false);
   const studentid = uuidv4();
   const router=useRouter()
   if (session?.user?.role==="student"){
@@ -56,6 +57,7 @@ const Student = () => {
             )
           : [...studentData, setid];
       setEditIndex(null);
+      setLoader(true)
       editIndex !== null
         ? successMsg("Student information has been successfully edited.")
         : successMsg("Student record created successfully.");
@@ -127,6 +129,7 @@ const Student = () => {
                 control={control}
                 update={update}
                 errors={errors}
+                loader={loader}
                 handleClose={handleClose}
               />
             </form>
