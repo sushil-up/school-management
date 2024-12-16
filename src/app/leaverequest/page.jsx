@@ -25,6 +25,7 @@ const Leave = () => {
   const [deleteIndex, setDeleteIndex] = useState(null);
   const [value, setValue] = useState("singleday");
   const [editIndex, setEditIndex] = useState(null);
+  const [loader, setLoader] = useState(false);
   const handleChange = (event) => {
     setValue(event.target.value);
   };
@@ -39,6 +40,7 @@ const Leave = () => {
           ? leaveRequest.map((item) => (item.id === editIndex ? data : item))
           : [...leaveRequest, setId];
       setEditIndex(null);
+      setLoader(true)
       editIndex !== null
         ? successMsg("Leave request is updated successfully")
         : successMsg("Leave Request is added successfully");
@@ -90,6 +92,7 @@ const Leave = () => {
                 control={control}
                 editIndex={editIndex}
                 errors={errors}
+                loader={loader}
               />
             </form>
           </>

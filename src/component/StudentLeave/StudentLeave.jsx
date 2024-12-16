@@ -4,6 +4,7 @@ import { Box, Button, Container, FormLabel, Grid, Typography } from "@mui/joy";
 import React, { useContext, useEffect, useState } from "react";
 import FormInputSelect from "../shared/form/FormInputSelect";
 import {
+  CircularProgress,
   FormControl,
   FormControlLabel,
   Radio,
@@ -15,7 +16,14 @@ import FormInput from "../shared/form/TextField";
 import FormSelect from "../shared/form/FormSelect";
 import RadioButton from "../shared/form/RadioButton";
 import { useSession } from "next-auth/react";
-const StudentLeave = ({ handleChange, value, control, editIndex, errors }) => {
+const StudentLeave = ({
+  handleChange,
+  value,
+  control,
+  editIndex,
+  errors,
+  loader,
+}) => {
   const { studentData } = useContext(UserContext);
   const { data: session } = useSession();
   const techData = studentData.filter(
@@ -132,34 +140,44 @@ const StudentLeave = ({ handleChange, value, control, editIndex, errors }) => {
               inputType="text"
               errors={errors}
             />
-            <br/>
+            <br />
             {session?.user?.role === "student" ? (
               <></>
             ) : (
-            <>
-            <br/>
-            <FormControl>
-                <RadioButton
-                  control={control}
-                  label="Status"
-                  name="status"
-                  options={[
-                    { label: "Approved", value: "Approved" },
-                    { label: "Unapproved", value: "Unapproved" },
-                  ]}
-                />
-              </FormControl>
-            </>
+              <>
+                <br />
+                <FormControl>
+                  <RadioButton
+                    control={control}
+                    label="Status"
+                    name="status"
+                    options={[
+                      { label: "Approved", value: "Approved" },
+                      { label: "Unapproved", value: "Unapproved" },
+                    ]}
+                  />
+                </FormControl>
+              </>
             )}
             <br />
-            <Button
-              className="btn mt-4 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600"
-              type="submit"
-            >
-              {editIndex !== null
-                ? " Update Student Leave"
-                : "Add Student Leave"}
-            </Button>
+            {loader === false ? (
+              <>
+                <Button
+                  className="btn mt-4 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600"
+                  type="submit"
+                >
+                  {editIndex !== null
+                    ? " Update Student Leave"
+                    : "Add Student Leave"}
+                </Button>
+              </>
+            ) : (
+              <>
+                <div className="flex justify-center">
+                  <CircularProgress size={24} />
+                </div>
+              </>
+            )}
           </Grid>
         </Box>
       </Container>

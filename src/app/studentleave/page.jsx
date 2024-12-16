@@ -25,6 +25,7 @@ const Page = () => {
   const [deleteIndex, setDeleteIndex] = useState(null);
   const [editIndex, setEditIndex] = useState(null);
   const [value, setValue] = useState();
+  const [loader, setLoader] = useState(false);
   const id = uuidv4();
   const handleChange = (event) => {
     setValue(event?.target?.value);
@@ -41,6 +42,7 @@ const email=session?.user?.email
           : [...studentleave, setid];
       setEditIndex(null);
       setStudentLeave(storedData);
+      setLoader(true)
       editIndex !== null
         ? successMsg("Student leave updated successfully")
         : successMsg("Student leave added successfully");
@@ -99,6 +101,7 @@ const email=session?.user?.email
                 control={control}
                 editIndex={editIndex}
                 errors={errors}
+                loader={loader}
               />
             </form>
           </>

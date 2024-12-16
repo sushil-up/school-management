@@ -8,7 +8,12 @@ import {
   Grid,
   Typography,
 } from "@mui/joy";
-import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
+import {
+  CircularProgress,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
+} from "@mui/material";
 import FormInput from "../shared/form/TextField";
 import DateRangeSelect from "../shared/form/DateRangePicker";
 import DateSelect from "../shared/form/DatePicker";
@@ -17,7 +22,13 @@ import { useContext } from "react";
 import UserContext from "@/context/UserContext";
 import FormSelect from "../shared/form/FormSelect";
 import RadioButton from "../shared/form/RadioButton";
-export const LeaveRequest = ({ handleChange, value, control, errors }) => {
+export const LeaveRequest = ({
+  handleChange,
+  value,
+  control,
+  errors,
+  loader,
+}) => {
   const { teacherData } = useContext(UserContext);
   const { data: session } = useSession();
   const techData = teacherData.filter(
@@ -98,26 +109,36 @@ export const LeaveRequest = ({ handleChange, value, control, errors }) => {
               <></>
             ) : (
               <>
-              <br/>
-              <FormControl>
-                <RadioButton
-                  control={control}
-                  label="Status"
-                  name="status"
-                  options={[
-                    { label: "Approved", value: "Approved" },
-                    { label: "Unapproved", value: "Unapproved" },
-                  ]}
-                />
-              </FormControl>
+                <br />
+                <FormControl>
+                  <RadioButton
+                    control={control}
+                    label="Status"
+                    name="status"
+                    options={[
+                      { label: "Approved", value: "Approved" },
+                      { label: "Unapproved", value: "Unapproved" },
+                    ]}
+                  />
+                </FormControl>
               </>
             )}
-            <Button
-              className="btn mt-4 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600"
-              type="submit"
-            >
-              Submit Leave Request
-            </Button>
+            {loader === false ? (
+              <>
+                <Button
+                  className="btn mt-4 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600"
+                  type="submit"
+                >
+                  Submit Leave Request
+                </Button>
+              </>
+            ) : (
+              <>
+                <div className="flex justify-center">
+                  <CircularProgress size={24} />
+                </div>
+              </>
+            )}
           </Grid>
         </Box>
       </Container>
