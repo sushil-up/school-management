@@ -31,6 +31,7 @@ const Login = () => {
     const checkEmail = parsedData.find((item) => item.email === email);
     if (checkEmail === undefined) {
       errorMsg("User doesn’t exist!");
+      setLoader(false);
     }
     try {
       const res = await signIn("credentials", {
