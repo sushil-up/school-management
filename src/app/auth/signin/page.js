@@ -42,7 +42,6 @@ const Login = () => {
         stuData,
       });
       if (res.error) {
-        // return errorMsg("Invalid credentials");
       } else {
         router.replace("/");
         return successMsg("Login Successfully");
@@ -83,6 +82,12 @@ const Login = () => {
                 <div>
                   <Typography variant="h4" className="text-center">
                     <b>Welcome!</b>
+                  </Typography>
+                  <br />
+                  <Typography className="text-center">
+                    <span> Admin credentials</span>
+                    <p>Email :- test@gmail.com</p>
+                    <p>Password :- 123456zx</p>
                   </Typography>
                 </div>
                 <br />
